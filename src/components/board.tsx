@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   DragDropContext,
   Draggable,
@@ -136,6 +136,55 @@ const Board = () => {
     })
   }
 
+  const addTask = (columnId: string) => {
+    const column = state.columns[columnId as keyof typeof state.columns]
+    const taskIds = Array.from(column.taskIds)
+    const newTaskId = `task-${crypto.randomUUID()}`
+    taskIds.push(newTaskId)
+
+    setState((state) => ({
+      ...state,
+      columns: {
+        ...state.columns,
+        [column.id]: {
+          ...column,
+          taskIds,
+        },
+      },
+      tasks: {
+        ...state.tasks,
+        [newTaskId]: {
+          id: newTaskId,
+          content: '',
+        },
+      },
+    }))
+  }
+
+  const addColumn = (afterColumnId?: string) => {
+    const columnOrder = Array.from(state.columnOrder)
+    const newColumnId = `column-${crypto.randomUUID()}`
+
+    if (afterColumnId) {
+      columnOrder.splice(columnOrder.indexOf(afterColumnId) + 1, 0, newColumnId)
+    } else {
+      columnOrder.unshift(newColumnId)
+    }
+
+    setState((state) => ({
+      ...state,
+      columnOrder,
+      columns: {
+        ...state.columns,
+        [newColumnId]: {
+          id: newColumnId,
+          title: '',
+          taskIds: [],
+        },
+      },
+    }))
+  }
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div>
@@ -164,6 +213,7 @@ const Board = () => {
                             value={column.title}
                             onChange={(e) => onChangeColumn(e, column.id)}
                             style={{ fontWeight: 'bold' }}
+                            placeholder="Column title"
                           />
                         </span>
 
@@ -209,6 +259,12 @@ const Board = () => {
                                     </Draggable>
                                   )
                                 })}
+                                <button onClick={() => addTask(column.id)}>
+                                  Add task
+                                </button>
+                                <button onClick={() => addColumn(column.id)}>
+                                  Add column
+                                </button>
                                 {provided.placeholder}
                               </div>
                             )
