@@ -96,13 +96,32 @@ const Board = () => {
     }
   }
 
+  const onChangeColumn = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    columnId: string
+  ) => {
+    setState((state) => {
+      const column = state.columns[columnId as keyof typeof state.columns]
+
+      return {
+        ...state,
+        columns: {
+          ...state.columns,
+          [column.id]: {
+            ...column,
+            title: event.target.value,
+          },
+        },
+      }
+    })
+  }
+
   const onChangeTask = (
     event: React.ChangeEvent<HTMLInputElement>,
-    taskId: string,
+    taskId: string
   ) => {
     setState((state) => {
       const task = state.tasks[taskId as keyof typeof state.tasks]
-      task.content = event.target.value
 
       return {
         ...state,
@@ -110,6 +129,7 @@ const Board = () => {
           ...state.tasks,
           [task.id]: {
             ...task,
+            content: event.target.value,
           },
         },
       }
@@ -126,7 +146,7 @@ const Board = () => {
                 const column =
                   state.columns[columnId as keyof typeof state.columns]
                 const tasks = column.taskIds.map(
-                  (taskId) => state.tasks[taskId as keyof typeof state.tasks],
+                  (taskId) => state.tasks[taskId as keyof typeof state.tasks]
                 )
 
                 return (
@@ -137,14 +157,15 @@ const Board = () => {
                   >
                     {(provided) => (
                       <div {...provided.draggableProps} ref={provided.innerRef}>
-                        <h3
-                          style={{
-                            margin: 0,
-                          }}
-                        >
+                        <span>
                           <span {...provided.dragHandleProps}>☰</span>
-                          {column.title}
-                        </h3>
+                          <input
+                            type="text"
+                            value={column.title}
+                            onChange={(e) => onChangeColumn(e, column.id)}
+                            style={{ fontWeight: 'bold' }}
+                          />
+                        </span>
 
                         <Droppable droppableId={column.id} type="TASK">
                           {(provided, snapshot) => {
