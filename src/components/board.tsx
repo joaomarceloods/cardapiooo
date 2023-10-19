@@ -96,6 +96,26 @@ const Board = () => {
     }
   };
 
+  const onChangeTask = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    taskId: string
+  ) => {
+    setState((state) => {
+      const task = state.tasks[taskId as keyof typeof state.tasks];
+      task.content = event.target.value;
+
+      return {
+        ...state,
+        tasks: {
+          ...state.tasks,
+          [task.id]: {
+            ...task,
+          },
+        },
+      };
+    });
+  };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div>
@@ -157,7 +177,12 @@ const Board = () => {
                                           <span {...provided.dragHandleProps}>
                                             ☰
                                           </span>
-                                          {task.content}
+                                          <input
+                                            value={task.content}
+                                            onChange={(e) =>
+                                              onChangeTask(e, task.id)
+                                            }
+                                          />
                                         </div>
                                       )}
                                     </Draggable>
