@@ -1,46 +1,46 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   DragDropContext,
   Draggable,
   Droppable,
   OnDragEndResponder,
   resetServerContext,
-} from "react-beautiful-dnd";
-import initialData from "./initial-data";
+} from 'react-beautiful-dnd'
+import initialData from './initial-data'
 
 const Board = () => {
   // react-beautiful-dnd: The resetServerContext function should be used when server side rendering (SSR).
   // https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/reset-server-context.md
-  resetServerContext();
+  resetServerContext()
 
-  const [state, setState] = useState(initialData);
+  const [state, setState] = useState(initialData)
 
   const moveColumn: OnDragEndResponder = (result) => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId } = result
 
     setState((state) => {
-      const newColumnOrder = Array.from(state.columnOrder);
-      newColumnOrder.splice(source.index, 1);
-      newColumnOrder.splice(destination!.index, 0, draggableId);
+      const newColumnOrder = Array.from(state.columnOrder)
+      newColumnOrder.splice(source.index, 1)
+      newColumnOrder.splice(destination!.index, 0, draggableId)
 
       return {
         ...state,
         columnOrder: newColumnOrder,
-      };
-    });
-  };
+      }
+    })
+  }
 
   const moveTask: OnDragEndResponder = (result) => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId } = result
 
     // Remove item from source
     setState((state) => {
       const sourceCol =
-        state.columns[source.droppableId as keyof typeof state.columns];
-      const sourceTaskIds = Array.from(sourceCol.taskIds);
-      sourceTaskIds.splice(source.index, 1);
+        state.columns[source.droppableId as keyof typeof state.columns]
+      const sourceTaskIds = Array.from(sourceCol.taskIds)
+      sourceTaskIds.splice(source.index, 1)
 
       return {
         ...state,
@@ -51,15 +51,15 @@ const Board = () => {
             taskIds: sourceTaskIds,
           },
         },
-      };
-    });
+      }
+    })
 
     // Add item to destination
     setState((state) => {
       const destinationCol =
-        state.columns[destination!.droppableId as keyof typeof state.columns];
-      const destinationTaskIds = Array.from(destinationCol.taskIds);
-      destinationTaskIds.splice(destination!.index, 0, draggableId);
+        state.columns[destination!.droppableId as keyof typeof state.columns]
+      const destinationTaskIds = Array.from(destinationCol.taskIds)
+      destinationTaskIds.splice(destination!.index, 0, draggableId)
 
       return {
         ...state,
@@ -70,39 +70,39 @@ const Board = () => {
             taskIds: destinationTaskIds,
           },
         },
-      };
-    });
-  };
+      }
+    })
+  }
 
   const onDragEnd: OnDragEndResponder = (result, provided) => {
-    const { destination, source } = result;
+    const { destination, source } = result
 
-    if (!destination) return;
+    if (!destination) return
 
     if (
       destination.index === source.index &&
       destination.droppableId === source.droppableId
     ) {
-      return;
+      return
     }
 
     switch (result.type) {
-      case "COLUMN":
-        moveColumn(result, provided);
-        break;
-      case "TASK":
-        moveTask(result, provided);
-        break;
+      case 'COLUMN':
+        moveColumn(result, provided)
+        break
+      case 'TASK':
+        moveTask(result, provided)
+        break
     }
-  };
+  }
 
   const onChangeTask = (
     event: React.ChangeEvent<HTMLInputElement>,
-    taskId: string
+    taskId: string,
   ) => {
     setState((state) => {
-      const task = state.tasks[taskId as keyof typeof state.tasks];
-      task.content = event.target.value;
+      const task = state.tasks[taskId as keyof typeof state.tasks]
+      task.content = event.target.value
 
       return {
         ...state,
@@ -112,9 +112,9 @@ const Board = () => {
             ...task,
           },
         },
-      };
-    });
-  };
+      }
+    })
+  }
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -124,10 +124,10 @@ const Board = () => {
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {state.columnOrder.map((columnId, index) => {
                 const column =
-                  state.columns[columnId as keyof typeof state.columns];
+                  state.columns[columnId as keyof typeof state.columns]
                 const tasks = column.taskIds.map(
-                  (taskId) => state.tasks[taskId as keyof typeof state.tasks]
-                );
+                  (taskId) => state.tasks[taskId as keyof typeof state.tasks],
+                )
 
                 return (
                   <Draggable
@@ -153,13 +153,13 @@ const Board = () => {
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
                                 style={{
-                                  transition: "background-color 0.2s ease",
+                                  transition: 'background-color 0.2s ease',
                                   paddingBottom: 20,
                                   backgroundColor: snapshot.isDraggingOver
-                                    ? "lightblue"
+                                    ? 'lightblue'
                                     : snapshot.draggingFromThisWith
-                                    ? "lightpink"
-                                    : "inherit",
+                                    ? 'lightpink'
+                                    : 'inherit',
                                 }}
                               >
                                 {tasks.map((task, index) => {
@@ -186,17 +186,17 @@ const Board = () => {
                                         </div>
                                       )}
                                     </Draggable>
-                                  );
+                                  )
                                 })}
                                 {provided.placeholder}
                               </div>
-                            );
+                            )
                           }}
                         </Droppable>
                       </div>
                     )}
                   </Draggable>
-                );
+                )
               })}
               {provided.placeholder}
             </div>
@@ -204,7 +204,7 @@ const Board = () => {
         </Droppable>
       </div>
     </DragDropContext>
-  );
-};
+  )
+}
 
-export default Board;
+export default Board

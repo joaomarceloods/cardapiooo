@@ -17,7 +17,20 @@ const initialData = {
     'column-1': {
       id: 'column-1',
       title: 'To do',
-      taskIds: ['task-1', 'task-2', 'task-3', 'task-4', 'task-5', 'task-6', 'task-7', 'task-8', 'task-9', 'task-10', 'task-11', 'task-12'],
+      taskIds: [
+        'task-1',
+        'task-2',
+        'task-3',
+        'task-4',
+        'task-5',
+        'task-6',
+        'task-7',
+        'task-8',
+        'task-9',
+        'task-10',
+        'task-11',
+        'task-12',
+      ],
     },
     'column-2': {
       id: 'column-2',
@@ -32,6 +45,6 @@ const initialData = {
   },
   // Facilitate reordering of the columns
   columnOrder: ['column-1', 'column-2', 'column-3'],
-};
+}
 
-export default initialData;
+export default initialData
