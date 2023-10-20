@@ -162,6 +162,29 @@ const Board = () => {
     })
   }
 
+  const onChangeProductDescription = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+    itemId: string
+  ) => {
+    setState((state) => {
+      const item = state.items[itemId as keyof typeof state.items]
+
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          [item.id]: {
+            ...item,
+            data: {
+              ...item.data,
+              description: event.target.value,
+            },
+          },
+        },
+      }
+    })
+  }
+
   const onChangeMemoContent = (
     event: React.ChangeEvent<HTMLTextAreaElement>,
     itemId: string
@@ -331,6 +354,22 @@ const Board = () => {
                                                 }
                                                 onChange={(e) =>
                                                   onChangeProductPrice(
+                                                    e,
+                                                    item.id
+                                                  )
+                                                }
+                                              />
+                                              <br/>
+                                              <textarea
+                                                value={
+                                                  (
+                                                    item.data as {
+                                                      description?: string
+                                                    }
+                                                  ).description || ''
+                                                }
+                                                onChange={(e) =>
+                                                  onChangeProductDescription(
                                                     e,
                                                     item.id
                                                   )
