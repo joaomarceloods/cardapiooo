@@ -65,12 +65,21 @@ export const BoardProvider = ({ children }: PropsWithChildren) => {
 }
 
 export enum BoardActionType {
+  ChangeMenu = 'change-menu',
   ChangeSection = 'change-section',
   ChangeItem = 'change-item',
   AddSection = 'add-section',
   AddItem = 'add-item',
   MoveSection = 'move-section',
   MoveItem = 'move-item',
+}
+
+interface ChangeMenuAction {
+  type: BoardActionType.ChangeMenu
+  payload: {
+    property: string
+    value: string
+  }
 }
 
 interface ChangeSectionAction {
@@ -126,6 +135,7 @@ interface MoveItemAction {
 }
 
 export type BaseAction =
+  | ChangeMenuAction
   | ChangeSectionAction
   | ChangeItemAction
   | AddSectionAction
@@ -135,6 +145,8 @@ export type BaseAction =
 
 const boardReducer = (state: Menu, action: BaseAction) => {
   switch (action.type) {
+    case BoardActionType.ChangeMenu:
+      return changeMenuReducer(state, action)
     case BoardActionType.ChangeSection:
       return changeSectionReducer(state, action)
     case BoardActionType.ChangeItem:
@@ -153,10 +165,14 @@ const boardReducer = (state: Menu, action: BaseAction) => {
   return state
 }
 
-const changeSectionReducer = (
-  state: Menu,
-  action: ChangeSectionAction
-) => {
+const changeMenuReducer = (state: Menu, action: ChangeMenuAction) => {
+  return {
+    ...state,
+    [action.payload.property]: action.payload.value,
+  }
+}
+
+const changeSectionReducer = (state: Menu, action: ChangeSectionAction) => {
   const section = state.sections[action.payload.id]
 
   return {

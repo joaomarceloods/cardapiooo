@@ -61,6 +61,17 @@ const Menu = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div>
+        <input
+          type="text"
+          value={state.title}
+          style={{ fontSize: '1.2em' }}
+          onChange={(e) =>
+            dispatch({
+              type: BoardActionType.ChangeMenu,
+              payload: { property: 'title', value: e.target.value },
+            })
+          }
+        />
         <Droppable droppableId="board" type="SECTION">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
