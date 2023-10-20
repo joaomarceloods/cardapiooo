@@ -1,5 +1,5 @@
-import Board from '@/components/board/board'
+import MenuEditor from '@/components/menu-editor/menu-editor'
 
 export default function Home() {
-  return <Board />
+  return <MenuEditor />
 }

@@ -3,7 +3,7 @@
 import Menu from './components/menu'
 import { BoardProvider } from './provider/board-provider'
 
-const Board = () => {
+const MenuEditor = () => {
   return (
     <BoardProvider>
       <Menu />
@@ -11,4 +11,4 @@ const Board = () => {
   )
 }
 
-export default Board
+export default MenuEditor
