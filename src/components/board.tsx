@@ -116,9 +116,10 @@ const Board = () => {
     })
   }
 
-  const onChangeProductName = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    itemId: string
+  const onChangeItem = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    itemId: string,
+    property: string
   ) => {
     setState((state) => {
       const item = state.items[itemId as keyof typeof state.items]
@@ -131,76 +132,7 @@ const Board = () => {
             ...item,
             data: {
               ...item.data,
-              name: event.target.value,
-            },
-          },
-        },
-      }
-    })
-  }
-
-  const onChangeProductPrice = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    itemId: string
-  ) => {
-    setState((state) => {
-      const item = state.items[itemId as keyof typeof state.items]
-
-      return {
-        ...state,
-        items: {
-          ...state.items,
-          [item.id]: {
-            ...item,
-            data: {
-              ...item.data,
-              price: event.target.value,
-            },
-          },
-        },
-      }
-    })
-  }
-
-  const onChangeProductDescription = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-    itemId: string
-  ) => {
-    setState((state) => {
-      const item = state.items[itemId as keyof typeof state.items]
-
-      return {
-        ...state,
-        items: {
-          ...state.items,
-          [item.id]: {
-            ...item,
-            data: {
-              ...item.data,
-              description: event.target.value,
-            },
-          },
-        },
-      }
-    })
-  }
-
-  const onChangeMemoContent = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-    itemId: string
-  ) => {
-    setState((state) => {
-      const item = state.items[itemId as keyof typeof state.items]
-
-      return {
-        ...state,
-        items: {
-          ...state.items,
-          [item.id]: {
-            ...item,
-            data: {
-              ...item.data,
-              content: event.target.value,
+              [property]: event.target.value,
             },
           },
         },
@@ -338,9 +270,10 @@ const Board = () => {
                                                   ).name || ''
                                                 }
                                                 onChange={(e) =>
-                                                  onChangeProductName(
+                                                  onChangeItem(
                                                     e,
-                                                    item.id
+                                                    item.id,
+                                                    'name'
                                                   )
                                                 }
                                               />
@@ -353,13 +286,14 @@ const Board = () => {
                                                   ).price || ''
                                                 }
                                                 onChange={(e) =>
-                                                  onChangeProductPrice(
+                                                  onChangeItem(
                                                     e,
-                                                    item.id
+                                                    item.id,
+                                                    'price'
                                                   )
                                                 }
                                               />
-                                              <br/>
+                                              <br />
                                               <textarea
                                                 value={
                                                   (
@@ -369,9 +303,10 @@ const Board = () => {
                                                   ).description || ''
                                                 }
                                                 onChange={(e) =>
-                                                  onChangeProductDescription(
+                                                  onChangeItem(
                                                     e,
-                                                    item.id
+                                                    item.id,
+                                                    'description'
                                                   )
                                                 }
                                               />
@@ -387,9 +322,10 @@ const Board = () => {
                                                   ).content || ''
                                                 }
                                                 onChange={(e) =>
-                                                  onChangeMemoContent(
+                                                  onChangeItem(
                                                     e,
-                                                    item.id
+                                                    item.id,
+                                                    'content'
                                                   )
                                                 }
                                               />
