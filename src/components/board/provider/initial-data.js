@@ -1,35 +1,35 @@
 const initialData = {
-  name: 'My first board',
+  title: 'My first board',
   items: {
     'item-1': {
       id: 'item-1',
       type: 'product',
-      data: { name: 'Take out the garbage', price: 9.99 },
+      data: { title: 'Take out the garbage', price: 9.99 },
     },
     'item-2': {
       id: 'item-2',
       type: 'product',
-      data: { name: 'Watch my favorite show', price: 9.99 },
+      data: { title: 'Watch my favorite show', price: 9.99 },
     },
     'item-3': {
       id: 'item-3',
       type: 'product',
-      data: { name: 'Charge my phone', price: 9.99 },
+      data: { title: 'Charge my phone', price: 9.99 },
     },
     'item-4': {
       id: 'item-4',
       type: 'product',
-      data: { name: 'Cook dinner', price: 9.99 },
+      data: { title: 'Cook dinner', price: 9.99 },
     },
     'item-5': {
       id: 'item-5',
       type: 'product',
-      data: { name: 'Walk the dog', price: 9.99 },
+      data: { title: 'Walk the dog', price: 9.99 },
     },
     'item-6': {
       id: 'item-6',
       type: 'product',
-      data: { name: 'Take out the garbage', price: 9.99 },
+      data: { title: 'Take out the garbage', price: 9.99 },
     },
     'item-6': {
       id: 'item-6',
@@ -39,32 +39,32 @@ const initialData = {
     'item-7': {
       id: 'item-7',
       type: 'product',
-      data: { name: 'Go grocery shopping', price: 9.99 },
+      data: { title: 'Go grocery shopping', price: 9.99 },
     },
     'item-8': {
       id: 'item-8',
       type: 'product',
-      data: { name: 'Do laundry', price: 9.99 },
+      data: { title: 'Do laundry', price: 9.99 },
     },
     'item-9': {
       id: 'item-9',
       type: 'product',
-      data: { name: 'Pay bills', price: 9.99 },
+      data: { title: 'Pay bills', price: 9.99 },
     },
     'item-10': {
       id: 'item-10',
       type: 'product',
-      data: { name: 'Read a book', price: 9.99 },
+      data: { title: 'Read a book', price: 9.99 },
     },
     'item-11': {
       id: 'item-11',
       type: 'product',
-      data: { name: 'Exercise', price: 9.99 },
+      data: { title: 'Exercise', price: 9.99 },
     },
     'item-12': {
       id: 'item-12',
       type: 'product',
-      data: { name: 'Call a friend', price: 9.99 },
+      data: { title: 'Call a friend', price: 9.99 },
     },
   },
   sections: {

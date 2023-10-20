@@ -7,10 +7,10 @@ import {
 } from 'react'
 import initialData from './initial-data'
 
-export interface BaseState {
-  name: string
-  sections: { [key: string]: Section }
+export interface Menu {
+  title: string
   items: { [key: string]: Item }
+  sections: { [key: string]: Section }
   sortedSectionIds: string[]
 }
 
@@ -27,7 +27,7 @@ export type Item = {
 }
 
 export interface ProductData {
-  name?: string
+  title?: string
   description?: string
   price?: number
 }
@@ -36,7 +36,7 @@ export interface RemarkData {
   content?: string
 }
 
-const BoardContext = createContext<BaseState | null>(null)
+const BoardContext = createContext<Menu | null>(null)
 
 const BoardDispatchContext = createContext<Dispatch<BaseAction> | null>(null)
 
@@ -133,7 +133,7 @@ export type BaseAction =
   | MoveSectionAction
   | MoveItemAction
 
-const boardReducer = (state: BaseState, action: BaseAction) => {
+const boardReducer = (state: Menu, action: BaseAction) => {
   switch (action.type) {
     case BoardActionType.ChangeSection:
       return changeSectionReducer(state, action)
@@ -154,7 +154,7 @@ const boardReducer = (state: BaseState, action: BaseAction) => {
 }
 
 const changeSectionReducer = (
-  state: BaseState,
+  state: Menu,
   action: ChangeSectionAction
 ) => {
   const section = state.sections[action.payload.id]
@@ -171,7 +171,7 @@ const changeSectionReducer = (
   }
 }
 
-const changeItemReducer = (state: BaseState, action: ChangeItemAction) => {
+const changeItemReducer = (state: Menu, action: ChangeItemAction) => {
   const item = state.items[action.payload.id]
 
   return {
@@ -189,7 +189,7 @@ const changeItemReducer = (state: BaseState, action: ChangeItemAction) => {
   }
 }
 
-const addSectionReducer = (state: BaseState, action: AddSectionAction) => {
+const addSectionReducer = (state: Menu, action: AddSectionAction) => {
   const sortedSectionIds = Array.from(state.sortedSectionIds)
   const newSectionId = `section-${crypto.randomUUID()}`
   const { afterSectionId } = action.payload
@@ -215,7 +215,7 @@ const addSectionReducer = (state: BaseState, action: AddSectionAction) => {
   }
 }
 
-const addItemReducer = (state: BaseState, action: AddItemAction) => {
+const addItemReducer = (state: Menu, action: AddItemAction) => {
   const section = state.sections[action.payload.sectionId]
   const sortedItemIds = Array.from(section.sortedItemIds)
   const newItemId = `item-${crypto.randomUUID()}`
@@ -243,7 +243,7 @@ const addItemReducer = (state: BaseState, action: AddItemAction) => {
   }
 }
 
-const moveSectionReducer = (state: BaseState, action: MoveSectionAction) => {
+const moveSectionReducer = (state: Menu, action: MoveSectionAction) => {
   const { id, sourceIndex, destinationIndex } = action.payload
   const sortedSectionIds = Array.from(state.sortedSectionIds)
   sortedSectionIds.splice(sourceIndex, 1)
@@ -255,7 +255,7 @@ const moveSectionReducer = (state: BaseState, action: MoveSectionAction) => {
   }
 }
 
-const moveItemReducer = (state: BaseState, action: MoveItemAction) => {
+const moveItemReducer = (state: Menu, action: MoveItemAction) => {
   const {
     id,
     sourceIndex,

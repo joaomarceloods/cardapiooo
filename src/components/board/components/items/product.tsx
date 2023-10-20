@@ -8,7 +8,7 @@ import {
 const Product = ({ id }: { id: string }) => {
   const board = useBoard()
   const dispatch = useBoardDispatch()
-  const { name, price, description } = board.items[id].data as ProductData
+  const { title, price, description } = board.items[id].data as ProductData
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -22,7 +22,7 @@ const Product = ({ id }: { id: string }) => {
 
   return (
     <>
-      <input value={name} onChange={(e) => handleChange(e, 'name')} />
+      <input value={title} onChange={(e) => handleChange(e, 'title')} />
       <input value={price} onChange={(e) => handleChange(e, 'price')} />
       <br />
       <textarea
