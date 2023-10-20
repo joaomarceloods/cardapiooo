@@ -116,7 +116,7 @@ const Board = () => {
     })
   }
 
-  const onChangeItem = (
+  const onChangeProductName = (
     event: React.ChangeEvent<HTMLInputElement>,
     itemId: string
   ) => {
@@ -130,7 +130,54 @@ const Board = () => {
           [item.id]: {
             ...item,
             data: {
+              ...item.data,
               name: event.target.value,
+            },
+          },
+        },
+      }
+    })
+  }
+
+  const onChangeProductPrice = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    itemId: string
+  ) => {
+    setState((state) => {
+      const item = state.items[itemId as keyof typeof state.items]
+
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          [item.id]: {
+            ...item,
+            data: {
+              ...item.data,
+              price: event.target.value,
+            },
+          },
+        },
+      }
+    })
+  }
+
+  const onChangeMemoContent = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+    itemId: string
+  ) => {
+    setState((state) => {
+      const item = state.items[itemId as keyof typeof state.items]
+
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          [item.id]: {
+            ...item,
+            data: {
+              ...item.data,
+              content: event.target.value,
             },
           },
         },
@@ -157,8 +204,9 @@ const Board = () => {
         ...state.items,
         [newItemId]: {
           id: newItemId,
+          type: 'product',
           data: {
-            name: ''
+            name: '',
           },
         },
       },
@@ -256,12 +304,60 @@ const Board = () => {
                                           <span {...provided.dragHandleProps}>
                                             ☰
                                           </span>
-                                          <input
-                                            value={item.data.name}
-                                            onChange={(e) =>
-                                              onChangeItem(e, item.id)
-                                            }
-                                          />
+                                          {item.type == 'product' ? (
+                                            <>
+                                              <input
+                                                value={
+                                                  (
+                                                    item.data as {
+                                                      name?: string
+                                                    }
+                                                  ).name || ''
+                                                }
+                                                onChange={(e) =>
+                                                  onChangeProductName(
+                                                    e,
+                                                    item.id
+                                                  )
+                                                }
+                                              />
+                                              <input
+                                                value={
+                                                  (
+                                                    item.data as {
+                                                      price?: string
+                                                    }
+                                                  ).price || ''
+                                                }
+                                                onChange={(e) =>
+                                                  onChangeProductPrice(
+                                                    e,
+                                                    item.id
+                                                  )
+                                                }
+                                              />
+                                            </>
+                                          ) : item.type === 'memo' ? (
+                                            <>
+                                              <textarea
+                                                value={
+                                                  (
+                                                    item.data as {
+                                                      content?: string
+                                                    }
+                                                  ).content || ''
+                                                }
+                                                onChange={(e) =>
+                                                  onChangeMemoContent(
+                                                    e,
+                                                    item.id
+                                                  )
+                                                }
+                                              />
+                                            </>
+                                          ) : (
+                                            <>bad</>
+                                          )}
                                         </div>
                                       )}
                                     </Draggable>
