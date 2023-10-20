@@ -129,7 +129,9 @@ const Board = () => {
           ...state.items,
           [item.id]: {
             ...item,
-            content: event.target.value,
+            data: {
+              name: event.target.value,
+            },
           },
         },
       }
@@ -155,7 +157,9 @@ const Board = () => {
         ...state.items,
         [newItemId]: {
           id: newItemId,
-          content: '',
+          data: {
+            name: ''
+          },
         },
       },
     }))
@@ -166,7 +170,11 @@ const Board = () => {
     const newSectionId = `section-${crypto.randomUUID()}`
 
     if (afterSectionId) {
-      sectionOrder.splice(sectionOrder.indexOf(afterSectionId) + 1, 0, newSectionId)
+      sectionOrder.splice(
+        sectionOrder.indexOf(afterSectionId) + 1,
+        0,
+        newSectionId
+      )
     } else {
       sectionOrder.unshift(newSectionId)
     }
@@ -249,7 +257,7 @@ const Board = () => {
                                             ☰
                                           </span>
                                           <input
-                                            value={item.content}
+                                            value={item.data.name}
                                             onChange={(e) =>
                                               onChangeItem(e, item.id)
                                             }
