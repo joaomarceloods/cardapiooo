@@ -3,7 +3,7 @@ import {
   RemarkData,
   useBoard,
   useBoardDispatch,
-} from '../board-provider'
+} from '../../provider/board-provider'
 
 const Product = ({ id }: { id: string }) => {
   const board = useBoard()

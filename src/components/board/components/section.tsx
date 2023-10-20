@@ -1,5 +1,9 @@
 import { Draggable, Droppable } from 'react-beautiful-dnd'
-import { BoardActionType, useBoard, useBoardDispatch } from './board-provider'
+import {
+  BoardActionType,
+  useBoard,
+  useBoardDispatch,
+} from '../provider/board-provider'
 import Product from './items/product'
 import Remark from './items/remark'
 

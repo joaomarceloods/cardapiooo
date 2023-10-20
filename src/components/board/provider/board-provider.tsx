@@ -69,6 +69,8 @@ export enum BoardActionType {
   ChangeItem = 'change-item',
   AddSection = 'add-section',
   AddItem = 'add-item',
+  MoveSection = 'move-section',
+  MoveItem = 'move-item',
 }
 
 interface ChangeSectionAction {
@@ -103,11 +105,33 @@ interface AddItemAction {
   }
 }
 
+interface MoveSectionAction {
+  type: BoardActionType.MoveSection
+  payload: {
+    id: string
+    sourceIndex: number
+    destinationIndex: number
+  }
+}
+
+interface MoveItemAction {
+  type: BoardActionType.MoveItem
+  payload: {
+    id: string
+    sourceIndex: number
+    destinationIndex: number
+    sourceSectionId: string
+    destinationSectionId: string
+  }
+}
+
 export type BaseAction =
   | ChangeSectionAction
   | ChangeItemAction
   | AddSectionAction
   | AddItemAction
+  | MoveSectionAction
+  | MoveItemAction
 
 const boardReducer = (state: BaseState, action: BaseAction) => {
   switch (action.type) {
@@ -119,13 +143,20 @@ const boardReducer = (state: BaseState, action: BaseAction) => {
       return addSectionReducer(state, action)
     case BoardActionType.AddItem:
       return addItemReducer(state, action)
+    case BoardActionType.MoveSection:
+      return moveSectionReducer(state, action)
+    case BoardActionType.MoveItem:
+      return moveItemReducer(state, action)
     default:
       break
   }
   return state
 }
 
-const changeSectionReducer = (state: BaseState, action: ChangeSectionAction) => {
+const changeSectionReducer = (
+  state: BaseState,
+  action: ChangeSectionAction
+) => {
   const section = state.sections[action.payload.id]
 
   return {
@@ -207,6 +238,60 @@ const addItemReducer = (state: BaseState, action: AddItemAction) => {
         data: {
           name: '',
         },
+      },
+    },
+  }
+}
+
+const moveSectionReducer = (state: BaseState, action: MoveSectionAction) => {
+  const { id, sourceIndex, destinationIndex } = action.payload
+  const sortedSectionIds = Array.from(state.sortedSectionIds)
+  sortedSectionIds.splice(sourceIndex, 1)
+  sortedSectionIds.splice(destinationIndex, 0, id)
+
+  return {
+    ...state,
+    sortedSectionIds,
+  }
+}
+
+const moveItemReducer = (state: BaseState, action: MoveItemAction) => {
+  const {
+    id,
+    sourceIndex,
+    destinationIndex,
+    sourceSectionId,
+    destinationSectionId,
+  } = action.payload
+
+  // Remove item from source
+  const sourceSection = state.sections[sourceSectionId]
+  const sourceSortedItemIds = Array.from(sourceSection.sortedItemIds)
+  sourceSortedItemIds.splice(sourceIndex, 1)
+
+  const newState = {
+    ...state,
+    sections: {
+      ...state.sections,
+      [sourceSection.id]: {
+        ...sourceSection,
+        sortedItemIds: sourceSortedItemIds,
+      },
+    },
+  }
+
+  // Add item to destination
+  const destinationSection = newState.sections[destinationSectionId]
+  const destinationSortedItemIds = Array.from(destinationSection.sortedItemIds)
+  destinationSortedItemIds.splice(destinationIndex, 0, id)
+
+  return {
+    ...newState,
+    sections: {
+      ...newState.sections,
+      [destinationSection.id]: {
+        ...destinationSection,
+        sortedItemIds: destinationSortedItemIds,
       },
     },
   }
