@@ -8,8 +8,7 @@ import {
 const Product = ({ id }: { id: string }) => {
   const board = useBoard()
   const dispatch = useBoardDispatch()
-
-  const { content } = board.items[id] as RemarkData
+  const { content } = board.items[id].data as RemarkData
 
   return (
     <>
