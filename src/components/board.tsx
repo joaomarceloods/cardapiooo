@@ -21,13 +21,13 @@ const Board = () => {
     const { destination, source, draggableId } = result
 
     setState((state) => {
-      const newSectionOrder = Array.from(state.sectionOrder)
-      newSectionOrder.splice(source.index, 1)
-      newSectionOrder.splice(destination!.index, 0, draggableId)
+      const sortedSectionIds = Array.from(state.sortedSectionIds)
+      sortedSectionIds.splice(source.index, 1)
+      sortedSectionIds.splice(destination!.index, 0, draggableId)
 
       return {
         ...state,
-        sectionOrder: newSectionOrder,
+        sortedSectionIds,
       }
     })
   }
@@ -39,8 +39,8 @@ const Board = () => {
     setState((state) => {
       const sourceSection =
         state.sections[source.droppableId as keyof typeof state.sections]
-      const sourceItemIds = Array.from(sourceSection.itemIds)
-      sourceItemIds.splice(source.index, 1)
+      const sortedItemIds = Array.from(sourceSection.sortedItemIds)
+      sortedItemIds.splice(source.index, 1)
 
       return {
         ...state,
@@ -48,7 +48,7 @@ const Board = () => {
           ...state.sections,
           [sourceSection.id]: {
             ...sourceSection,
-            itemIds: sourceItemIds,
+            sortedItemIds,
           },
         },
       }
@@ -58,8 +58,8 @@ const Board = () => {
     setState((state) => {
       const destinationSection =
         state.sections[destination!.droppableId as keyof typeof state.sections]
-      const destinationItemIds = Array.from(destinationSection.itemIds)
-      destinationItemIds.splice(destination!.index, 0, draggableId)
+      const sortedItemIds = Array.from(destinationSection.sortedItemIds)
+      sortedItemIds.splice(destination!.index, 0, draggableId)
 
       return {
         ...state,
@@ -67,7 +67,7 @@ const Board = () => {
           ...state.sections,
           [destinationSection.id]: {
             ...destinationSection,
-            itemIds: destinationItemIds,
+            sortedItemIds,
           },
         },
       }
@@ -142,9 +142,9 @@ const Board = () => {
 
   const addItem = (sectionId: string) => {
     const section = state.sections[sectionId as keyof typeof state.sections]
-    const itemIds = Array.from(section.itemIds)
+    const sortedItemIds = Array.from(section.sortedItemIds)
     const newItemId = `item-${crypto.randomUUID()}`
-    itemIds.push(newItemId)
+    sortedItemIds.push(newItemId)
 
     setState((state) => ({
       ...state,
@@ -152,7 +152,7 @@ const Board = () => {
         ...state.sections,
         [section.id]: {
           ...section,
-          itemIds,
+          sortedItemIds,
         },
       },
       items: {
@@ -169,28 +169,25 @@ const Board = () => {
   }
 
   const addSection = (afterSectionId?: string) => {
-    const sectionOrder = Array.from(state.sectionOrder)
+    const sortedSectionIds = Array.from(state.sortedSectionIds)
     const newSectionId = `section-${crypto.randomUUID()}`
 
     if (afterSectionId) {
-      sectionOrder.splice(
-        sectionOrder.indexOf(afterSectionId) + 1,
-        0,
-        newSectionId
-      )
+      const newSectionIndex = sortedSectionIds.indexOf(afterSectionId) + 1
+      sortedSectionIds.splice(newSectionIndex, 0, newSectionId)
     } else {
-      sectionOrder.unshift(newSectionId)
+      sortedSectionIds.unshift(newSectionId)
     }
 
     setState((state) => ({
       ...state,
-      sectionOrder,
+      sortedSectionIds,
       sections: {
         ...state.sections,
         [newSectionId]: {
           id: newSectionId,
           title: '',
-          itemIds: [],
+          sortedItemIds: [],
         },
       },
     }))
@@ -202,10 +199,10 @@ const Board = () => {
         <Droppable droppableId="board" type="SECTION">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              {state.sectionOrder.map((sectionId, index) => {
+              {state.sortedSectionIds.map((sectionId, index) => {
                 const section =
                   state.sections[sectionId as keyof typeof state.sections]
-                const items = section.itemIds.map(
+                const items = section.sortedItemIds.map(
                   (itemId) => state.items[itemId as keyof typeof state.items]
                 )
 
