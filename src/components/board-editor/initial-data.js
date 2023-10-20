@@ -33,7 +33,7 @@ const initialData = {
     },
     'item-6': {
       id: 'item-6',
-      type: 'memo',
+      type: 'remark',
       data: { content: 'Rate us on the app store' },
     },
     'item-7': {
