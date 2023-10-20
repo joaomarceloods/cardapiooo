@@ -4,11 +4,8 @@ import {
   OnDragEndResponder,
   resetServerContext,
 } from 'react-beautiful-dnd'
-import {
-  BoardActionType,
-  useBoard,
-  useBoardDispatch,
-} from '../provider/board-provider'
+import { useMenuEditor, useMenuEditorDispatch } from '../provider/provider'
+import { MenuEditorActionType } from '../provider/types'
 import Section from './section'
 
 const Menu = () => {
@@ -16,8 +13,8 @@ const Menu = () => {
   // https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/reset-server-context.md
   resetServerContext()
 
-  const state = useBoard()
-  const dispatch = useBoardDispatch()
+  const state = useMenuEditor()
+  const dispatch = useMenuEditorDispatch()
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const { destination, source } = result
@@ -34,7 +31,7 @@ const Menu = () => {
     switch (result.type) {
       case 'SECTION':
         dispatch({
-          type: BoardActionType.MoveSection,
+          type: MenuEditorActionType.MoveSection,
           payload: {
             id: result.draggableId,
             sourceIndex: source.index,
@@ -45,7 +42,7 @@ const Menu = () => {
 
       case 'ITEM':
         dispatch({
-          type: BoardActionType.MoveItem,
+          type: MenuEditorActionType.MoveItem,
           payload: {
             id: result.draggableId,
             sourceIndex: source.index,
@@ -67,7 +64,7 @@ const Menu = () => {
           style={{ fontSize: '1.2em' }}
           onChange={(e) =>
             dispatch({
-              type: BoardActionType.ChangeMenu,
+              type: MenuEditorActionType.ChangeMenu,
               payload: { property: 'title', value: e.target.value },
             })
           }

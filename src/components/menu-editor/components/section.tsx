@@ -1,15 +1,12 @@
 import { Draggable, Droppable } from 'react-beautiful-dnd'
-import {
-  BoardActionType,
-  useBoard,
-  useBoardDispatch,
-} from '../provider/board-provider'
+import { useMenuEditor, useMenuEditorDispatch } from '../provider/provider'
+import { MenuEditorActionType } from '../provider/types'
 import Product from './items/product'
 import Remark from './items/remark'
 
 const Section = ({ id, index }: { id: string; index: number }) => {
-  const state = useBoard()
-  const dispatch = useBoardDispatch()
+  const state = useMenuEditor()
+  const dispatch = useMenuEditorDispatch()
   const section = state.sections[id]
 
   return (
@@ -25,7 +22,7 @@ const Section = ({ id, index }: { id: string; index: number }) => {
               placeholder="Section title"
               onChange={(e) => {
                 dispatch({
-                  type: BoardActionType.ChangeSection,
+                  type: MenuEditorActionType.ChangeSection,
                   payload: { id, property: 'title', value: e.target.value },
                 })
               }}
@@ -77,7 +74,7 @@ const Section = ({ id, index }: { id: string; index: number }) => {
                   <button
                     onClick={() =>
                       dispatch({
-                        type: BoardActionType.AddItem,
+                        type: MenuEditorActionType.AddItem,
                         payload: { sectionId: section.id },
                       })
                     }
@@ -87,7 +84,7 @@ const Section = ({ id, index }: { id: string; index: number }) => {
                   <button
                     onClick={() =>
                       dispatch({
-                        type: BoardActionType.AddSection,
+                        type: MenuEditorActionType.AddSection,
                         payload: { afterSectionId: section.id },
                       })
                     }

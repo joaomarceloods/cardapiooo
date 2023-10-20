@@ -1,14 +1,10 @@
-import {
-  BoardActionType,
-  RemarkData,
-  useBoard,
-  useBoardDispatch,
-} from '../../provider/board-provider'
+import { useMenuEditor, useMenuEditorDispatch } from '../../provider/provider'
+import { MenuEditorActionType, MenuEditorState } from '../../provider/types'
 
 const Remark = ({ id }: { id: string }) => {
-  const board = useBoard()
-  const dispatch = useBoardDispatch()
-  const { content } = board.items[id].data as RemarkData
+  const board = useMenuEditor()
+  const dispatch = useMenuEditorDispatch()
+  const { content } = board.items[id].data as MenuEditorState.RemarkData
 
   return (
     <>
@@ -16,7 +12,7 @@ const Remark = ({ id }: { id: string }) => {
         value={content}
         onChange={(e) =>
           dispatch({
-            type: BoardActionType.ChangeItem,
+            type: MenuEditorActionType.ChangeItem,
             payload: { id, property: 'content', value: e.target.value },
           })
         }
