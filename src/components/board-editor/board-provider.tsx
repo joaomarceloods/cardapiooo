@@ -1,4 +1,3 @@
-import initialData from './initial-data'
 import {
   Dispatch,
   PropsWithChildren,
@@ -6,8 +5,9 @@ import {
   useContext,
   useReducer,
 } from 'react'
+import initialData from './initial-data'
 
-export interface BoardState {
+export interface BaseState {
   name: string
   sections: { [key: string]: Section }
   items: { [key: string]: Item }
@@ -36,9 +36,9 @@ export interface RemarkData {
   content?: string
 }
 
-const BoardContext = createContext<BoardState | null>(null)
+const BoardContext = createContext<BaseState | null>(null)
 
-const BoardDispatchContext = createContext<Dispatch<BoardAction> | null>(null)
+const BoardDispatchContext = createContext<Dispatch<BaseAction> | null>(null)
 
 export const useBoard = () => {
   const state = useContext(BoardContext)
@@ -53,7 +53,7 @@ export const useBoardDispatch = () => {
 }
 
 export const BoardProvider = ({ children }: PropsWithChildren) => {
-  const [state, dispatch] = useReducer(boardReducer, initialData as BoardState)
+  const [state, dispatch] = useReducer(boardReducer, initialData as never)
 
   return (
     <BoardContext.Provider value={state}>
@@ -65,35 +65,149 @@ export const BoardProvider = ({ children }: PropsWithChildren) => {
 }
 
 export enum BoardActionType {
+  ChangeSection = 'change-section',
   ChangeItem = 'change-item',
+  AddSection = 'add-section',
+  AddItem = 'add-item',
 }
 
-export interface BoardAction {
-  type: BoardActionType
-  payload: any
+interface ChangeSectionAction {
+  type: BoardActionType.ChangeSection
+  payload: {
+    id: string
+    property: string
+    value: string
+  }
 }
 
-const boardReducer = (state: BoardState, action: BoardAction) => {
+interface ChangeItemAction {
+  type: BoardActionType.ChangeItem
+  payload: {
+    id: string
+    property: string
+    value: string
+  }
+}
+
+interface AddSectionAction {
+  type: BoardActionType.AddSection
+  payload: {
+    afterSectionId?: string
+  }
+}
+
+interface AddItemAction {
+  type: BoardActionType.AddItem
+  payload: {
+    sectionId: string
+  }
+}
+
+export type BaseAction =
+  | ChangeSectionAction
+  | ChangeItemAction
+  | AddSectionAction
+  | AddItemAction
+
+const boardReducer = (state: BaseState, action: BaseAction) => {
   switch (action.type) {
+    case BoardActionType.ChangeSection:
+      return changeSectionReducer(state, action)
     case BoardActionType.ChangeItem:
-      const item = state.items[action.payload.id]
-
-      return {
-        ...state,
-        items: {
-          ...state.items,
-          [item.id]: {
-            ...item,
-            data: {
-              ...item.data,
-              [action.payload.property]: action.payload.value,
-            },
-          },
-        },
-      }
-
+      return changeItemReducer(state, action)
+    case BoardActionType.AddSection:
+      return addSectionReducer(state, action)
+    case BoardActionType.AddItem:
+      return addItemReducer(state, action)
     default:
       break
   }
   return state
+}
+
+const changeSectionReducer = (state: BaseState, action: ChangeSectionAction) => {
+  const section = state.sections[action.payload.id]
+
+  return {
+    ...state,
+    sections: {
+      ...state.sections,
+      [section.id]: {
+        ...section,
+        [action.payload.property]: action.payload.value,
+      },
+    },
+  }
+}
+
+const changeItemReducer = (state: BaseState, action: ChangeItemAction) => {
+  const item = state.items[action.payload.id]
+
+  return {
+    ...state,
+    items: {
+      ...state.items,
+      [item.id]: {
+        ...item,
+        data: {
+          ...item.data,
+          [action.payload.property]: action.payload.value,
+        },
+      },
+    },
+  }
+}
+
+const addSectionReducer = (state: BaseState, action: AddSectionAction) => {
+  const sortedSectionIds = Array.from(state.sortedSectionIds)
+  const newSectionId = `section-${crypto.randomUUID()}`
+  const { afterSectionId } = action.payload
+
+  if (afterSectionId) {
+    const newSectionIndex = sortedSectionIds.indexOf(afterSectionId) + 1
+    sortedSectionIds.splice(newSectionIndex, 0, newSectionId)
+  } else {
+    sortedSectionIds.unshift(newSectionId)
+  }
+
+  return {
+    ...state,
+    sortedSectionIds,
+    sections: {
+      ...state.sections,
+      [newSectionId]: {
+        id: newSectionId,
+        title: '',
+        sortedItemIds: [],
+      },
+    },
+  }
+}
+
+const addItemReducer = (state: BaseState, action: AddItemAction) => {
+  const section = state.sections[action.payload.sectionId]
+  const sortedItemIds = Array.from(section.sortedItemIds)
+  const newItemId = `item-${crypto.randomUUID()}`
+  sortedItemIds.push(newItemId)
+
+  return {
+    ...state,
+    sections: {
+      ...state.sections,
+      [section.id]: {
+        ...section,
+        sortedItemIds,
+      },
+    },
+    items: {
+      ...state.items,
+      [newItemId]: {
+        id: newItemId,
+        type: 'product',
+        data: {
+          name: '',
+        },
+      },
+    },
+  }
 }
