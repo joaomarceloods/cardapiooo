@@ -17,38 +17,38 @@ const Board = () => {
 
   const [state, setState] = useState(initialData)
 
-  const moveColumn: OnDragEndResponder = (result) => {
+  const moveSection: OnDragEndResponder = (result) => {
     const { destination, source, draggableId } = result
 
     setState((state) => {
-      const newColumnOrder = Array.from(state.columnOrder)
-      newColumnOrder.splice(source.index, 1)
-      newColumnOrder.splice(destination!.index, 0, draggableId)
+      const newSectionOrder = Array.from(state.sectionOrder)
+      newSectionOrder.splice(source.index, 1)
+      newSectionOrder.splice(destination!.index, 0, draggableId)
 
       return {
         ...state,
-        columnOrder: newColumnOrder,
+        sectionOrder: newSectionOrder,
       }
     })
   }
 
-  const moveTask: OnDragEndResponder = (result) => {
+  const moveItem: OnDragEndResponder = (result) => {
     const { destination, source, draggableId } = result
 
     // Remove item from source
     setState((state) => {
-      const sourceCol =
-        state.columns[source.droppableId as keyof typeof state.columns]
-      const sourceTaskIds = Array.from(sourceCol.taskIds)
-      sourceTaskIds.splice(source.index, 1)
+      const sourceSection =
+        state.sections[source.droppableId as keyof typeof state.sections]
+      const sourceItemIds = Array.from(sourceSection.itemIds)
+      sourceItemIds.splice(source.index, 1)
 
       return {
         ...state,
-        columns: {
-          ...state.columns,
-          [sourceCol.id]: {
-            ...sourceCol,
-            taskIds: sourceTaskIds,
+        sections: {
+          ...state.sections,
+          [sourceSection.id]: {
+            ...sourceSection,
+            itemIds: sourceItemIds,
           },
         },
       }
@@ -56,18 +56,18 @@ const Board = () => {
 
     // Add item to destination
     setState((state) => {
-      const destinationCol =
-        state.columns[destination!.droppableId as keyof typeof state.columns]
-      const destinationTaskIds = Array.from(destinationCol.taskIds)
-      destinationTaskIds.splice(destination!.index, 0, draggableId)
+      const destinationSection =
+        state.sections[destination!.droppableId as keyof typeof state.sections]
+      const destinationItemIds = Array.from(destinationSection.itemIds)
+      destinationItemIds.splice(destination!.index, 0, draggableId)
 
       return {
         ...state,
-        columns: {
-          ...state.columns,
-          [destinationCol.id]: {
-            ...destinationCol,
-            taskIds: destinationTaskIds,
+        sections: {
+          ...state.sections,
+          [destinationSection.id]: {
+            ...destinationSection,
+            itemIds: destinationItemIds,
           },
         },
       }
@@ -87,28 +87,28 @@ const Board = () => {
     }
 
     switch (result.type) {
-      case 'COLUMN':
-        moveColumn(result, provided)
+      case 'SECTION':
+        moveSection(result, provided)
         break
-      case 'TASK':
-        moveTask(result, provided)
+      case 'ITEM':
+        moveItem(result, provided)
         break
     }
   }
 
-  const onChangeColumn = (
+  const onChangeSection = (
     event: React.ChangeEvent<HTMLInputElement>,
-    columnId: string
+    sectionId: string
   ) => {
     setState((state) => {
-      const column = state.columns[columnId as keyof typeof state.columns]
+      const section = state.sections[sectionId as keyof typeof state.sections]
 
       return {
         ...state,
-        columns: {
-          ...state.columns,
-          [column.id]: {
-            ...column,
+        sections: {
+          ...state.sections,
+          [section.id]: {
+            ...section,
             title: event.target.value,
           },
         },
@@ -116,19 +116,19 @@ const Board = () => {
     })
   }
 
-  const onChangeTask = (
+  const onChangeItem = (
     event: React.ChangeEvent<HTMLInputElement>,
-    taskId: string
+    itemId: string
   ) => {
     setState((state) => {
-      const task = state.tasks[taskId as keyof typeof state.tasks]
+      const item = state.items[itemId as keyof typeof state.items]
 
       return {
         ...state,
-        tasks: {
-          ...state.tasks,
-          [task.id]: {
-            ...task,
+        items: {
+          ...state.items,
+          [item.id]: {
+            ...item,
             content: event.target.value,
           },
         },
@@ -136,50 +136,50 @@ const Board = () => {
     })
   }
 
-  const addTask = (columnId: string) => {
-    const column = state.columns[columnId as keyof typeof state.columns]
-    const taskIds = Array.from(column.taskIds)
-    const newTaskId = `task-${crypto.randomUUID()}`
-    taskIds.push(newTaskId)
+  const addItem = (sectionId: string) => {
+    const section = state.sections[sectionId as keyof typeof state.sections]
+    const itemIds = Array.from(section.itemIds)
+    const newItemId = `item-${crypto.randomUUID()}`
+    itemIds.push(newItemId)
 
     setState((state) => ({
       ...state,
-      columns: {
-        ...state.columns,
-        [column.id]: {
-          ...column,
-          taskIds,
+      sections: {
+        ...state.sections,
+        [section.id]: {
+          ...section,
+          itemIds,
         },
       },
-      tasks: {
-        ...state.tasks,
-        [newTaskId]: {
-          id: newTaskId,
+      items: {
+        ...state.items,
+        [newItemId]: {
+          id: newItemId,
           content: '',
         },
       },
     }))
   }
 
-  const addColumn = (afterColumnId?: string) => {
-    const columnOrder = Array.from(state.columnOrder)
-    const newColumnId = `column-${crypto.randomUUID()}`
+  const addSection = (afterSectionId?: string) => {
+    const sectionOrder = Array.from(state.sectionOrder)
+    const newSectionId = `section-${crypto.randomUUID()}`
 
-    if (afterColumnId) {
-      columnOrder.splice(columnOrder.indexOf(afterColumnId) + 1, 0, newColumnId)
+    if (afterSectionId) {
+      sectionOrder.splice(sectionOrder.indexOf(afterSectionId) + 1, 0, newSectionId)
     } else {
-      columnOrder.unshift(newColumnId)
+      sectionOrder.unshift(newSectionId)
     }
 
     setState((state) => ({
       ...state,
-      columnOrder,
-      columns: {
-        ...state.columns,
-        [newColumnId]: {
-          id: newColumnId,
+      sectionOrder,
+      sections: {
+        ...state.sections,
+        [newSectionId]: {
+          id: newSectionId,
           title: '',
-          taskIds: [],
+          itemIds: [],
         },
       },
     }))
@@ -188,20 +188,20 @@ const Board = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div>
-        <Droppable droppableId="board" type="COLUMN">
+        <Droppable droppableId="board" type="SECTION">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              {state.columnOrder.map((columnId, index) => {
-                const column =
-                  state.columns[columnId as keyof typeof state.columns]
-                const tasks = column.taskIds.map(
-                  (taskId) => state.tasks[taskId as keyof typeof state.tasks]
+              {state.sectionOrder.map((sectionId, index) => {
+                const section =
+                  state.sections[sectionId as keyof typeof state.sections]
+                const items = section.itemIds.map(
+                  (itemId) => state.items[itemId as keyof typeof state.items]
                 )
 
                 return (
                   <Draggable
-                    key={column.id}
-                    draggableId={column.id}
+                    key={section.id}
+                    draggableId={section.id}
                     index={index}
                   >
                     {(provided) => (
@@ -210,14 +210,14 @@ const Board = () => {
                           <span {...provided.dragHandleProps}>☰</span>
                           <input
                             type="text"
-                            value={column.title}
-                            onChange={(e) => onChangeColumn(e, column.id)}
+                            value={section.title}
+                            onChange={(e) => onChangeSection(e, section.id)}
                             style={{ fontWeight: 'bold' }}
-                            placeholder="Column title"
+                            placeholder="Section title"
                           />
                         </span>
 
-                        <Droppable droppableId={column.id} type="TASK">
+                        <Droppable droppableId={section.id} type="ITEM">
                           {(provided, snapshot) => {
                             return (
                               <div
@@ -233,11 +233,11 @@ const Board = () => {
                                     : 'inherit',
                                 }}
                               >
-                                {tasks.map((task, index) => {
+                                {items.map((item, index) => {
                                   return (
                                     <Draggable
-                                      key={task.id}
-                                      draggableId={task.id}
+                                      key={item.id}
+                                      draggableId={item.id}
                                       index={index}
                                     >
                                       {(provided) => (
@@ -249,9 +249,9 @@ const Board = () => {
                                             ☰
                                           </span>
                                           <input
-                                            value={task.content}
+                                            value={item.content}
                                             onChange={(e) =>
-                                              onChangeTask(e, task.id)
+                                              onChangeItem(e, item.id)
                                             }
                                           />
                                         </div>
@@ -259,11 +259,11 @@ const Board = () => {
                                     </Draggable>
                                   )
                                 })}
-                                <button onClick={() => addTask(column.id)}>
-                                  Add task
+                                <button onClick={() => addItem(section.id)}>
+                                  Add item
                                 </button>
-                                <button onClick={() => addColumn(column.id)}>
-                                  Add column
+                                <button onClick={() => addSection(section.id)}>
+                                  Add section
                                 </button>
                                 {provided.placeholder}
                               </div>

@@ -1,50 +1,49 @@
 const initialData = {
-  tasks: {
-    'task-1': { id: 'task-1', content: 'Take out the garbage' },
-    'task-2': { id: 'task-2', content: 'Watch my favorite show' },
-    'task-3': { id: 'task-3', content: 'Charge my phone' },
-    'task-4': { id: 'task-4', content: 'Cook dinner' },
-    'task-5': { id: 'task-5', content: 'Walk the dog' },
-    'task-6': { id: 'task-6', content: 'Take out the garbage' },
-    'task-7': { id: 'task-7', content: 'Go grocery shopping' },
-    'task-8': { id: 'task-8', content: 'Do laundry' },
-    'task-9': { id: 'task-9', content: 'Pay bills' },
-    'task-10': { id: 'task-10', content: 'Read a book' },
-    'task-11': { id: 'task-11', content: 'Exercise' },
-    'task-12': { id: 'task-12', content: 'Call a friend' },
+  items: {
+    'item-1': { id: 'item-1', content: 'Take out the garbage' },
+    'item-2': { id: 'item-2', content: 'Watch my favorite show' },
+    'item-3': { id: 'item-3', content: 'Charge my phone' },
+    'item-4': { id: 'item-4', content: 'Cook dinner' },
+    'item-5': { id: 'item-5', content: 'Walk the dog' },
+    'item-6': { id: 'item-6', content: 'Take out the garbage' },
+    'item-7': { id: 'item-7', content: 'Go grocery shopping' },
+    'item-8': { id: 'item-8', content: 'Do laundry' },
+    'item-9': { id: 'item-9', content: 'Pay bills' },
+    'item-10': { id: 'item-10', content: 'Read a book' },
+    'item-11': { id: 'item-11', content: 'Exercise' },
+    'item-12': { id: 'item-12', content: 'Call a friend' },
   },
-  columns: {
-    'column-1': {
-      id: 'column-1',
+  sections: {
+    'section-1': {
+      id: 'section-1',
       title: 'To do',
-      taskIds: [
-        'task-1',
-        'task-2',
-        'task-3',
-        'task-4',
-        'task-5',
-        'task-6',
-        'task-7',
-        'task-8',
-        'task-9',
-        'task-10',
-        'task-11',
-        'task-12',
+      itemIds: [
+        'item-1',
+        'item-2',
+        'item-3',
+        'item-4',
+        'item-5',
+        'item-6',
+        'item-7',
+        'item-8',
+        'item-9',
+        'item-10',
+        'item-11',
+        'item-12',
       ],
     },
-    'column-2': {
-      id: 'column-2',
+    'section-2': {
+      id: 'section-2',
       title: 'In progress',
-      taskIds: [],
+      itemIds: [],
     },
-    'column-3': {
-      id: 'column-3',
+    'section-3': {
+      id: 'section-3',
       title: 'Done',
-      taskIds: [],
+      itemIds: [],
     },
   },
-  // Facilitate reordering of the columns
-  columnOrder: ['column-1', 'column-2', 'column-3'],
+  sectionOrder: ['section-1', 'section-2', 'section-3'],
 }
 
 export default initialData
