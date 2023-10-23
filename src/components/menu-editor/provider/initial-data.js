@@ -31,15 +31,10 @@ const initialData = {
       type: 'product',
       data: { title: 'Take out the garbage', price: 9.99 },
     },
-    'item-6': {
+    'item-7': {
       id: 'item-6',
       type: 'remark',
       data: { content: 'Rate us on the app store' },
-    },
-    'item-7': {
-      id: 'item-7',
-      type: 'product',
-      data: { title: 'Go grocery shopping', price: 9.99 },
     },
     'item-8': {
       id: 'item-8',

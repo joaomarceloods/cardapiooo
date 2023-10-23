@@ -5,7 +5,6 @@ import {
   useContext,
   useReducer,
 } from 'react'
-import initialData from './initial-data'
 import reducer from './reducer'
 import { MenuEditorAction, MenuEditorState } from './types'
 
@@ -27,8 +26,11 @@ export const useMenuEditorDispatch = () => {
   return dispatch
 }
 
-export const BoardProvider = ({ children }: PropsWithChildren) => {
-  const [state, dispatch] = useReducer(reducer, initialData as never)
+export const MenuEditorProvider = ({
+  initialState,
+  children,
+}: PropsWithChildren<{ initialState: MenuEditorState.Menu }>) => {
+  const [state, dispatch] = useReducer(reducer, initialState as never)
 
   return (
     <MenuContext.Provider value={state}>

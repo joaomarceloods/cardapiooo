@@ -1,13 +1,14 @@
 'use client'
 
 import Menu from './components/menu'
-import { BoardProvider } from './provider/provider'
+import { MenuEditorProvider } from './provider/provider'
+import { MenuEditorState } from './provider/types'
 
-const MenuEditor = () => {
+const MenuEditor = ({ menuProps }: { menuProps: MenuEditorState.Menu }) => {
   return (
-    <BoardProvider>
+    <MenuEditorProvider initialState={menuProps}>
       <Menu />
-    </BoardProvider>
+    </MenuEditorProvider>
   )
 }
 
