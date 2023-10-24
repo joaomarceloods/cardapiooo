@@ -1,8 +1,8 @@
-import { MenuEditorAction, MenuEditorActionType, Reducer } from './types'
+import { Reducer } from './types'
 
 const changeMenu = (
   state: Reducer.State,
-  action: MenuEditorAction.ChangeMenu
+  action: Reducer.Action.ChangeMenu
 ): Reducer.State => {
   const menu = state.entities.menus[state.result]
 
@@ -22,7 +22,7 @@ const changeMenu = (
 
 const changeSection = (
   state: Reducer.State,
-  action: MenuEditorAction.ChangeSection
+  action: Reducer.Action.ChangeSection
 ): Reducer.State => {
   const section = state.entities.sections[action.payload.id]
 
@@ -43,7 +43,7 @@ const changeSection = (
 
 const changeItem = (
   state: Reducer.State,
-  action: MenuEditorAction.ChangeItem
+  action: Reducer.Action.ChangeItem
 ): Reducer.State => {
   const item = state.entities.items[action.payload.id]
 
@@ -67,7 +67,7 @@ const changeItem = (
 
 const addSection = (
   state: Reducer.State,
-  action: MenuEditorAction.AddSection
+  action: Reducer.Action.AddSection
 ): Reducer.State => {
   const menu = state.entities.menus[state.result]
   const sortedSectionIds = Array.from(menu.sortedSectionIds)
@@ -99,7 +99,7 @@ const addSection = (
 
 const addItem = (
   state: Reducer.State,
-  action: MenuEditorAction.AddItem
+  action: Reducer.Action.AddItem
 ): Reducer.State => {
   const section = state.entities.sections[action.payload.sectionId]
   const sortedItemIds = Array.from(section.sortedItemIds)
@@ -133,7 +133,7 @@ const addItem = (
 
 const moveSection = (
   state: Reducer.State,
-  action: MenuEditorAction.MoveSection
+  action: Reducer.Action.MoveSection
 ): Reducer.State => {
   const { id, sourceIndex, destinationIndex } = action.payload
   const menu = state.entities.menus[state.result]
@@ -158,7 +158,7 @@ const moveSection = (
 
 const moveItem = (
   state: Reducer.State,
-  action: MenuEditorAction.MoveItem
+  action: Reducer.Action.MoveItem
 ): Reducer.State => {
   const {
     id,
@@ -209,22 +209,22 @@ const moveItem = (
 
 export const reducer = (
   state: Reducer.State,
-  action: MenuEditorAction
+  action: Reducer.Action
 ): Reducer.State => {
   switch (action.type) {
-    case MenuEditorActionType.ChangeMenu:
+    case Reducer.ActionType.ChangeMenu:
       return changeMenu(state, action)
-    case MenuEditorActionType.ChangeSection:
+    case Reducer.ActionType.ChangeSection:
       return changeSection(state, action)
-    case MenuEditorActionType.ChangeItem:
+    case Reducer.ActionType.ChangeItem:
       return changeItem(state, action)
-    case MenuEditorActionType.AddSection:
+    case Reducer.ActionType.AddSection:
       return addSection(state, action)
-    case MenuEditorActionType.AddItem:
+    case Reducer.ActionType.AddItem:
       return addItem(state, action)
-    case MenuEditorActionType.MoveSection:
+    case Reducer.ActionType.MoveSection:
       return moveSection(state, action)
-    case MenuEditorActionType.MoveItem:
+    case Reducer.ActionType.MoveItem:
       return moveItem(state, action)
     default:
       throw new Error(`Unhandled action type: ${JSON.stringify(action)}`)

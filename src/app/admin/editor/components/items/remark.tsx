@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useMenuEditor, useMenuEditorDispatch } from '../../provider/provider'
-import { Entity, MenuEditorActionType } from '../../provider/types'
+import { Entity, Reducer } from '../../provider/types'
 
 const Remark: FC<{ id: string }> = ({ id }) => {
   const state = useMenuEditor()
@@ -14,7 +14,7 @@ const Remark: FC<{ id: string }> = ({ id }) => {
         value={content}
         onChange={(e) =>
           dispatch({
-            type: MenuEditorActionType.ChangeItem,
+            type: Reducer.ActionType.ChangeItem,
             payload: { id, property: 'content', value: e.target.value },
           })
         }

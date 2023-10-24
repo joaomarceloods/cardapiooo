@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useMenuEditor, useMenuEditorDispatch } from '../../provider/provider'
-import { Entity, MenuEditorActionType } from '../../provider/types'
+import { Entity, Reducer } from '../../provider/types'
 
 const Product: FC<{ id: string }> = ({ id }) => {
   const state = useMenuEditor()
@@ -13,7 +13,7 @@ const Product: FC<{ id: string }> = ({ id }) => {
     property: string
   ) => {
     dispatch({
-      type: MenuEditorActionType.ChangeItem,
+      type: Reducer.ActionType.ChangeItem,
       payload: { value: e.target.value, id, property },
     })
   }

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { useMenuEditor, useMenuEditorDispatch } from '../provider/provider'
-import { MenuEditorActionType } from '../provider/types'
+import { Reducer } from '../provider/types'
 import Product from './items/product'
 import Remark from './items/remark'
 
@@ -23,7 +23,7 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
               placeholder="Section title"
               onChange={(e) => {
                 dispatch({
-                  type: MenuEditorActionType.ChangeSection,
+                  type: Reducer.ActionType.ChangeSection,
                   payload: { id, property: 'title', value: e.target.value },
                 })
               }}
@@ -75,7 +75,7 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
                   <button
                     onClick={() =>
                       dispatch({
-                        type: MenuEditorActionType.AddItem,
+                        type: Reducer.ActionType.AddItem,
                         payload: { sectionId: section.id },
                       })
                     }
@@ -85,7 +85,7 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
                   <button
                     onClick={() =>
                       dispatch({
-                        type: MenuEditorActionType.AddSection,
+                        type: Reducer.ActionType.AddSection,
                         payload: { afterSectionId: section.id },
                       })
                     }

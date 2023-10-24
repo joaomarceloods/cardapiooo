@@ -1,14 +1,14 @@
+import { ReactEventHandler } from 'react'
 import {
   DragDropContext,
   Droppable,
   OnDragEndResponder,
   resetServerContext,
 } from 'react-beautiful-dnd'
+import { denormalizeState } from '../provider/normalizr'
 import { useMenuEditor, useMenuEditorDispatch } from '../provider/provider'
-import { MenuEditorActionType } from '../provider/types'
+import { Reducer } from '../provider/types'
 import Section from './section'
-import { ReactEventHandler } from 'react'
-import { denormalizeMenu } from '../provider/normalizr'
 
 const Menu = () => {
   // react-beautiful-dnd: The resetServerContext function should be used when server side rendering (SSR).
@@ -21,14 +21,10 @@ const Menu = () => {
   const { title, sortedSectionIds } = state.entities.menus[state.result]
 
   const onClickSave: ReactEventHandler<HTMLButtonElement> = async () => {
-    const denormalizedState = denormalizeMenu(state)
+    const denormalizedState = denormalizeState(state)
 
-    // TODO: possibly useSWR
-    const res = await fetch('/api', {
+    await fetch('/api', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify(denormalizedState),
     })
   }
@@ -48,7 +44,7 @@ const Menu = () => {
     switch (result.type) {
       case 'SECTION':
         dispatch({
-          type: MenuEditorActionType.MoveSection,
+          type: Reducer.ActionType.MoveSection,
           payload: {
             id: result.draggableId,
             sourceIndex: source.index,
@@ -59,7 +55,7 @@ const Menu = () => {
 
       case 'ITEM':
         dispatch({
-          type: MenuEditorActionType.MoveItem,
+          type: Reducer.ActionType.MoveItem,
           payload: {
             id: result.draggableId,
             sourceIndex: source.index,
@@ -74,7 +70,9 @@ const Menu = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <button type="submit" onClick={onClickSave}>Save</button>
+      <button type="submit" onClick={onClickSave}>
+        Save
+      </button>
       <div>
         <input
           type="text"
@@ -82,7 +80,7 @@ const Menu = () => {
           style={{ fontSize: '1.2em' }}
           onChange={(e) =>
             dispatch({
-              type: MenuEditorActionType.ChangeMenu,
+              type: Reducer.ActionType.ChangeMenu,
               payload: { property: 'title', value: e.target.value },
             })
           }
