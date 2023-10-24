@@ -16,6 +16,8 @@ const Menu = () => {
   const state = useMenuEditor()
   const dispatch = useMenuEditorDispatch()
 
+  const { title, sortedSectionIds } = state.entities.menus[state.result]
+
   const onDragEnd: OnDragEndResponder = (result) => {
     const { destination, source } = result
 
@@ -60,7 +62,7 @@ const Menu = () => {
       <div>
         <input
           type="text"
-          value={state.title}
+          value={title}
           style={{ fontSize: '1.2em' }}
           onChange={(e) =>
             dispatch({
@@ -72,7 +74,7 @@ const Menu = () => {
         <Droppable droppableId="board" type="SECTION">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              {state.sortedSectionIds.map((id, index) => (
+              {sortedSectionIds.map((id, index) => (
                 <Section key={id} id={id} index={index} />
               ))}
               {provided.placeholder}

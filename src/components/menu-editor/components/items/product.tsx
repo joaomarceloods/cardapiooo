@@ -1,11 +1,12 @@
+import { FC } from 'react'
 import { useMenuEditor, useMenuEditorDispatch } from '../../provider/provider'
-import { MenuEditorActionType, MenuEditorState } from '../../provider/types'
+import { Entity, MenuEditorActionType } from '../../provider/types'
 
-const Product = ({ id }: { id: string }) => {
-  const board = useMenuEditor()
+const Product: FC<{ id: string }> = ({ id }) => {
+  const state = useMenuEditor()
   const dispatch = useMenuEditorDispatch()
-  const { title, price, description } = board.items[id]
-    .data as MenuEditorState.ProductData
+  const item = state.entities.items[id]
+  const { title, price, description } = item.data as Entity.ProductData
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,

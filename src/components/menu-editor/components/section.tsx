@@ -1,13 +1,14 @@
+import { FC } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { useMenuEditor, useMenuEditorDispatch } from '../provider/provider'
 import { MenuEditorActionType } from '../provider/types'
 import Product from './items/product'
 import Remark from './items/remark'
 
-const Section = ({ id, index }: { id: string; index: number }) => {
+const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
   const state = useMenuEditor()
   const dispatch = useMenuEditorDispatch()
-  const section = state.sections[id]
+  const section = state.entities.sections[id]
 
   return (
     <Draggable key={section.id} draggableId={section.id} index={index}>
@@ -46,7 +47,7 @@ const Section = ({ id, index }: { id: string; index: number }) => {
                   }}
                 >
                   {section.sortedItemIds.map((id, index) => {
-                    const item = state.items[id]
+                    const item = state.entities.items[id]
                     return (
                       <Draggable
                         key={item.id}

@@ -1,10 +1,9 @@
-export namespace MenuEditorState {
-  export type Base = Menu
+import { NormalizedSchema } from 'normalizr'
 
+export namespace Entity {
   export interface Menu {
+    id: string
     title: string
-    items: { [key: string]: Item }
-    sections: { [key: string]: Section }
     sortedSectionIds: string[]
   }
 
@@ -14,7 +13,7 @@ export namespace MenuEditorState {
     sortedItemIds: string[]
   }
 
-  export type Item = {
+  export interface Item {
     id: string
     type: 'product' | 'remark'
     data: ProductData | RemarkData
@@ -29,7 +28,41 @@ export namespace MenuEditorState {
   export interface RemarkData {
     content?: string
   }
+}
 
+export namespace DenormalizedEntity {
+  export interface Menu extends Entity.Menu {
+    sections: Section[]
+  }
+
+  export interface Section extends Entity.Section {
+    items: Item[]
+  }
+
+  export interface Item extends Entity.Item {}
+}
+
+export namespace Normalization {
+  export interface EntityMap {
+    menus: {
+      [key: string]: Entity.Menu
+    }
+    sections: {
+      [key: string]: Entity.Section
+    }
+    items: {
+      [key: string]: Entity.Item
+    }
+  }
+
+  // Result is just the menu id
+  export type Result = string
+
+  export type Schema = NormalizedSchema<EntityMap, Result>
+}
+
+export namespace Reducer {
+  export type State = Normalization.Schema
 }
 
 export namespace MenuEditorAction {

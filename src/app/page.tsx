@@ -1,37 +1,56 @@
-import MenuEditor from '@/components/menu-editor/menu-editor';
-import { MenuEditorState } from '@/components/menu-editor/provider/types';
-import { MongoClient } from 'mongodb';
+import MenuEditor from '@/components/menu-editor/menu-editor'
+import {
+  denormalizeMenu,
+  normalizeMenu,
+} from '@/components/menu-editor/provider/normalizr'
+import { DenormalizedEntity } from '@/components/menu-editor/provider/types'
+import { MongoClient } from 'mongodb'
 
 export default async function Home() {
   const menuProps = await getMenuProps()
 
-  return <MenuEditor menuProps={menuProps} />
+  return <MenuEditor initialState={menuProps} />
 }
 
 async function getMenuProps() {
   const uri = process.env.MONGODB_URI
+  const dbName = process.env.MONGODB_DBNAME
 
   if (uri === undefined) {
     throw new Error('MONGODB_URI is undefined')
   }
 
-  const client = new MongoClient(uri);
+  if (dbName === undefined) {
+    throw new Error('MONGODB_DBNAME is undefined')
+  }
+
+  const client = new MongoClient(uri)
 
   try {
-    const database = client.db('FirstDB');
-    const menus = database.collection<MenuEditorState.Menu>('boards');
+    const database = client.db(dbName)
+    const menus = database.collection<DenormalizedEntity.Menu>('menus')
 
-    const query = {};
-    const menu = await menus.findOne(query);
+    const query = {}
+    const options = { projection: { _id: 0 }}
+    const menu = await menus.findOne(query, options)
 
-    console.log(menu);
+    console.log(menu)
 
     if (menu === null) {
       throw new Error('menu is null')
     }
 
-    return menu
+    const normalizedSchema = normalizeMenu(menu)
+    console.log("NORMALIZED")
+    console.log(normalizedSchema)
+    console.log(normalizedSchema.entities.menus)
+
+    const denormalizedSchema = denormalizeMenu(normalizedSchema)
+    console.log("DENORMALIZED")
+    console.log(denormalizedSchema)
+
+    return normalizedSchema
   } finally {
-    await client.close();
+    await client.close()
   }
 }

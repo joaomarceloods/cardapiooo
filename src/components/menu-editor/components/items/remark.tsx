@@ -1,10 +1,12 @@
+import { FC } from 'react'
 import { useMenuEditor, useMenuEditorDispatch } from '../../provider/provider'
-import { MenuEditorActionType, MenuEditorState } from '../../provider/types'
+import { Entity, MenuEditorActionType } from '../../provider/types'
 
-const Remark = ({ id }: { id: string }) => {
-  const board = useMenuEditor()
+const Remark: FC<{ id: string }> = ({ id }) => {
+  const state = useMenuEditor()
   const dispatch = useMenuEditorDispatch()
-  const { content } = board.items[id].data as MenuEditorState.RemarkData
+  const item = state.entities.items[id]
+  const { content } = item.data as Entity.RemarkData
 
   return (
     <>

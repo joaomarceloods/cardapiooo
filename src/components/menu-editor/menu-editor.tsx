@@ -1,12 +1,13 @@
 'use client'
 
+import { FC } from 'react'
 import Menu from './components/menu'
 import { MenuEditorProvider } from './provider/provider'
-import { MenuEditorState } from './provider/types'
+import { Reducer } from './provider/types'
 
-const MenuEditor = ({ menuProps }: { menuProps: MenuEditorState.Menu }) => {
+const MenuEditor: FC<{ initialState: Reducer.State }> = ({ initialState }) => {
   return (
-    <MenuEditorProvider initialState={menuProps}>
+    <MenuEditorProvider initialState={initialState}>
       <Menu />
     </MenuEditorProvider>
   )

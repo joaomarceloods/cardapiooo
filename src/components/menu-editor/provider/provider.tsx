@@ -1,14 +1,15 @@
 import {
   Dispatch,
+  FC,
   PropsWithChildren,
   createContext,
   useContext,
   useReducer,
 } from 'react'
 import reducer from './reducer'
-import { MenuEditorAction, MenuEditorState } from './types'
+import { MenuEditorAction, Reducer } from './types'
 
-const MenuContext = createContext<MenuEditorState.Base | null>(null)
+const MenuContext = createContext<Reducer.State | null>(null)
 
 const MenuDispatchContext = createContext<Dispatch<MenuEditorAction> | null>(
   null
@@ -26,10 +27,9 @@ export const useMenuEditorDispatch = () => {
   return dispatch
 }
 
-export const MenuEditorProvider = ({
-  initialState,
-  children,
-}: PropsWithChildren<{ initialState: MenuEditorState.Menu }>) => {
+export const MenuEditorProvider: FC<
+  PropsWithChildren<{ initialState: Reducer.State }>
+> = ({ initialState, children }) => {
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
   return (

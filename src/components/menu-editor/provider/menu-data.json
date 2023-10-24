@@ -1,0 +1,96 @@
+{
+  "title": "My first board",
+  "sortedSectionIds": ["section-1", "section-2", "section-3"],
+  "sections": [
+    {
+      "id": "section-1",
+      "title": "To do",
+      "sortedItemIds": [
+        "item-1",
+        "item-2",
+        "item-3",
+        "item-4",
+        "item-5",
+        "item-6",
+        "item-7",
+        "item-8",
+        "item-9",
+        "item-10",
+        "item-11",
+        "item-12"
+      ],
+      "items": [
+        {
+          "id": "item-1",
+          "type": "product",
+          "data": { "title": "Take out the garbage", "price": 9.99 }
+        },
+        {
+          "id": "item-2",
+          "type": "product",
+          "data": { "title": "Watch my favorite show", "price": 9.99 }
+        },
+        {
+          "id": "item-3",
+          "type": "product",
+          "data": { "title": "Charge my phone", "price": 9.99 }
+        },
+        {
+          "id": "item-4",
+          "type": "product",
+          "data": { "title": "Cook dinner", "price": 9.99 }
+        },
+        {
+          "id": "item-5",
+          "type": "product",
+          "data": { "title": "Walk the dog", "price": 9.99 }
+        },
+        {
+          "id": "item-6",
+          "type": "product",
+          "data": { "title": "Take out the garbage", "price": 9.99 }
+        },
+        {
+          "id": "item-6",
+          "type": "remark",
+          "data": { "content": "Rate us on the app store" }
+        },
+        {
+          "id": "item-8",
+          "type": "product",
+          "data": { "title": "Do laundry", "price": 9.99 }
+        },
+        {
+          "id": "item-9",
+          "type": "product",
+          "data": { "title": "Pay bills", "price": 9.99 }
+        },
+        {
+          "id": "item-10",
+          "type": "product",
+          "data": { "title": "Read a book", "price": 9.99 }
+        },
+        {
+          "id": "item-11",
+          "type": "product",
+          "data": { "title": "Exercise", "price": 9.99 }
+        },
+        {
+          "id": "item-12",
+          "type": "product",
+          "data": { "title": "Call a friend", "price": 9.99 }
+        }
+      ]
+    },
+    {
+      "id": "section-2",
+      "title": "In progress",
+      "sortedItemIds": []
+    },
+    {
+      "id": "section-3",
+      "title": "Done",
+      "sortedItemIds": []
+    }
+  ]
+}
