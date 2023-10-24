@@ -1,15 +1,12 @@
 import MenuEditor from '@/components/menu-editor/menu-editor'
-import {
-  denormalizeMenu,
-  normalizeMenu,
-} from '@/components/menu-editor/provider/normalizr'
+import { normalizeMenu } from '@/components/menu-editor/provider/normalizr'
 import { DenormalizedEntity } from '@/components/menu-editor/provider/types'
 import { MongoClient } from 'mongodb'
 
 export default async function Home() {
-  const menuProps = await getMenuProps()
+  const initialState = await getMenuProps()
 
-  return <MenuEditor initialState={menuProps} />
+  return <MenuEditor initialState={initialState} />
 }
 
 async function getMenuProps() {
@@ -31,25 +28,14 @@ async function getMenuProps() {
     const menus = database.collection<DenormalizedEntity.Menu>('menus')
 
     const query = {}
-    const options = { projection: { _id: 0 }}
+    const options = { projection: { _id: 0 } }
     const menu = await menus.findOne(query, options)
-
-    console.log(menu)
 
     if (menu === null) {
       throw new Error('menu is null')
     }
 
-    const normalizedSchema = normalizeMenu(menu)
-    console.log("NORMALIZED")
-    console.log(normalizedSchema)
-    console.log(normalizedSchema.entities.menus)
-
-    const denormalizedSchema = denormalizeMenu(normalizedSchema)
-    console.log("DENORMALIZED")
-    console.log(denormalizedSchema)
-
-    return normalizedSchema
+    return normalizeMenu(menu)
   } finally {
     await client.close()
   }

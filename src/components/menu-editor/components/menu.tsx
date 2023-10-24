@@ -7,6 +7,8 @@ import {
 import { useMenuEditor, useMenuEditorDispatch } from '../provider/provider'
 import { MenuEditorActionType } from '../provider/types'
 import Section from './section'
+import { ReactEventHandler } from 'react'
+import { denormalizeMenu } from '../provider/normalizr'
 
 const Menu = () => {
   // react-beautiful-dnd: The resetServerContext function should be used when server side rendering (SSR).
@@ -17,6 +19,19 @@ const Menu = () => {
   const dispatch = useMenuEditorDispatch()
 
   const { title, sortedSectionIds } = state.entities.menus[state.result]
+
+  const onClickSave: ReactEventHandler<HTMLButtonElement> = async () => {
+    const denormalizedState = denormalizeMenu(state)
+
+    // TODO: possibly useSWR
+    const res = await fetch('/api', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(denormalizedState),
+    })
+  }
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const { destination, source } = result
@@ -59,6 +74,7 @@ const Menu = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
+      <button type="submit" onClick={onClickSave}>Save</button>
       <div>
         <input
           type="text"
