@@ -62,23 +62,9 @@ export namespace Normalization {
 }
 
 export namespace Reducer {
-  /**
-   * State shape:
-   * {
-   *   result: <menuId>,
-   *   entities: {
-   *     menus: {
-   *       [menuId]: {...}
-   *     },
-   *     sections: {
-   *       [sectionId]: {...}
-   *     },
-   *     items: {
-   *       [itemId]: {...}
-   *     },
-   *   },
-   * }
-   */
+  // State has two top-level keys:
+  // - result: main entity id,
+  // - entities: same shape as Normalization.EntityMap
   export type State = Normalization.Schema
 
   export enum ActionType {

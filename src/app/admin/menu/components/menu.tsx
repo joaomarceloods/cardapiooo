@@ -6,7 +6,7 @@ import {
   resetServerContext,
 } from 'react-beautiful-dnd'
 import { denormalizeState } from '../provider/normalizr'
-import { useMenuEditor, useMenuEditorDispatch } from '../provider/provider'
+import { useReducerDispatch, useReducerState } from '../provider/provider'
 import { Reducer } from '../provider/types'
 import Section from './section'
 
@@ -15,15 +15,15 @@ const Menu = () => {
   // https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/reset-server-context.md
   resetServerContext()
 
-  const state = useMenuEditor()
-  const dispatch = useMenuEditorDispatch()
+  const state = useReducerState()
+  const dispatch = useReducerDispatch()
 
   const { title, sortedSectionIds } = state.entities.menus[state.result]
 
   const onClickSave: ReactEventHandler<HTMLButtonElement> = async () => {
     const denormalizedState = denormalizeState(state)
 
-    await fetch('/api', {
+    await fetch('/api/menu', {
       method: 'POST',
       body: JSON.stringify(denormalizedState),
     })

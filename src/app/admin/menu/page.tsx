@@ -1,9 +1,9 @@
-import Editor from '@/app/admin/editor/components/editor'
-import { normalizeState } from '@/app/admin/editor/provider/normalizr'
-import { DenormalizedEntity, Reducer } from '@/app/admin/editor/provider/types'
 import { withDatabase } from '@/app/database/database'
+import Editor from './components/editor'
+import { normalizeState } from './provider/normalizr'
+import { DenormalizedEntity, Reducer } from './provider/types'
 
-export default async function Home() {
+export default async function Page() {
   const initialState = await getInitialState()
 
   return <Editor initialState={initialState} />
@@ -18,7 +18,7 @@ async function getInitialState(): Promise<Reducer.State> {
     const menu = await menus.findOne({}, { projection: { _id: 0 } })
 
     if (menu === null) {
-      throw new Error('menu is null')
+      throw new Error(`Entity not found: ${menus.collectionName}`)
     }
 
     return normalizeState(menu)

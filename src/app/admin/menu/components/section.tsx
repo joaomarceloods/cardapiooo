@@ -1,13 +1,13 @@
 import { FC } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
-import { useMenuEditor, useMenuEditorDispatch } from '../provider/provider'
+import { useReducerDispatch, useReducerState } from '../provider/provider'
 import { Reducer } from '../provider/types'
 import Product from './items/product'
 import Remark from './items/remark'
 
 const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
-  const state = useMenuEditor()
-  const dispatch = useMenuEditorDispatch()
+  const state = useReducerState()
+  const dispatch = useReducerDispatch()
   const section = state.entities.sections[id]
 
   return (

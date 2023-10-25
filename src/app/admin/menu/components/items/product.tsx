@@ -1,10 +1,10 @@
 import { FC } from 'react'
-import { useMenuEditor, useMenuEditorDispatch } from '../../provider/provider'
+import { useReducerDispatch, useReducerState } from '../../provider/provider'
 import { Entity, Reducer } from '../../provider/types'
 
 const Product: FC<{ id: string }> = ({ id }) => {
-  const state = useMenuEditor()
-  const dispatch = useMenuEditorDispatch()
+  const state = useReducerState()
+  const dispatch = useReducerDispatch()
   const item = state.entities.items[id]
   const { title, price, description } = item.data as Entity.ProductData
 
