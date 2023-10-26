@@ -10,6 +10,7 @@ import { useReducerDispatch, useReducerState } from '../provider/provider'
 import { Reducer } from '../provider/types'
 import Menu from './menu'
 import SaveButton from './save-button'
+import TitleInput from './title-input'
 
 const Business = () => {
   // react-beautiful-dnd: The resetServerContext function should be used when server side rendering (SSR).
@@ -49,17 +50,7 @@ const Business = () => {
       <SaveButton />
       <Link href={`/admin/business/${id}`}>Back</Link>
       <div>
-        <input
-          type="text"
-          value={title}
-          style={{ fontSize: '1.2em' }}
-          onChange={(e) =>
-            dispatch({
-              type: Reducer.ActionType.ChangeBusiness,
-              payload: { property: 'title', value: e.target.value },
-            })
-          }
-        />
+        <TitleInput />
         <Droppable droppableId="business" type="MENU">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>

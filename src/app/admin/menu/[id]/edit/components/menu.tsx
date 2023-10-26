@@ -8,6 +8,7 @@ import { useReducerDispatch, useReducerState } from '../provider/provider'
 import { Reducer } from '../provider/types'
 import SaveButton from './save-button'
 import Section from './section'
+import TitleInput from './title-input'
 
 const Menu = () => {
   // react-beautiful-dnd: The resetServerContext function should be used when server side rendering (SSR).
@@ -17,7 +18,7 @@ const Menu = () => {
   const state = useReducerState()
   const dispatch = useReducerDispatch()
 
-  const { title, sortedSectionIds } = state.entities.menus[state.result]
+  const { sortedSectionIds } = state.entities.menus[state.result]
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const { destination, source } = result
@@ -62,17 +63,7 @@ const Menu = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       <SaveButton />
       <div>
-        <input
-          type="text"
-          value={title}
-          style={{ fontSize: '1.2em' }}
-          onChange={(e) =>
-            dispatch({
-              type: Reducer.ActionType.ChangeMenu,
-              payload: { property: 'title', value: e.target.value },
-            })
-          }
-        />
+        <TitleInput />
         <Droppable droppableId="board" type="SECTION">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
