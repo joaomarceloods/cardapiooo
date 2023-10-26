@@ -1,4 +1,4 @@
-import { DenormalizedEntity } from '@/app/admin/business/provider/types'
+import { DenormalizedEntity } from '@/app/admin/business/[id]/edit/provider/types'
 import { withDatabase } from '@/app/database/database'
 import { Document, UpdateResult } from 'mongodb'
 

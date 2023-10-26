@@ -11,7 +11,8 @@ export default async function Page() {
 
 async function getInitialState(): Promise<Reducer.State> {
   return withDatabase(async (database) => {
-    const collection = database.collection<DenormalizedEntity.Business>('businesses')
+    const collection =
+      database.collection<DenormalizedEntity.Business>('businesses')
 
     // Intentionally leave out `_id` to avoid having to work around MongoDB's ObjectId type.
     // It still keeps the custom `id` field (no underscore) which is used like a slug.

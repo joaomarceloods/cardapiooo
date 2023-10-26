@@ -12,7 +12,6 @@ const Menu: FC<{ id: string; index: number }> = ({ id, index }) => {
           <span>
             <span {...provided.dragHandleProps}>☰</span>
             <span>{menu.id}</span>
-            <Link href={`/admin/menu`}>Edit</Link>
           </span>
         </div>
       )}

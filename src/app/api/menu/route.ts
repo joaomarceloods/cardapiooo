@@ -1,4 +1,4 @@
-import { DenormalizedEntity } from '@/app/admin/menu/provider/types'
+import { DenormalizedEntity } from '@/app/admin/menu/[id]/edit/provider/types'
 import { withDatabase } from '@/app/database/database'
 import { Document, UpdateResult } from 'mongodb'
 
@@ -13,8 +13,7 @@ async function update(
   entity: DenormalizedEntity.Menu
 ): Promise<Document | UpdateResult<DenormalizedEntity.Menu>> {
   return withDatabase(async (database) => {
-    const collection =
-      database.collection<DenormalizedEntity.Menu>('menus')
+    const collection = database.collection<DenormalizedEntity.Menu>('menus')
     const updatedEntity = await collection.replaceOne({ id: entity.id }, entity)
 
     if (updatedEntity === null) {
