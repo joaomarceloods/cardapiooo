@@ -1,16 +1,15 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ReactEventHandler } from 'react'
 import {
   DragDropContext,
   Droppable,
   OnDragEndResponder,
   resetServerContext,
 } from 'react-beautiful-dnd'
-import { denormalizeState } from '../provider/normalizr'
 import { useReducerDispatch, useReducerState } from '../provider/provider'
 import { Reducer } from '../provider/types'
 import Menu from './menu'
+import SaveButton from './save-button'
 
 const Business = () => {
   // react-beautiful-dnd: The resetServerContext function should be used when server side rendering (SSR).
@@ -22,17 +21,6 @@ const Business = () => {
   const dispatch = useReducerDispatch()
 
   const { id, title, sortedMenuIds } = state.entities.businesses[state.result]
-
-  const onClickSave: ReactEventHandler<HTMLButtonElement> = async () => {
-    const denormalizedState = denormalizeState(state)
-
-    await fetch('/api/business', {
-      method: 'POST',
-      body: JSON.stringify(denormalizedState),
-    })
-
-    router.push(`/admin/business/${denormalizedState.id}`)
-  }
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const { destination, source } = result
@@ -58,9 +46,7 @@ const Business = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <button type="submit" onClick={onClickSave}>
-        Save
-      </button>
+      <SaveButton />
       <Link href={`/admin/business/${id}`}>Back</Link>
       <div>
         <input
