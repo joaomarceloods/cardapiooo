@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { ReactEventHandler } from 'react'
 import {
   DragDropContext,
@@ -15,10 +17,11 @@ const Business = () => {
   // https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/reset-server-context.md
   resetServerContext()
 
+  const router = useRouter()
   const state = useReducerState()
   const dispatch = useReducerDispatch()
 
-  const { title, sortedMenuIds } = state.entities.businesses[state.result]
+  const { id, title, sortedMenuIds } = state.entities.businesses[state.result]
 
   const onClickSave: ReactEventHandler<HTMLButtonElement> = async () => {
     const denormalizedState = denormalizeState(state)
@@ -27,6 +30,8 @@ const Business = () => {
       method: 'POST',
       body: JSON.stringify(denormalizedState),
     })
+
+    router.push(`/admin/business/${denormalizedState.id}`)
   }
 
   const onDragEnd: OnDragEndResponder = (result) => {
@@ -56,6 +61,7 @@ const Business = () => {
       <button type="submit" onClick={onClickSave}>
         Save
       </button>
+      <Link href={`/admin/business/${id}`}>Back</Link>
       <div>
         <input
           type="text"
