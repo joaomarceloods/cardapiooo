@@ -1,17 +1,16 @@
-import { findOne } from '@/app/database/database'
-import { AppDocument } from '@/app/database/types'
-import { ObjectId } from 'mongodb'
+import { connectDatabase } from '@/mongoose/connect'
+import { DBBusiness } from '@/mongoose/model'
 import { FC } from 'react'
 import Editor from './components/editor'
 import { normalizeState } from './provider/normalizr'
 
 const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
-  const initialState = await findOne<AppDocument.BusinessWithMenus>(
-    'businessesWithMenus',
-    { _id: new ObjectId(id) }
-  )
-    .then(JSON.stringify)
-    .then(JSON.parse)
+  await connectDatabase()
+
+  const initialState = await DBBusiness.findById(id)
+    .populate('menus', 'title')
+    .exec()
+    .then((d) => d.toJSON({ flattenObjectIds: true, virtuals: true }))
     .then(normalizeState)
 
   return <Editor initialState={initialState} />

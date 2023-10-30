@@ -1,5 +1,5 @@
 import { update } from '@/app/database/database'
-import { ObjectId, Document } from 'mongodb'
+import { ObjectId } from 'mongodb'
 
 export async function POST(request: Request) {
   const json = await request.json()

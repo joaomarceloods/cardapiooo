@@ -1,5 +1,14 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Mongoose
+
+I decided to use Mongoose instead of the MongoDB Node.js driver on its own because the app needs these solutions:
+
+- Casting ObjectId to String, since React reducers require plain values.
+- Whitelisting and validating client-submitted fields.
+- Concise query syntax.
+- Data modeling as code, so the database can be easily recreated.
+
 ## Getting Started
 
 First, run the development server:

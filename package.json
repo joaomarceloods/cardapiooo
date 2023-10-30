@@ -12,6 +12,7 @@
     "@types/react-beautiful-dnd": "^13.1.5",
     "eslint-config-prettier": "^9.0.0",
     "mongodb": "^6.2.0",
+    "mongoose": "^7.6.3",
     "next": "13.5.5",
     "normalizr": "^3.6.2",
     "react": "^18",
