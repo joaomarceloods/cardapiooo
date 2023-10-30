@@ -2,27 +2,31 @@ import { NormalizedSchema } from 'normalizr'
 
 export namespace Entity {
   export interface Business {
-    id: string
+    _id: string
     title: string
     sortedMenuIds: string[]
   }
-}
 
-export namespace DenormalizedEntity {
-  export interface Business extends Entity.Business {}
+  export interface Menu {
+    _id: string
+    title: string
+  }
 }
 
 export namespace Normalization {
-  export interface EntityMap {
+  export interface Entities {
     businesses: {
       [key: string]: Entity.Business
+    }
+    menus: {
+      [key: string]: Entity.Menu
     }
   }
 
   // Result is just the business id
   export type Result = string
 
-  export type Schema = NormalizedSchema<EntityMap, Result>
+  export type Schema = NormalizedSchema<Entities, Result>
 }
 
 export namespace Reducer {
@@ -33,12 +37,10 @@ export namespace Reducer {
 
   export enum ActionType {
     ChangeBusiness = 'change-menu',
-    MoveMenu = 'move-menu'
+    MoveMenu = 'move-menu',
   }
 
-  export type Action =
-    | Action.ChangeBusiness
-    | Action.MoveMenu
+  export type Action = Action.ChangeBusiness | Action.MoveMenu
 
   export namespace Action {
     export interface ChangeBusiness {

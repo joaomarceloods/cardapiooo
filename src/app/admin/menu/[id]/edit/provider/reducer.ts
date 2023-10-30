@@ -11,7 +11,7 @@ const changeMenu = (
     entities: {
       ...state.entities,
       menus: {
-        [menu.id]: {
+        [menu._id]: {
           ...menu,
           [action.payload.property]: action.payload.value,
         },
@@ -147,7 +147,7 @@ const moveSection = (
       ...state.entities,
       menus: {
         ...state.entities.menus,
-        [menu.id]: {
+        [menu._id]: {
           ...menu,
           sortedSectionIds,
         },

@@ -6,11 +6,12 @@ const SaveButton = () => {
   const state = useReducerState()
 
   const onClickSave: ReactEventHandler<HTMLButtonElement> = async () => {
-    const denormalizedState = denormalizeState(state)
+    const { _id, title, sortedMenuIds } = denormalizeState(state)
+    const document = { _id, title, sortedMenuIds }
 
     await fetch('/api/business', {
       method: 'POST',
-      body: JSON.stringify(denormalizedState),
+      body: JSON.stringify(document),
     })
   }
 

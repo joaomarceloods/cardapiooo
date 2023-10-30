@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import {
   DragDropContext,
   Droppable,
@@ -17,11 +16,10 @@ const Business = () => {
   // https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/reset-server-context.md
   resetServerContext()
 
-  const router = useRouter()
   const state = useReducerState()
   const dispatch = useReducerDispatch()
 
-  const { id, title, sortedMenuIds } = state.entities.businesses[state.result]
+  const { _id, sortedMenuIds } = state.entities.businesses[state.result]
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const { destination, source } = result
@@ -48,7 +46,7 @@ const Business = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <SaveButton />
-      <Link href={`/admin/business/${id}`}>Back</Link>
+      <Link href={`/admin/business/${_id}`}>Back</Link>
       <div>
         <TitleInput />
         <Droppable droppableId="business" type="MENU">

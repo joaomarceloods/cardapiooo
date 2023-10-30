@@ -1,24 +1,28 @@
 import { NormalizedSchema, denormalize, normalize, schema } from 'normalizr'
-import { DenormalizedEntity, Entity, Normalization, Reducer } from './types'
+import { Entity, Normalization, Reducer } from './types'
 
-const businessSchema = new schema.Entity<Entity.Business>('businesses')
+const menuSchema = new schema.Entity<Entity.Menu>(
+  'menus',
+  {},
+  { idAttribute: '_id' }
+)
+
+const businessSchema = new schema.Entity<Entity.Business>(
+  'businesses',
+  { menus: [menuSchema] },
+  { idAttribute: '_id' }
+)
 
 export const normalizeState = (
-  denormalizedState: DenormalizedEntity.Business
-): NormalizedSchema<Normalization.EntityMap, string> => {
-  return normalize<
-    typeof denormalizedState,
-    Normalization.EntityMap,
-    Normalization.Result
-  >(denormalizedState, businessSchema)
+  data: any
+): NormalizedSchema<Normalization.Entities, string> => {
+  return normalize<typeof data, Normalization.Entities, Normalization.Result>(
+    data,
+    businessSchema
+  )
 }
 
-export const denormalizeState = (
-  normalizedState: Reducer.State
-): DenormalizedEntity.Business => {
-  return denormalize(
-    normalizedState.result,
-    businessSchema,
-    normalizedState.entities
-  )
+// TODO return type
+export const denormalizeState = (data: Reducer.State) => {
+  return denormalize(data.result, businessSchema, data.entities)
 }

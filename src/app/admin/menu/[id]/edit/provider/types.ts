@@ -2,7 +2,7 @@ import { NormalizedSchema } from 'normalizr'
 
 export namespace Entity {
   export interface Menu {
-    id: string
+    _id: string
     title: string
     sortedSectionIds: string[]
   }
