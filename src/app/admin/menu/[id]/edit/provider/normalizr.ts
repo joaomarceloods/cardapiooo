@@ -7,11 +7,9 @@ const sectionSchema = new schema.Entity<Entity.Section>('sections', {
   items: [itemSchema],
 })
 
-const menuSchema = new schema.Entity<Entity.Menu>(
-  'menus',
-  { sections: [sectionSchema] },
-  { idAttribute: '_id' }
-)
+const menuSchema = new schema.Entity<Entity.Menu>('menus', {
+  sections: [sectionSchema],
+})
 
 export const normalizeState = (data: any) => {
   return normalize<typeof data, Normalization.EntityMap, Normalization.Result>(

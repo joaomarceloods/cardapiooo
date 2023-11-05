@@ -1,17 +1,11 @@
 import { NormalizedSchema, denormalize, normalize, schema } from 'normalizr'
 import { Entity, Normalization, Reducer } from './types'
 
-const menuSchema = new schema.Entity<Entity.Menu>(
-  'menus',
-  {},
-  { idAttribute: '_id' }
-)
+const menuSchema = new schema.Entity<Entity.Menu>('menus')
 
-const businessSchema = new schema.Entity<Entity.Business>(
-  'businesses',
-  { menus: [menuSchema] },
-  { idAttribute: '_id' }
-)
+const businessSchema = new schema.Entity<Entity.Business>('businesses', {
+  menus: [menuSchema],
+})
 
 export const normalizeState = (
   data: any

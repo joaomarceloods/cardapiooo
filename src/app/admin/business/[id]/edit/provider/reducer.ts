@@ -11,7 +11,7 @@ const changeBusiness = (
     entities: {
       ...state.entities,
       businesses: {
-        [business._id]: {
+        [business.id]: {
           ...business,
           [action.payload.property]: action.payload.value,
         },
@@ -36,7 +36,7 @@ const moveMenu = (
       ...state.entities,
       businesses: {
         ...state.entities.businesses,
-        [business._id]: {
+        [business.id]: {
           ...business,
           sortedMenuIds,
         },

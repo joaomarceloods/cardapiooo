@@ -10,7 +10,7 @@ const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
   const initialState = await DBBusiness.findById(id)
     .populate('menus', 'title')
     .exec()
-    .then((d) => d.toJSON({ flattenObjectIds: true, virtuals: true }))
+    .then((d) => d.toJSON({ virtuals: true }))
     .then(normalizeState)
 
   return <Editor initialState={initialState} />

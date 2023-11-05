@@ -2,15 +2,15 @@ import { NormalizedSchema } from 'normalizr'
 
 export namespace Entity {
   export interface Menu {
-    _id: string
+    id: string
     title: string
-    sortedSectionIds: string[]
+    sections: string[]
   }
 
   export interface Section {
     id: string
     title: string
-    sortedItemIds: string[]
+    items: string[]
   }
 
   export interface Item {
@@ -28,18 +28,6 @@ export namespace Entity {
   export interface RemarkData {
     content?: string
   }
-}
-
-export namespace DenormalizedEntity {
-  export interface Menu extends Entity.Menu {
-    sections: Section[]
-  }
-
-  export interface Section extends Entity.Section {
-    items: Item[]
-  }
-
-  export interface Item extends Entity.Item {}
 }
 
 export namespace Normalization {

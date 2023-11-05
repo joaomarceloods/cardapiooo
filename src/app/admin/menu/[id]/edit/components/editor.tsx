@@ -1,7 +1,7 @@
 'use client'
 
 import { FC } from 'react'
-import { Provider } from '../provider/provider'
+import Provider from '../provider/provider'
 import { Reducer } from '../provider/types'
 import Menu from './menu'
 

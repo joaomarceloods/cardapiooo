@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Dispatch,
   FC,
@@ -25,7 +27,7 @@ export const useReducerDispatch = () => {
   return dispatch
 }
 
-export const Provider: FC<
+const Provider: FC<
   PropsWithChildren<{ initialState: Reducer.State }>
 > = ({ initialState, children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -38,3 +40,5 @@ export const Provider: FC<
     </StateContext.Provider>
   )
 }
+
+export default Provider

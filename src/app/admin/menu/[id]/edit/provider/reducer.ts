@@ -1,3 +1,4 @@
+import { ObjectId } from 'bson'
 import { Reducer } from './types'
 
 const changeMenu = (
@@ -11,7 +12,7 @@ const changeMenu = (
     entities: {
       ...state.entities,
       menus: {
-        [menu._id]: {
+        [menu.id]: {
           ...menu,
           [action.payload.property]: action.payload.value,
         },
@@ -70,15 +71,15 @@ const addSection = (
   action: Reducer.Action.AddSection
 ): Reducer.State => {
   const menu = state.entities.menus[state.result]
-  const sortedSectionIds = Array.from(menu.sortedSectionIds)
-  const newSectionId = `section-${crypto.randomUUID()}`
+  const sections = Array.from(menu.sections)
+  const newSectionId = new ObjectId().toString()
   const { afterSectionId } = action.payload
 
   if (afterSectionId) {
-    const newSectionIndex = sortedSectionIds.indexOf(afterSectionId) + 1
-    sortedSectionIds.splice(newSectionIndex, 0, newSectionId)
+    const newSectionIndex = sections.indexOf(afterSectionId) + 1
+    sections.splice(newSectionIndex, 0, newSectionId)
   } else {
-    sortedSectionIds.unshift(newSectionId)
+    sections.unshift(newSectionId)
   }
 
   return {
@@ -90,7 +91,7 @@ const addSection = (
         [newSectionId]: {
           id: newSectionId,
           title: '',
-          sortedItemIds: [],
+          items: [],
         },
       },
     },
@@ -102,9 +103,9 @@ const addItem = (
   action: Reducer.Action.AddItem
 ): Reducer.State => {
   const section = state.entities.sections[action.payload.sectionId]
-  const sortedItemIds = Array.from(section.sortedItemIds)
-  const newItemId = `item-${crypto.randomUUID()}`
-  sortedItemIds.push(newItemId)
+  const items = Array.from(section.items)
+  const newItemId = new ObjectId().toString()
+  items.push(newItemId)
 
   return {
     ...state,
@@ -114,7 +115,7 @@ const addItem = (
         ...state.entities.sections,
         [section.id]: {
           ...section,
-          sortedItemIds,
+          items,
         },
       },
       items: {
@@ -137,9 +138,9 @@ const moveSection = (
 ): Reducer.State => {
   const { id, sourceIndex, destinationIndex } = action.payload
   const menu = state.entities.menus[state.result]
-  const sortedSectionIds = Array.from(menu.sortedSectionIds)
-  sortedSectionIds.splice(sourceIndex, 1)
-  sortedSectionIds.splice(destinationIndex, 0, id)
+  const sections = Array.from(menu.sections)
+  sections.splice(sourceIndex, 1)
+  sections.splice(destinationIndex, 0, id)
 
   return {
     ...state,
@@ -147,9 +148,9 @@ const moveSection = (
       ...state.entities,
       menus: {
         ...state.entities.menus,
-        [menu._id]: {
+        [menu.id]: {
           ...menu,
-          sortedSectionIds,
+          sections,
         },
       },
     },
@@ -170,8 +171,8 @@ const moveItem = (
 
   // Remove item from source
   const sourceSection = state.entities.sections[sourceSectionId]
-  const sourceSortedItemIds = Array.from(sourceSection.sortedItemIds)
-  sourceSortedItemIds.splice(sourceIndex, 1)
+  const sourceItems = Array.from(sourceSection.items)
+  sourceItems.splice(sourceIndex, 1)
 
   const newState = {
     ...state,
@@ -181,7 +182,7 @@ const moveItem = (
         ...state.entities.sections,
         [sourceSection.id]: {
           ...sourceSection,
-          sortedItemIds: sourceSortedItemIds,
+          items: sourceItems,
         },
       },
     },
@@ -189,8 +190,8 @@ const moveItem = (
 
   // Add item to destination
   const destinationSection = newState.entities.sections[destinationSectionId]
-  const destinationSortedItemIds = Array.from(destinationSection.sortedItemIds)
-  destinationSortedItemIds.splice(destinationIndex, 0, id)
+  const destinationItems = Array.from(destinationSection.items)
+  destinationItems.splice(destinationIndex, 0, id)
 
   return {
     ...newState,
@@ -200,7 +201,7 @@ const moveItem = (
         ...newState.entities.sections,
         [destinationSection.id]: {
           ...destinationSection,
-          sortedItemIds: destinationSortedItemIds,
+          items: destinationItems,
         },
       },
     },

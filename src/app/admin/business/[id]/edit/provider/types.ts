@@ -2,13 +2,13 @@ import { NormalizedSchema } from 'normalizr'
 
 export namespace Entity {
   export interface Business {
-    _id: string
+    id: string
     title: string
     sortedMenuIds: string[]
   }
 
   export interface Menu {
-    _id: string
+    id: string
     title: string
   }
 }

@@ -2,8 +2,7 @@ import { FC } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { useReducerDispatch, useReducerState } from '../provider/provider'
 import { Reducer } from '../provider/types'
-import Product from './items/product'
-import Remark from './items/remark'
+import Item from './item'
 
 const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
   const state = useReducerState()
@@ -46,31 +45,8 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
                       : 'inherit',
                   }}
                 >
-                  {section.sortedItemIds.map((id, index) => {
-                    const item = state.entities.items[id]
-                    return (
-                      <Draggable
-                        key={item.id}
-                        draggableId={item.id}
-                        index={index}
-                      >
-                        {(provided) => (
-                          <div
-                            {...provided.draggableProps}
-                            ref={provided.innerRef}
-                          >
-                            <span {...provided.dragHandleProps}>☰</span>
-                            {item.type == 'product' ? (
-                              <Product id={item.id} />
-                            ) : item.type === 'remark' ? (
-                              <Remark id={item.id} />
-                            ) : (
-                              <>bad</>
-                            )}
-                          </div>
-                        )}
-                      </Draggable>
-                    )
+                  {section.items.map((id, index) => {
+                    return <Item id={id} index={index} key={id} />
                   })}
                   <button
                     onClick={() =>

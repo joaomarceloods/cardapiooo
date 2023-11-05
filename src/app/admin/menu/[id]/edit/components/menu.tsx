@@ -18,7 +18,7 @@ const Menu = () => {
   const state = useReducerState()
   const dispatch = useReducerDispatch()
 
-  const { sortedSectionIds } = state.entities.menus[state.result]
+  const { sections } = state.entities.menus[state.result]
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const { destination, source } = result
@@ -67,7 +67,7 @@ const Menu = () => {
         <Droppable droppableId="board" type="SECTION">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              {sortedSectionIds.map((id, index) => (
+              {sections.map((id, index) => (
                 <Section key={id} id={id} index={index} />
               ))}
               {provided.placeholder}

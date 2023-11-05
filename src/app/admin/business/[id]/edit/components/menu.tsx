@@ -5,15 +5,15 @@ import { useReducerState } from '../provider/provider';
 
 const Menu: FC<{ id: string; index: number }> = ({ id, index }) => {
   const state = useReducerState()
-  const menu = state.entities.menus[id]
+  const { title } = state.entities.menus[id]
 
   return (
-    <Draggable key={menu._id} draggableId={menu._id} index={index}>
+    <Draggable key={id} draggableId={id} index={index}>
       {(provided) => (
         <div {...provided.draggableProps} ref={provided.innerRef}>
           <span>
             <span {...provided.dragHandleProps}>☰</span>
-            <span>{menu.title}</span>
+            <span>{title}</span>
           </span>
         </div>
       )}

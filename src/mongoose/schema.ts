@@ -1,66 +1,83 @@
 import { Schema } from 'mongoose'
 
-// Don't export. Nested path of Section.
-const ItemSchema = {
-  id: {
-    require: true,
-    type: String,
-  },
-  type: {
-    require: true,
-    type: String,
-    enum: ['product', 'remark'],
-  },
-  /**
-    `data` can be any of these types:
+// Don't export. Subdocument of Section.
+const ItemSchema = new Schema(
+  {
+    type: {
+      require: true,
+      type: String,
+      enum: ['product', 'remark'],
+    },
+    data: {
+      require: true,
+      type: Schema.Types.Mixed,
+      /**
+      TODO: enum?
+      `data` can be any of these types:
 
-    Remark:
-    { content: String }
+      - Remark: { content: String }
+      - Product: { title: String, price: String }
+    */
+    },
+  },
+  {
+    toJSON: {
+      versionKey: false,
+      flattenObjectIds: true,
+      transform: (doc, ret, options) => {
+        ret.id = ret._id
+        delete ret._id
+      },
+    },
+  }
+)
 
-    Product:
-    { title: String, price: String }
-   */
-  data: {
-    require: true,
-    type: Schema.Types.Mixed,
-    // TODO: enum?
+// Don't export. Subdocument of Menu.
+const SectionSchema = new Schema(
+  {
+    title: {
+      require: true,
+      type: String,
+    },
+    items: {
+      require: true,
+      type: [ItemSchema],
+    },
   },
-}
+  {
+    toJSON: {
+      versionKey: false,
+      flattenObjectIds: true,
+      transform: (doc, ret, options) => {
+        ret.id = ret._id
+        delete ret._id
+      },
+    },
+  }
+)
 
-// Don't export. Nested path of Menu.
-const SectionSchema = {
-  id: {
-    require: true,
-    type: String,
+export const MenuSchema = new Schema(
+  {
+    title: {
+      require: true,
+      type: String,
+    },
+    sections: {
+      require: true,
+      type: [SectionSchema],
+    },
   },
-  title: {
-    require: true,
-    type: String,
-  },
-  sortedItemIds: {
-    require: true,
-    type: [String],
-  },
-  items: {
-    require: true,
-    type: [ItemSchema],
-  },
-}
-
-export const MenuSchema = new Schema({
-  title: {
-    require: true,
-    type: String,
-  },
-  sortedSectionIds: {
-    require: true,
-    type: [String],
-  },
-  sections: {
-    require: true,
-    type: [SectionSchema],
-  },
-})
+  {
+    toJSON: {
+      versionKey: false,
+      flattenObjectIds: true,
+      transform: (doc, ret, options) => {
+        ret.id = ret._id
+        delete ret._id
+      },
+    },
+  }
+)
 
 export const BusinessSchema = new Schema(
   {
@@ -74,6 +91,14 @@ export const BusinessSchema = new Schema(
     },
   },
   {
+    toJSON: {
+      versionKey: false,
+      flattenObjectIds: true,
+      transform: (doc, ret, options) => {
+        ret.id = ret._id
+        delete ret._id
+      },
+    },
     virtuals: {
       menus: {
         options: {

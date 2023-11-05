@@ -19,7 +19,7 @@ const Business = () => {
   const state = useReducerState()
   const dispatch = useReducerDispatch()
 
-  const { _id, sortedMenuIds } = state.entities.businesses[state.result]
+  const { id, sortedMenuIds } = state.entities.businesses[state.result]
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const { destination, source } = result
@@ -46,7 +46,7 @@ const Business = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <SaveButton />
-      <Link href={`/admin/business/${_id}`}>Back</Link>
+      <Link href={`/admin/business/${id}`}>Back</Link>
       <div>
         <TitleInput />
         <Droppable droppableId="business" type="MENU">
