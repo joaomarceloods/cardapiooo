@@ -1,8 +1,11 @@
 import mongoose from 'mongoose'
 
 export const connectDatabase = async () => {
-  if (process.env.MONGODB_URI) await mongoose.connect(process.env.MONGODB_URI)
-  else {
+  mongoose.set('debug', !!process.env.MONGO_DEBUG)
+
+  if (process.env.MONGO_URI) {
+    await mongoose.connect(process.env.MONGO_URI)
+  } else {
     throw new Error('process.env.MONGODB_URI is undefined')
   }
 }

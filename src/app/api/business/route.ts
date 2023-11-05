@@ -1,15 +1,9 @@
-import { update } from '@/app/database/database'
-import { ObjectId } from 'mongodb'
+import { DBBusiness } from '@/mongoose/model'
 
 export async function POST(request: Request) {
   const json = await request.json()
-  const document = {
-    _id: ObjectId.createFromHexString(json._id),
-    title: json.title,
-    sortedMenuIds: json.sortedMenuIds.map((id: string) =>
-      ObjectId.createFromHexString(id)
-    ),
-  }
-  const success = await update('businesses', document)
-  return Response.json({ success })
+  const business = await DBBusiness.findById(json._id).exec()
+  business.set(json)
+  await business.save()
+  return Response.json(null)
 }

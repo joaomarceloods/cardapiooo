@@ -1,14 +1,9 @@
-import { update } from '@/app/database/database'
-import { ObjectId } from 'mongodb'
+import { DBMenu } from '@/mongoose/model'
 
 export async function POST(request: Request) {
   const json = await request.json()
-  const document = {
-    _id: ObjectId.createFromHexString(json._id),
-    title: json.title,
-    sortedSectionIds: json.sortedSectionIds,
-    sections: json.sections,
-  }
-  const success = await update('menus', document)
-  return Response.json({ success })
+  const menu = await DBMenu.findById(json._id).exec()
+  menu.set(json)
+  await menu.save()
+  return Response.json(null)
 }

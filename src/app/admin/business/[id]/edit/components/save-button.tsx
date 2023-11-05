@@ -9,10 +9,12 @@ const SaveButton = () => {
     const { _id, title, sortedMenuIds } = denormalizeState(state)
     const document = { _id, title, sortedMenuIds }
 
-    await fetch('/api/business', {
+    const res = await fetch('/api/business', {
       method: 'POST',
       body: JSON.stringify(document),
     })
+
+    if (!res.ok) window.alert('Error saving')
   }
 
   return (

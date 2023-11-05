@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose'
 
-// Don't export. Subdocument of Section.
-const ItemSchema = new Schema({
+// Don't export. Nested path of Section.
+const ItemSchema = {
   id: {
     require: true,
     type: String,
@@ -25,10 +25,10 @@ const ItemSchema = new Schema({
     type: Schema.Types.Mixed,
     // TODO: enum?
   },
-})
+}
 
-// Don't export. Subdocument of Menu
-const SectionSchema = new Schema({
+// Don't export. Nested path of Menu.
+const SectionSchema = {
   id: {
     require: true,
     type: String,
@@ -45,7 +45,7 @@ const SectionSchema = new Schema({
     require: true,
     type: [ItemSchema],
   },
-})
+}
 
 export const MenuSchema = new Schema({
   title: {
