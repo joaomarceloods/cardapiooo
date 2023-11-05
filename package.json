@@ -14,18 +14,18 @@
     "eslint-config-prettier": "^9.0.0",
     "mongodb": "^6.2.0",
     "mongoose": "^7.6.3",
-    "next": "13.5.5",
+    "next": "^14.0.1",
     "normalizr": "^3.6.2",
-    "react": "^18",
+    "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
-    "react-dom": "^18"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.2.35",
+    "@types/react-dom": "^18.2.14",
     "eslint": "^8",
-    "eslint-config-next": "13.5.5",
+    "eslint-config-next": "^14.0.1",
     "typescript": "^5"
   }
 }
