@@ -1,13 +1,7 @@
 'use client'
 
-import {
-  Dispatch,
-  FC,
-  PropsWithChildren,
-  createContext,
-  useContext,
-  useReducer,
-} from 'react'
+import { Dispatch, createContext, useContext, useReducer } from 'react'
+import Menu from '../components/menu'
 import reducer from './reducer'
 import { Reducer } from './types'
 
@@ -27,15 +21,13 @@ export const useReducerDispatch = () => {
   return dispatch
 }
 
-const Provider: FC<
-  PropsWithChildren<{ initialState: Reducer.State }>
-> = ({ initialState, children }) => {
+const Provider = ({ initialState }: { initialState: Reducer.State }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
-        {children}
+        <Menu />
       </DispatchContext.Provider>
     </StateContext.Provider>
   )

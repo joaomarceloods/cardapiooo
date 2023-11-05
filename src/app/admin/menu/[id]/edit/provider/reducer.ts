@@ -1,4 +1,4 @@
-import { ObjectId } from 'bson'
+// import { ObjectId } from 'bson'
 import { Reducer } from './types'
 
 const changeMenu = (
@@ -72,7 +72,7 @@ const addSection = (
 ): Reducer.State => {
   const menu = state.entities.menus[state.result]
   const sections = Array.from(menu.sections)
-  const newSectionId = new ObjectId().toString()
+  const newSectionId = crypto.randomUUID() //new ObjectId().toString()
   const { afterSectionId } = action.payload
 
   if (afterSectionId) {
@@ -104,7 +104,7 @@ const addItem = (
 ): Reducer.State => {
   const section = state.entities.sections[action.payload.sectionId]
   const items = Array.from(section.items)
-  const newItemId = new ObjectId().toString()
+  const newItemId = crypto.randomUUID() //new ObjectId().toString()
   items.push(newItemId)
 
   return {
@@ -212,6 +212,7 @@ export const reducer = (
   state: Reducer.State,
   action: Reducer.Action
 ): Reducer.State => {
+  // return state
   switch (action.type) {
     case Reducer.ActionType.ChangeMenu:
       return changeMenu(state, action)
