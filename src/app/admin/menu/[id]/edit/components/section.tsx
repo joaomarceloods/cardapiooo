@@ -7,17 +7,17 @@ import Item from './item'
 const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
   const state = useReducerState()
   const dispatch = useReducerDispatch()
-  const section = state.entities.sections[id]
+  const { title, items } = state.entities.sections[id]
 
   return (
-    <Draggable key={section.id} draggableId={section.id} index={index}>
+    <Draggable key={id} draggableId={id} index={index}>
       {(provided) => (
         <div {...provided.draggableProps} ref={provided.innerRef}>
           <span>
             <span {...provided.dragHandleProps}>☰</span>
             <input
               type="text"
-              value={section.title}
+              value={title}
               style={{ fontWeight: 'bold' }}
               placeholder="Section title"
               onChange={(e) => {
@@ -29,7 +29,7 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
             />
           </span>
 
-          <Droppable droppableId={section.id} type="ITEM">
+          <Droppable droppableId={id} type="ITEM">
             {(provided, snapshot) => {
               return (
                 <div
@@ -45,14 +45,14 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
                       : 'inherit',
                   }}
                 >
-                  {section.items.map((id, index) => {
+                  {items.map((id, index) => {
                     return <Item id={id} index={index} key={id} />
                   })}
                   <button
                     onClick={() =>
                       dispatch({
                         type: Reducer.ActionType.AddItem,
-                        payload: { sectionId: section.id },
+                        payload: { sectionId: id },
                       })
                     }
                   >
@@ -62,7 +62,7 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
                     onClick={() =>
                       dispatch({
                         type: Reducer.ActionType.AddSection,
-                        payload: { afterSectionId: section.id },
+                        payload: { afterSectionId: id },
                       })
                     }
                   >
