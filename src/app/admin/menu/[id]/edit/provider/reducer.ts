@@ -90,6 +90,13 @@ const addSection = (
     ...state,
     entities: {
       ...state.entities,
+      menus: {
+        ...state.entities.menus,
+        [menu.id]: {
+          ...menu,
+          sections,
+        },
+      },
       sections: {
         ...state.entities.sections,
         [newSectionId]: {
