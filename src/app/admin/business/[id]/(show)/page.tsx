@@ -1,5 +1,5 @@
-import { connectDatabase } from '@/mongoose/connect'
-import { DBBusiness } from '@/mongoose/model'
+import { connectDatabase } from '@/database/connect'
+import { Business } from '@/database/model'
 import Link from 'next/link'
 import { FC } from 'react'
 import { normalizeState } from '../edit/provider/normalizr'
@@ -7,7 +7,7 @@ import { normalizeState } from '../edit/provider/normalizr'
 const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
   await connectDatabase()
 
-  const initialState = await DBBusiness.findById(id)
+  const initialState = await Business.findById(id)
     .populate('menus', 'title')
     .exec()
     .then((d) => d.toJSON({ virtuals: true }))

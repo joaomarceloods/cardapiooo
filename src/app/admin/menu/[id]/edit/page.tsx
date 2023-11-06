@@ -1,13 +1,13 @@
-import { DBMenu } from '@/mongoose/model'
+import { connectDatabase } from '@/database/connect'
+import { Menu } from '@/database/model'
 import { FC } from 'react'
 import { normalizeState } from './provider/normalizr'
 import Provider from './provider/provider'
-import { connectDatabase } from '@/mongoose/connect'
 
 const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
   await connectDatabase()
 
-  const initialState = await DBMenu.findById(id)
+  const initialState = await Menu.findById(id)
     .exec()
     .then((d) => d.toJSON())
     .then(normalizeState)
