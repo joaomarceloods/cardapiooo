@@ -26,9 +26,9 @@ const moveMenu = (
 ): Reducer.State => {
   const { id, sourceIndex, destinationIndex } = action.payload
   const business = state.entities.businesses[state.result]
-  const sortedMenuIds = Array.from(business.sortedMenuIds)
-  sortedMenuIds.splice(sourceIndex, 1)
-  sortedMenuIds.splice(destinationIndex, 0, id)
+  const menus = Array.from(business.menus)
+  menus.splice(sourceIndex, 1)
+  menus.splice(destinationIndex, 0, id)
 
   return {
     ...state,
@@ -38,7 +38,7 @@ const moveMenu = (
         ...state.entities.businesses,
         [business.id]: {
           ...business,
-          sortedMenuIds,
+          menus,
         },
       },
     },

@@ -85,9 +85,12 @@ export const BusinessSchema = new Schema(
       require: true,
       type: String,
     },
-    sortedMenuIds: {
+    menus: {
       require: true,
-      type: [Schema.Types.ObjectId],
+      type: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Menu',
+      }],
     },
   },
   {
@@ -97,15 +100,6 @@ export const BusinessSchema = new Schema(
       transform: (doc, ret, options) => {
         ret.id = ret._id
         delete ret._id
-      },
-    },
-    virtuals: {
-      menus: {
-        options: {
-          ref: 'Menu',
-          localField: 'sortedMenuIds',
-          foreignField: '_id',
-        },
       },
     },
   }

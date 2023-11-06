@@ -19,7 +19,7 @@ const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
     <div>
       <Link href={`/admin/business/${id}/edit`}>Edit</Link>
       <h3>{business.title}</h3>
-      {business.sortedMenuIds.map((menuId) => {
+      {business.menus.map((menuId) => {
         const menu = initialState.entities.menus[menuId]
         return (
           <div key={menuId}>

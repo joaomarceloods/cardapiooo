@@ -4,7 +4,7 @@ export namespace Entity {
   export interface Business {
     id: string
     title: string
-    sortedMenuIds: string[]
+    menus: string[]
   }
 
   export interface Menu {

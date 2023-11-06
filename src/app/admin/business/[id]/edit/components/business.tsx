@@ -19,7 +19,7 @@ const Business = () => {
   const state = useReducerState()
   const dispatch = useReducerDispatch()
 
-  const { id, sortedMenuIds } = state.entities.businesses[state.result]
+  const { id, menus } = state.entities.businesses[state.result]
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const { destination, source } = result
@@ -52,7 +52,7 @@ const Business = () => {
         <Droppable droppableId="business" type="MENU">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              {sortedMenuIds.map((id, index) => (
+              {menus.map((id, index) => (
                 <Menu key={id} id={id} index={index} />
               ))}
               {provided.placeholder}
