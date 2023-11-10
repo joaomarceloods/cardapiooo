@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.27.0",
     "@types/react-beautiful-dnd": "^13.1.5",
     "bson": "^6.2.0",
     "eslint-config-prettier": "^9.0.0",
