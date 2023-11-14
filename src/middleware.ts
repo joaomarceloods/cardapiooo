@@ -1,13 +1,10 @@
-import { authMiddleware, redirectToSignIn } from '@clerk/nextjs'
-import { connectDatabase } from './database/connect'
-import { Business } from './database/model'
-import { NextResponse } from 'next/server'
+import { authMiddleware } from '@clerk/nextjs'
 
 // This example protects all routes including api/trpc routes
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 export default authMiddleware({
-  // publicRoutes: ['/'],
+  publicRoutes: ['/'],
 })
 
 export const config = {
@@ -21,6 +18,6 @@ export const config = {
 
     // Captures strings that start with either "api" or "trpc" and then captures the rest of the string,
     // allowing for any characters to follow.
-    '/(api|trpc)(.*)'
+    '/(api|trpc)(.*)',
   ],
 }
