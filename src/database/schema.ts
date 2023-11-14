@@ -87,10 +87,12 @@ export const BusinessSchema = new Schema(
     },
     menus: {
       require: true,
-      type: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Menu',
-      }],
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'Menu',
+        },
+      ],
     },
   },
   {
@@ -102,5 +104,22 @@ export const BusinessSchema = new Schema(
         delete ret._id
       },
     },
+  }
+)
+
+export const BusinessUserSchema = new Schema(
+  {
+    user: {
+      require: true,
+      type: String,
+    },
+    business: {
+      require: true,
+      type: Schema.Types.ObjectId,
+      ref: 'Business',
+    },
+  },
+  {
+    collection: 'businessUsers',
   }
 )
