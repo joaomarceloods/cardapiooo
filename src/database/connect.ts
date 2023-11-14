@@ -6,6 +6,6 @@ export const connectDatabase = async () => {
   if (process.env.MONGO_URI) {
     await mongoose.connect(process.env.MONGO_URI)
   } else {
-    throw new Error('process.env.MONGODB_URI is undefined')
+    throw new Error('MONGODB_URI is undefined')
   }
 }
