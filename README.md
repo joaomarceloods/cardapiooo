@@ -1,13 +1,35 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Mongoose
+## Technical Highlights
 
-I decided to use Mongoose instead of the MongoDB Node.js driver on its own because the app needs these solutions:
+### MongoDB and Mongoose
 
-- Casting ObjectId to String, since React reducers require plain values.
-- Whitelisting and validating client-submitted fields.
-- Concise query syntax.
-- Data modeling as code, so the database can be easily recreated.
+The choice of database was one of the earliest technical decisions. I picked MongoDB for two reasons:
+
+- I had been thinking about learning MongoDB for a while.
+- Menus, the core feature of the app, would use polymorphism and nested documents, which is a great use case for a document database.
+
+MongoDB offers an official Node.js driver that enables queries and other basic features. I used that as an initial, very basic solution, but started having additional needs as the application took shape:
+
+- Sanitizing and validating client-submitted documents.
+- Frequently casting ObjectId to String, since React reducers require plain values.
+- More concise syntax for connecting to the database and querying documents on every page.
+- Generating and populating the database consistently in different iterations and environments.
+
+In the end I decided to adopt [Mongoose](https://github.com/Automattic/mongoose), as it offers all those solutions and more.
+
+Database related files:
+
+- `src/database/*`
+
+### Next.js Server Actions
+
+Introduced in Next.js 13, this feature enables handling form submissions with a server-side function, not having to create an API endpoint. This is very handy because it reduces a lot of boilerplate code, specially JSON serialization steps.
+
+I used that feature in the "new business" form:
+
+- `src/app/admin/business/new/page.tsx`
+- `src/app/admin/business/new/actions.tsx`
 
 ## Getting Started
 
