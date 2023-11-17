@@ -18,6 +18,7 @@ const Page = async () => {
         What is the name of your restaurant or bar?
       </label>
       <input type="text" name="title" />
+      <input type="submit" />
     </form>
   )
 }
