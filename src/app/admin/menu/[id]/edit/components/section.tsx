@@ -48,6 +48,7 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
                   {items.map((id, index) => {
                     return <Item id={id} index={index} key={id} />
                   })}
+                  {items.length === 0 && <h3>This section is empty</h3>}
                   <button
                     onClick={() =>
                       dispatch({
@@ -57,16 +58,6 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
                     }
                   >
                     Add item
-                  </button>
-                  <button
-                    onClick={() =>
-                      dispatch({
-                        type: Reducer.ActionType.AddSection,
-                        payload: { afterSectionId: id },
-                      })
-                    }
-                  >
-                    Add section
                   </button>
                   {provided.placeholder}
                 </div>
