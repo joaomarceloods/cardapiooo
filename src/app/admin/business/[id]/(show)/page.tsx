@@ -1,3 +1,4 @@
+import { authorizeBusiness } from '@/authorize'
 import { connectDatabase } from '@/database/connect'
 import { Business } from '@/database/model'
 import Link from 'next/link'
@@ -6,6 +7,7 @@ import { normalizeState } from '../edit/provider/normalizr'
 
 const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
   await connectDatabase()
+  await authorizeBusiness(id)
 
   const initialState = await Business.findById(id)
     .populate('menus', 'title')
