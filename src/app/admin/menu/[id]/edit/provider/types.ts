@@ -23,6 +23,7 @@ export namespace Entity {
     title?: string
     description?: string
     price?: number
+    photo?: string
   }
 
   export interface RemarkData {

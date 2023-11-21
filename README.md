@@ -31,6 +31,17 @@ I used that feature in the "new business" form:
 - `src/app/admin/business/new/page.tsx`
 - `src/app/admin/business/new/actions.tsx`
 
+### Vercel Blob
+
+Vercel Blob is a cloud-based file storage solution by Vercel. I wanted to try it because it's tightly integrated with Vercel, where I'm hosting the app.
+
+- https://vercel.com/joaomarceloods/cardapiooo/stores/blob/store_rAXVvHHchCoCsMG2/browser
+
+The app stores product photos there:
+
+- `src/app/admin/menu/[id]/edit/components/items/product.tsx`
+- `src/app/api/product-photo/route.ts`
+
 ## Getting Started
 
 First, run the development server:
