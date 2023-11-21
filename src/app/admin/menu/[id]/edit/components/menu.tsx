@@ -12,7 +12,7 @@ import SaveButton from './save-button'
 import Section from './section'
 import TitleInput from './title-input'
 
-const Menu = ({ businessId }: { businessId: string }) => {
+const Menu = () => {
   // react-beautiful-dnd: The resetServerContext function should be used when server side rendering (SSR).
   // https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/reset-server-context.md
   resetServerContext()
@@ -64,7 +64,7 @@ const Menu = ({ businessId }: { businessId: string }) => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <SaveButton />
-      <Link href={`/admin/business/${businessId}`}>Cancel</Link>
+      <Link href={`/admin`}>Cancel</Link>
       <div>
         <TitleInput />
         {sections.length === 0 && (

@@ -21,7 +21,7 @@ const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
     .then((d) => d.toJSON())
     .then(normalizeState)
 
-  return <Provider businessId={business.id} initialState={initialState} />
+  return <Provider initialState={initialState} />
 }
 
 export default Page

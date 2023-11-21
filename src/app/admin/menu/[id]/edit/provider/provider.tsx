@@ -21,19 +21,13 @@ export const useReducerDispatch = () => {
   return dispatch
 }
 
-const Provider = ({
-  initialState,
-  businessId,
-}: {
-  initialState: Reducer.State
-  businessId: string
-}) => {
+const Provider = ({ initialState }: { initialState: Reducer.State }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
-        <Menu businessId={businessId} />
+        <Menu />
       </DispatchContext.Provider>
     </StateContext.Provider>
   )
