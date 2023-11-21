@@ -1,9 +1,11 @@
 import { ReactEventHandler } from 'react'
 import { denormalizeState } from '../provider/normalizr'
 import { useReducerState } from '../provider/provider'
+import { useRouter } from 'next/navigation'
 
 const SaveButton = () => {
   const state = useReducerState()
+  const router = useRouter()
 
   const onClickSave: ReactEventHandler<HTMLButtonElement> = async () => {
     const denormalizedState = denormalizeState(state)
@@ -14,6 +16,8 @@ const SaveButton = () => {
     })
 
     if (!res.ok) window.alert('Error saving')
+
+    router.push('/admin')
   }
 
   return (
