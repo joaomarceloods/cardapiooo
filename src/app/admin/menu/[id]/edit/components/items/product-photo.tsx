@@ -1,6 +1,10 @@
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import {
+  CameraOutlined,
+  LoadingOutlined,
+  PlusOutlined,
+} from '@ant-design/icons'
 import { PutBlobResult } from '@vercel/blob'
-import { Upload, UploadProps, message } from 'antd'
+import { Avatar, Upload, UploadProps, message } from 'antd'
 import type { UploadChangeParam } from 'antd/es/upload'
 import type { RcFile, UploadFile } from 'antd/es/upload/interface'
 import Image from 'next/image'
@@ -49,31 +53,34 @@ const ProductPhoto: FC<{ menuId: string; itemId: string }> = ({
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Photo</div>
+      <span>Photo</span>
     </div>
   )
 
   // TODO: move menuId and itemId into `data` prop
   return (
-    <Upload
-      name="photo"
-      listType="picture-card"
-      className="avatar-uploader"
-      showUploadList={false}
-      action={`/api/product-photo?menu=${menuId}&item=${itemId}`}
-      beforeUpload={beforeUpload}
-      onChange={handleChange}
-    >
-      {loading ? (
-        uploadButton
-      ) : photo ? (
-        <div style={{ position: 'relative', width: 84, height: 84 }}>
-          <Image src={photo} alt="Product photo" fill objectFit="cover" />
-        </div>
-      ) : (
-        uploadButton
-      )}
-    </Upload>
+    <div role="button" aria-label="Photo" style={{ cursor: 'pointer' }}>
+      <Upload
+        name="photo"
+        listType="text"
+        showUploadList={false}
+        action={`/api/product-photo?menu=${menuId}&item=${itemId}`}
+        beforeUpload={beforeUpload}
+        onChange={handleChange}
+      >
+        {loading ? (
+          <Avatar shape="square" size="default" icon={<LoadingOutlined />} />
+        ) : photo ? (
+          <Avatar
+            shape="square"
+            size="default"
+            src={<Image src={photo} alt="Photo" width={20} height={20} />}
+          />
+        ) : (
+          <Avatar shape="square" size="default" icon={<CameraOutlined />} />
+        )}
+      </Upload>
+    </div>
   )
 }
 

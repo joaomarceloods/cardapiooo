@@ -1,3 +1,4 @@
+import { Col, Flex, Form, Input, InputNumber, Row, Space } from 'antd'
 import { FC } from 'react'
 import { useReducerDispatch, useReducerState } from '../../provider/provider'
 import { Entity, Reducer } from '../../provider/types'
@@ -10,27 +11,48 @@ const Product: FC<{ id: string }> = ({ id }) => {
   const item = state.entities.items[id]
   const { title, price, description } = item.data as Entity.ProductData
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    property: string
-  ) => {
+  const handleChange = (value: string, property: string) => {
     dispatch({
       type: Reducer.ActionType.ChangeItem,
-      payload: { value: e.target.value, id, property },
+      payload: { value, id, property },
     })
   }
 
+  const [form] = Form.useForm()
+
   return (
-    <>
-      <input value={title} onChange={(e) => handleChange(e, 'title')} />
-      <input value={price} onChange={(e) => handleChange(e, 'price')} />
+    <Flex style={{ flex: 1 }} gap={4}>
       <ProductPhoto menuId={menuId} itemId={id} />
-      <br />
-      <textarea
-        value={description}
-        onChange={(e) => handleChange(e, 'description')}
-      />
-    </>
+      <Row style={{ flex: 1 }} gutter={4}>
+        <Col xs={18} md={9}>
+          <Space.Compact block>
+            <Input
+              style={{ fontWeight: 'bold' }}
+              placeholder="Product"
+              value={title}
+              onChange={(e) => handleChange(e.target.value, 'title')}
+            />
+            <InputNumber
+              defaultValue="0"
+              value={price}
+              onChange={(value) => handleChange(value || '', 'price')}
+              parser={(value) => value!.replace(/\$\s?|(,*)/g, '')}
+              formatter={(value) =>
+                `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              }
+            />
+          </Space.Compact>
+        </Col>
+        <Col xs={24} md={15}>
+          <Input.TextArea
+            placeholder="Description"
+            rows={1}
+            value={description}
+            onChange={(e) => handleChange(e.target.value, 'description')}
+          />
+        </Col>
+      </Row>
+    </Flex>
   )
 }
 

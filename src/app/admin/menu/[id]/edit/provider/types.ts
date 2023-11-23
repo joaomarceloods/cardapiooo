@@ -22,7 +22,7 @@ export namespace Entity {
   export interface ProductData {
     title?: string
     description?: string
-    price?: number
+    price?: string
     photo?: string
   }
 
