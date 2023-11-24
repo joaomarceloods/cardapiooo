@@ -1,10 +1,11 @@
 import { Divider } from 'antd'
+import Identation from './identation'
 
 const RowDivider = () => {
   return (
-    <div style={{ padding: 4, paddingLeft: 60 }}>
+    <Identation>
       <Divider style={{ margin: 0 }} />
-    </div>
+    </Identation>
   )
 }
 

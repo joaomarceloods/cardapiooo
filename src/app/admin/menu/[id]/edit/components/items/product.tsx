@@ -1,4 +1,4 @@
-import { Col, Form, Input, InputNumber, Row } from 'antd'
+import { Col, Input, InputNumber, Row } from 'antd'
 import { FC } from 'react'
 import { useReducerDispatch, useReducerState } from '../../provider/provider'
 import { Entity, Reducer } from '../../provider/types'
@@ -18,12 +18,14 @@ const Product: FC<{ id: string }> = ({ id }) => {
     })
   }
 
-  const [form] = Form.useForm()
-
   return (
     <>
-      <ProductPhoto menuId={menuId} itemId={id} />
-      <Row style={{ flex: 1 }} gutter={[4, 4]}>
+      <div style={{ position: 'relative' }}>
+        <div style={{ position: 'absolute', left: -30 }}>
+          <ProductPhoto menuId={menuId} itemId={id} />
+        </div>
+      </div>
+      <Row style={{ flex: 1 }}>
         <Col xs={18} lg={6}>
           <Input
             size="small"

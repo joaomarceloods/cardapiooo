@@ -5,6 +5,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { useReducerDispatch, useReducerState } from '../provider/provider'
 import { Reducer } from '../provider/types'
 import AddItem from './add-item'
+import Identation from './identation'
 import Item from './item'
 import RowDivider from './row-divider'
 
@@ -17,15 +18,15 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
     <Draggable key={id} draggableId={id} index={index}>
       {(provided) => (
         <div {...provided.draggableProps} ref={provided.innerRef}>
-          <Flex gap={4} style={{ paddingBottom: 4 }}>
+          <Flex gap={4} style={{ paddingBottom: 4, position: 'relative' }}>
             <div
               {...provided.dragHandleProps}
-              style={{ padding: 4, paddingTop: 12 }}
+              style={{ padding: 4, bottom: 8, position: 'absolute' }}
             >
               <HolderOutlined />
             </div>
 
-            <div style={{ paddingLeft: 28 }}>
+            <Identation>
               <Input
                 value={title}
                 size="small"
@@ -39,7 +40,7 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
                   })
                 }}
               />
-            </div>
+            </Identation>
           </Flex>
           <RowDivider />
 

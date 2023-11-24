@@ -7,9 +7,10 @@ import {
 } from 'react-beautiful-dnd'
 import { useReducerDispatch, useReducerState } from '../provider/provider'
 import { Reducer } from '../provider/types'
+import MenuTitle from './menu-title'
+import RowDivider from './row-divider'
 import SaveButton from './save-button'
 import Section from './section'
-import TitleInput from './title-input'
 
 const Menu = () => {
   // react-beautiful-dnd: The resetServerContext function should be used when server side rendering (SSR).
@@ -65,7 +66,8 @@ const Menu = () => {
       <SaveButton />
       <Link href={`/admin`}>Cancel</Link>
       <div>
-        <TitleInput />
+        <MenuTitle />
+        <RowDivider />
         {sections.length === 0 && (
           <>
             <h3>This menu is empty</h3>
