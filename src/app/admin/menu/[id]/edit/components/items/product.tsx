@@ -19,13 +19,11 @@ const Product: FC<{ id: string }> = ({ id }) => {
   }
 
   return (
-    <>
-      <div style={{ position: 'relative' }}>
-        <div style={{ position: 'absolute', left: -30 }}>
-          <ProductPhoto menuId={menuId} itemId={id} />
-        </div>
+    <div style={{ position: 'relative' }}>
+      <div style={{ position: 'absolute', left: -30 }}>
+        <ProductPhoto menuId={menuId} itemId={id} />
       </div>
-      <Row style={{ flex: 1 }}>
+      <Row>
         <Col xs={18} lg={6}>
           <Input
             size="small"
@@ -33,7 +31,7 @@ const Product: FC<{ id: string }> = ({ id }) => {
             placeholder="Enter product name…"
             value={title}
             onChange={(e) => handleChange(e.target.value, 'title')}
-            style={{ fontSize: '1rem' }}
+            style={{ fontSize: '1rem', fontWeight: 'bold' }}
           />
         </Col>
         <Col xs={6} lg={6}>
@@ -63,7 +61,7 @@ const Product: FC<{ id: string }> = ({ id }) => {
           />
         </Col>
       </Row>
-    </>
+    </div>
   )
 }
 

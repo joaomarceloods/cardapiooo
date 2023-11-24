@@ -1,5 +1,4 @@
-import { HolderOutlined } from '@ant-design/icons'
-import { Flex, Input } from 'antd'
+import { Input } from 'antd'
 import { FC } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { useReducerDispatch, useReducerState } from '../provider/provider'
@@ -8,6 +7,7 @@ import AddItem from './add-item'
 import Identation from './identation'
 import Item from './item'
 import RowDivider from './row-divider'
+import DragHandle from './drag-handle'
 
 const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
   const state = useReducerState()
@@ -18,30 +18,24 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
     <Draggable key={id} draggableId={id} index={index}>
       {(provided) => (
         <div {...provided.draggableProps} ref={provided.innerRef}>
-          <Flex gap={4} style={{ paddingBottom: 4, position: 'relative' }}>
-            <div
-              {...provided.dragHandleProps}
-              style={{ padding: 4, bottom: 8, position: 'absolute' }}
-            >
-              <HolderOutlined />
-            </div>
+          <DragHandle dragHandleProps={provided.dragHandleProps} top={8} />
 
-            <Identation>
-              <Input
-                value={title}
-                size="small"
-                bordered={false}
-                placeholder="Enter section name…"
-                style={{ fontSize: '1.5rem' }}
-                onChange={(e) => {
-                  dispatch({
-                    type: Reducer.ActionType.ChangeSection,
-                    payload: { id, property: 'title', value: e.target.value },
-                  })
-                }}
-              />
-            </Identation>
-          </Flex>
+          <Identation>
+            <Input
+              value={title}
+              size="small"
+              bordered={false}
+              placeholder="Enter section name…"
+              style={{ fontSize: '1.5rem' }}
+              onChange={(e) => {
+                dispatch({
+                  type: Reducer.ActionType.ChangeSection,
+                  payload: { id, property: 'title', value: e.target.value },
+                })
+              }}
+            />
+          </Identation>
+
           <RowDivider />
 
           <Droppable droppableId={id} type="ITEM">
