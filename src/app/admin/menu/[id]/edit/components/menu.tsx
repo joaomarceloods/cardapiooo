@@ -7,7 +7,6 @@ import {
 } from 'react-beautiful-dnd'
 import { useReducerDispatch, useReducerState } from '../provider/provider'
 import { Reducer } from '../provider/types'
-import AddSection from './add-section'
 import SaveButton from './save-button'
 import Section from './section'
 import TitleInput from './title-input'
@@ -70,17 +69,14 @@ const Menu = () => {
         {sections.length === 0 && (
           <>
             <h3>This menu is empty</h3>
-            <AddSection />
+            {/* TODO: add section */}
           </>
         )}
         <Droppable droppableId="board" type="SECTION">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {sections.map((id, index) => (
-                <>
-                  <Section key={id} id={id} index={index} />
-                  <AddSection afterSectionId={id} />
-                </>
+                <Section key={id} id={id} index={index} />
               ))}
               {provided.placeholder}
             </div>

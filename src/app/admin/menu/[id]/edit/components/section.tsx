@@ -1,8 +1,12 @@
+import { HolderOutlined } from '@ant-design/icons'
+import { Flex, Input } from 'antd'
 import { FC } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { useReducerDispatch, useReducerState } from '../provider/provider'
 import { Reducer } from '../provider/types'
+import AddItem from './add-item'
 import Item from './item'
+import RowDivider from './row-divider'
 
 const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
   const state = useReducerState()
@@ -13,21 +17,31 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
     <Draggable key={id} draggableId={id} index={index}>
       {(provided) => (
         <div {...provided.draggableProps} ref={provided.innerRef}>
-          <span>
-            <span {...provided.dragHandleProps}>☰</span>
-            <input
-              type="text"
-              value={title}
-              style={{ fontWeight: 'bold' }}
-              placeholder="Section title"
-              onChange={(e) => {
-                dispatch({
-                  type: Reducer.ActionType.ChangeSection,
-                  payload: { id, property: 'title', value: e.target.value },
-                })
-              }}
-            />
-          </span>
+          <Flex gap={4} style={{ paddingBottom: 4 }}>
+            <div
+              {...provided.dragHandleProps}
+              style={{ padding: 4, paddingTop: 12 }}
+            >
+              <HolderOutlined />
+            </div>
+
+            <div style={{ paddingLeft: 28 }}>
+              <Input
+                value={title}
+                size="small"
+                bordered={false}
+                placeholder="Enter section name…"
+                style={{ fontSize: '1.5rem' }}
+                onChange={(e) => {
+                  dispatch({
+                    type: Reducer.ActionType.ChangeSection,
+                    payload: { id, property: 'title', value: e.target.value },
+                  })
+                }}
+              />
+            </div>
+          </Flex>
+          <RowDivider />
 
           <Droppable droppableId={id} type="ITEM">
             {(provided, snapshot) => {
@@ -37,7 +51,6 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
                   {...provided.droppableProps}
                   style={{
                     transition: 'background-color 0.2s ease',
-                    paddingBottom: 20,
                     backgroundColor: snapshot.isDraggingOver
                       ? 'lightblue'
                       : snapshot.draggingFromThisWith
@@ -48,22 +61,13 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
                   {items.map((id, index) => {
                     return <Item id={id} index={index} key={id} />
                   })}
-                  {items.length === 0 && <h3>This section is empty</h3>}
-                  <button
-                    onClick={() =>
-                      dispatch({
-                        type: Reducer.ActionType.AddItem,
-                        payload: { sectionId: id },
-                      })
-                    }
-                  >
-                    Add item
-                  </button>
                   {provided.placeholder}
                 </div>
               )
             }}
           </Droppable>
+          <AddItem sectionId={id} />
+          <RowDivider />
         </div>
       )}
     </Draggable>

@@ -69,15 +69,15 @@ const ProductPhoto: FC<{ menuId: string; itemId: string }> = ({
         onChange={handleChange}
       >
         {loading ? (
-          <Avatar shape="square" size="default" icon={<LoadingOutlined />} />
+          <Avatar shape="square" size="small" icon={<LoadingOutlined />} />
         ) : photo ? (
           <Avatar
             shape="square"
-            size="default"
-            src={<Image src={photo} alt="Photo" width={20} height={20} />}
+            size="small"
+            src={<Image src={photo} alt="Photo" width={22} height={22} />}
           />
         ) : (
-          <Avatar shape="square" size="default" icon={<CameraOutlined />} />
+          <Avatar shape="square" size="small" icon={<CameraOutlined />} />
         )}
       </Upload>
     </div>

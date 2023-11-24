@@ -5,6 +5,7 @@ import { Draggable } from 'react-beautiful-dnd'
 import { useReducerState } from '../provider/provider'
 import Product from './items/product'
 import Remark from './items/remark'
+import RowDivider from './row-divider'
 
 const Item: FC<{ id: string; index: number }> = ({ id, index }) => {
   const state = useReducerState()
@@ -23,17 +24,13 @@ const Item: FC<{ id: string; index: number }> = ({ id, index }) => {
     <Draggable draggableId={id} index={index}>
       {(provided) => (
         <div {...provided.draggableProps} ref={provided.innerRef}>
-          <Flex
-            gap={4}
-            align="center"
-            justify="flex-start"
-            style={{ paddingBottom: 4 }}
-          >
-            <div {...provided.dragHandleProps}>
+          <Flex gap={4} style={{ paddingBottom: 4 }}>
+            <div {...provided.dragHandleProps} style={{ padding: 4 }}>
               <HolderOutlined />
             </div>
             {itemComponent}
           </Flex>
+          <RowDivider />
         </div>
       )}
     </Draggable>
