@@ -24,9 +24,11 @@ const Item: FC<{ id: string; index: number }> = ({ id, index }) => {
     <Draggable draggableId={id} index={index}>
       {(provided) => (
         <div {...provided.draggableProps} ref={provided.innerRef}>
-          <DragHandle dragHandleProps={provided.dragHandleProps} />
-          <Identation>{itemComponent}</Identation>
-          <RowDivider />
+          <div style={{ background: 'white' }}>
+            <DragHandle dragHandleProps={provided.dragHandleProps} />
+            <Identation>{itemComponent}</Identation>
+            <RowDivider />
+          </div>
         </div>
       )}
     </Draggable>

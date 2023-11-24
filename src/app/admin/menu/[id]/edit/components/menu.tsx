@@ -7,6 +7,7 @@ import {
 } from 'react-beautiful-dnd'
 import { useReducerDispatch, useReducerState } from '../provider/provider'
 import { Reducer } from '../provider/types'
+import DragProvided from './drag-provided'
 import MenuTitle from './menu-title'
 import RowDivider from './row-divider'
 import SaveButton from './save-button'
@@ -75,13 +76,12 @@ const Menu = () => {
           </>
         )}
         <Droppable droppableId="board" type="SECTION">
-          {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
+          {(provided, snapshot) => (
+            <DragProvided provided={provided} snapshot={snapshot}>
               {sections.map((id, index) => (
                 <Section key={id} id={id} index={index} />
               ))}
-              {provided.placeholder}
-            </div>
+            </DragProvided>
           )}
         </Droppable>
       </div>
