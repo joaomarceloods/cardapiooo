@@ -12,14 +12,15 @@ const DragHandle: FC<{
       <div
         {...dragHandleProps}
         style={{
-          position: 'absolute',
-          paddingInline: 12,
-          paddingBlock: 4,
           top,
+          width: 44,
+          display: 'flex',
+          position: 'absolute',
+          justifyContent: 'center',
         }}
       >
         <Typography.Text type="secondary">
-          <HolderOutlined />
+          <HolderOutlined style={{ fontSize: '1rem' }} />
         </Typography.Text>
       </div>
     </div>

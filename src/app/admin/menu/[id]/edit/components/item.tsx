@@ -1,3 +1,4 @@
+import { theme } from 'antd'
 import { FC } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { useReducerState } from '../provider/provider'
@@ -8,6 +9,7 @@ import Remark from './items/remark'
 import RowDivider from './row-divider'
 
 const Item: FC<{ id: string; index: number }> = ({ id, index }) => {
+  const { token } = theme.useToken()
   const state = useReducerState()
   const { type } = state.entities.items[id]
 
@@ -23,12 +25,18 @@ const Item: FC<{ id: string; index: number }> = ({ id, index }) => {
   return (
     <Draggable draggableId={id} index={index}>
       {(provided) => (
+        // IMPORTANT!!! Don't add styles in the same div you add provided.draggableProps, or it will break drag-and-drop
         <div {...provided.draggableProps} ref={provided.innerRef}>
-          <div style={{ background: 'white' }}>
+          <div
+            style={{
+              background: token.colorBgBase,
+              paddingTop: token.marginXS,
+            }}
+          >
             <DragHandle dragHandleProps={provided.dragHandleProps} />
             <Identation>{itemComponent}</Identation>
-            <RowDivider />
           </div>
+          <RowDivider />
         </div>
       )}
     </Draggable>
