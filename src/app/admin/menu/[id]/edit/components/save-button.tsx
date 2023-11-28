@@ -1,13 +1,14 @@
-import { ReactEventHandler } from 'react'
+import { Button } from 'antd'
+import { useRouter } from 'next/navigation'
+import { MouseEventHandler } from 'react'
 import { denormalizeState } from '../provider/normalizr'
 import { useReducerState } from '../provider/provider'
-import { useRouter } from 'next/navigation'
 
 const SaveButton = () => {
   const state = useReducerState()
   const router = useRouter()
 
-  const onClickSave: ReactEventHandler<HTMLButtonElement> = async () => {
+  const onClickSave: MouseEventHandler<HTMLButtonElement> = async () => {
     const denormalizedState = denormalizeState(state)
 
     const res = await fetch('/api/menu', {
@@ -21,9 +22,9 @@ const SaveButton = () => {
   }
 
   return (
-    <button type="submit" onClick={onClickSave}>
+    <Button type="primary" onClick={onClickSave}>
       Save
-    </button>
+    </Button>
   )
 }
 

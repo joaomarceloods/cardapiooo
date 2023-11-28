@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import {
   DragDropContext,
   Droppable,
@@ -7,10 +6,10 @@ import {
 } from 'react-beautiful-dnd'
 import { useReducerDispatch, useReducerState } from '../provider/provider'
 import { Reducer } from '../provider/types'
+import ActionBar from './action-bar'
 import DragProvided from './drag-provided'
 import MenuTitle from './menu-title'
 import RowDivider from './row-divider'
-import SaveButton from './save-button'
 import Section from './section'
 
 const Menu = () => {
@@ -64,9 +63,8 @@ const Menu = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <SaveButton />
-      <Link href={`/admin`}>Cancel</Link>
-      <div>
+      <div style={{ background: 'white' }}>
+        <ActionBar />
         <MenuTitle />
         <RowDivider />
         {sections.length === 0 && (

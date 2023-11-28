@@ -3,7 +3,7 @@ import Identation from './identation'
 
 const RowDivider = () => {
   return (
-    <Identation>
+    <Identation right={0}>
       <Divider style={{ margin: 0 }} />
     </Identation>
   )
