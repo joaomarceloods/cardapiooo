@@ -1,6 +1,7 @@
 import { authorizeMenu } from '@/authorize'
 import { connectDatabase } from '@/database/connect'
 import { Menu } from '@/database/model'
+import { ConfigProvider } from 'antd'
 import { FC } from 'react'
 import { normalizeState } from './provider/normalizr'
 import Provider from './provider/provider'
@@ -14,7 +15,11 @@ const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
     .then((d) => d.toJSON())
     .then(normalizeState)
 
-  return <Provider initialState={initialState} />
+  return (
+    <ConfigProvider>
+      <Provider initialState={initialState} />
+    </ConfigProvider>
+  )
 }
 
 export default Page
