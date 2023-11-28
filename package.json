@@ -11,11 +11,9 @@
   "dependencies": {
     "@ant-design/cssinjs": "^1.17.5",
     "@clerk/nextjs": "^4.27.0",
-    "@types/react-beautiful-dnd": "^13.1.5",
     "@vercel/blob": "^0.15.1",
     "antd": "^5.11.3",
     "bson": "^6.2.0",
-    "eslint-config-prettier": "^9.0.0",
     "mongodb": "^6.2.0",
     "mongoose": "^7.6.3",
     "next": "^14.0.1",
@@ -27,9 +25,11 @@
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18.2.35",
+    "@types/react-beautiful-dnd": "^13.1.7",
     "@types/react-dom": "^18.2.14",
     "eslint": "^8",
     "eslint-config-next": "^14.0.1",
+    "eslint-config-prettier": "^9.0.0",
     "typescript": "^5"
   }
 }
