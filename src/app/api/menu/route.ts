@@ -7,5 +7,5 @@ export async function POST(request: Request) {
   menu.set(json)
   await menu.save()
   revalidatePath(`/admin/menu/${json.id}`)
-  return Response.json(null)
+  return Response.json({ success: true })
 }
