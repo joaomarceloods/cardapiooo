@@ -64,6 +64,8 @@ export namespace Reducer {
     AddItem = 'add-item',
     MoveSection = 'move-section',
     MoveItem = 'move-item',
+    DeleteSection = 'delete-section',
+    DeleteItem = 'delete-item',
   }
 
   export type Action =
@@ -74,6 +76,8 @@ export namespace Reducer {
     | Action.AddItem
     | Action.MoveSection
     | Action.MoveItem
+    | Action.DeleteSection
+    | Action.DeleteItem
 
   export namespace Action {
     export interface ChangeMenu {
@@ -133,6 +137,21 @@ export namespace Reducer {
         destinationIndex: number
         sourceSectionId: string
         destinationSectionId: string
+      }
+    }
+
+    export interface DeleteSection {
+      type: ActionType.DeleteSection
+      payload: {
+        id: string
+      }
+    }
+
+    export interface DeleteItem {
+      type: ActionType.DeleteItem
+      payload: {
+        id: string
+        sectionId: string
       }
     }
   }

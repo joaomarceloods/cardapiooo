@@ -1,12 +1,15 @@
 import { HolderOutlined } from '@ant-design/icons'
 import { Typography } from 'antd'
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { DraggableProvided } from 'react-beautiful-dnd'
+
+const JustChildren: FC<PropsWithChildren> = ({ children }) => children
 
 const DragHandle: FC<{
   top?: number
+  iconWrapper?: FC<PropsWithChildren>
   dragHandleProps: DraggableProvided['dragHandleProps']
-}> = ({ top, dragHandleProps }) => {
+}> = ({ top, dragHandleProps, iconWrapper: IconWrapper = JustChildren }) => {
   return (
     <div style={{ position: 'relative' }}>
       <div
@@ -19,9 +22,11 @@ const DragHandle: FC<{
           justifyContent: 'center',
         }}
       >
-        <Typography.Text type="secondary">
-          <HolderOutlined style={{ fontSize: '1rem' }} />
-        </Typography.Text>
+        <IconWrapper>
+          <Typography.Text type="secondary">
+            <HolderOutlined style={{ fontSize: '1rem' }} />
+          </Typography.Text>
+        </IconWrapper>
       </div>
     </div>
   )

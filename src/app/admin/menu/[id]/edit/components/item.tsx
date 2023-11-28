@@ -4,11 +4,16 @@ import { Draggable } from 'react-beautiful-dnd'
 import { useReducerState } from '../provider/provider'
 import DragHandle from './drag-handle'
 import Identation from './identation'
+import ItemDropdown from './item-dropdown'
 import Product from './items/product'
 import Remark from './items/remark'
 import RowDivider from './row-divider'
 
-const Item: FC<{ id: string; index: number }> = ({ id, index }) => {
+const Item: FC<{ id: string; index: number; sectionId: string }> = ({
+  id,
+  index,
+  sectionId,
+}) => {
   const { token } = theme.useToken()
   const state = useReducerState()
   const { type } = state.entities.items[id]
@@ -33,7 +38,14 @@ const Item: FC<{ id: string; index: number }> = ({ id, index }) => {
               paddingTop: token.marginXS,
             }}
           >
-            <DragHandle dragHandleProps={provided.dragHandleProps} />
+            <DragHandle
+              dragHandleProps={provided.dragHandleProps}
+              iconWrapper={({ children }) => (
+                <ItemDropdown itemId={id} sectionId={sectionId}>
+                  {children}
+                </ItemDropdown>
+              )}
+            />
             <Identation>{itemComponent}</Identation>
           </div>
           <RowDivider />

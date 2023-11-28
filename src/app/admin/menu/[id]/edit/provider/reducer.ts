@@ -219,6 +219,63 @@ const moveItem = (
   }
 }
 
+const deleteSection = (
+  state: Reducer.State,
+  action: Reducer.Action.DeleteSection
+): Reducer.State => {
+  const { id } = action.payload
+  const section = state.entities.sections[id]
+  const items = { ...state.entities.items }
+
+  for (const i of section.items) {
+    delete items[i]
+  }
+
+  const sections = { ...state.entities.sections }
+  delete sections[id]
+
+  const menu = { ...state.entities.menus[state.result] }
+  menu.sections = menu.sections.filter(s => s !== id )
+
+  return {
+    ...state,
+    entities: {
+      ...state.entities,
+      items,
+      sections,
+      menus: {
+        ...state.entities.menus,
+        [state.result]: menu
+      }
+    },
+  }
+}
+
+const deleteItem = (
+  state: Reducer.State,
+  action: Reducer.Action.DeleteItem
+): Reducer.State => {
+  const { id, sectionId } = action.payload
+
+  const items = { ...state.entities.items }
+  delete items[id]
+
+  const section = { ...state.entities.sections[sectionId] }
+  section.items = section.items.filter((i) => i !== id)
+
+  return {
+    ...state,
+    entities: {
+      ...state.entities,
+      items,
+      sections: {
+        ...state.entities.sections,
+        [sectionId]: section,
+      },
+    },
+  }
+}
+
 export const reducer = (
   state: Reducer.State,
   action: Reducer.Action
@@ -239,6 +296,10 @@ export const reducer = (
       return moveSection(state, action)
     case Reducer.ActionType.MoveItem:
       return moveItem(state, action)
+    case Reducer.ActionType.DeleteSection:
+      return deleteSection(state, action)
+    case Reducer.ActionType.DeleteItem:
+      return deleteItem(state, action)
     default:
       throw new Error(`Unhandled action type: ${JSON.stringify(action)}`)
   }

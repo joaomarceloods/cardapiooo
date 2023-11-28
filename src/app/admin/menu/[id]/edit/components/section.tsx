@@ -9,6 +9,7 @@ import DragProvided from './drag-provided'
 import Identation from './identation'
 import Item from './item'
 import RowDivider from './row-divider'
+import SectionDropdown from './section-dropdown'
 
 const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
   const state = useReducerState()
@@ -20,7 +21,13 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
       {(provided) => (
         <div {...provided.draggableProps} ref={provided.innerRef}>
           <div style={{ background: 'white' }}>
-            <DragHandle dragHandleProps={provided.dragHandleProps} top={8} />
+            <DragHandle
+              top={8}
+              dragHandleProps={provided.dragHandleProps}
+              iconWrapper={({ children }) => (
+                <SectionDropdown sectionId={id}>{children}</SectionDropdown>
+              )}
+            />
 
             <Identation>
               <Input
@@ -43,8 +50,15 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
             <Droppable droppableId={id} type="ITEM">
               {(provided, snapshot) => (
                 <DragProvided provided={provided} snapshot={snapshot}>
-                  {items.map((id, index) => {
-                    return <Item id={id} index={index} key={id} />
+                  {items.map((itemId, index) => {
+                    return (
+                      <Item
+                        id={itemId}
+                        index={index}
+                        key={itemId}
+                        sectionId={id}
+                      />
+                    )
                   })}
                 </DragProvided>
               )}
