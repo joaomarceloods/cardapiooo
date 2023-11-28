@@ -44,7 +44,7 @@ const Product: FC<{ id: string }> = ({ id }) => {
               value={price}
               onChange={(value) => handleChange(value || '', 'price')}
               parser={(value) => value!.replace(/\$\s?|(,*)/g, '')}
-              style={{ fontSize: '1rem' }}
+              style={{ maxWidth: '100%', fontSize: '1rem' }}
               formatter={(value) =>
                 `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
               }

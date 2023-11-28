@@ -46,7 +46,7 @@ const Item: FC<{ id: string; index: number; sectionId: string }> = ({
                 </ItemDropdown>
               )}
             />
-            <Identation>{itemComponent}</Identation>
+            <Identation right={0}>{itemComponent}</Identation>
           </div>
           <RowDivider />
         </div>
