@@ -1,6 +1,5 @@
 import { connectDatabase } from '@/database/connect'
 import { Menu } from '@/database/model'
-import { revalidatePath } from 'next/cache'
 
 export async function POST(request: Request) {
   await connectDatabase()
@@ -8,6 +7,5 @@ export async function POST(request: Request) {
   const menu = await Menu.findById(json.id).exec()
   menu.set(json)
   await menu.save()
-  revalidatePath(`/admin/menu/${json.id}`)
   return Response.json({ success: true })
 }

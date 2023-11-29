@@ -20,7 +20,7 @@ const SaveButton = () => {
       window.alert('Error saving')
     }
 
-    router.push(`/admin/business/${business.id}`)
+    router.refresh()
   }
 
   return (

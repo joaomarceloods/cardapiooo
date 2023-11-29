@@ -19,6 +19,7 @@ const Save = () => {
     if (!res.ok) window.alert('Error saving')
 
     router.push('/admin')
+    router.refresh()
   }
 
   return (

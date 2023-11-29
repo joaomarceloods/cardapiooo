@@ -7,5 +7,5 @@ export async function POST(request: Request) {
   const business = await Business.findById(json.id).exec()
   business.set(json)
   await business.save()
-  return Response.json(null)
+  return Response.json({ success: true })
 }
