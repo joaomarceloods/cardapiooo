@@ -2,6 +2,7 @@
 
 import DragProvided from '@/lib/components/drag-provided'
 import RowDivider from '@/lib/components/row-divider'
+import { theme } from 'antd'
 import { Droppable } from 'react-beautiful-dnd'
 import { useReducerState } from '../reducer/provider'
 import ActionBar from './action-bar'
@@ -12,9 +13,10 @@ import Section from './section'
 const Content = () => {
   const state = useReducerState()
   const { sections } = state.entities.menus[state.result]
+  const { token } = theme.useToken()
 
   return (
-    <>
+    <div style={{ paddingBottom: token.marginXXL * 2 }}>
       <ActionBar />
       <MenuTitle />
       <RowDivider />
@@ -35,7 +37,7 @@ const Content = () => {
           )}
         </Droppable>
       </DragDropBoard>
-    </>
+    </div>
   )
 }
 
