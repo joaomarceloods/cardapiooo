@@ -1,5 +1,5 @@
+import Identation from '@/lib/components/identation'
 import { Divider } from 'antd'
-import Identation from './identation'
 
 const RowDivider = () => {
   return (
