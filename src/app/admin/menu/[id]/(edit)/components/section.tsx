@@ -1,4 +1,5 @@
 import DragHandle from '@/lib/components/drag-handle'
+import DragProvided from '@/lib/components/drag-provided'
 import Identation from '@/lib/components/identation'
 import RowDivider from '@/lib/components/row-divider'
 import { Input } from 'antd'
@@ -8,7 +9,6 @@ import { useReducerDispatch, useReducerState } from '../reducer/provider'
 import { Reducer } from '../reducer/types'
 import AddItem from './add-item'
 import { DraggableType } from './drag-drop-board'
-import DragProvided from './drag-provided'
 import Item from './item'
 import SectionDropdown from './section-dropdown'
 

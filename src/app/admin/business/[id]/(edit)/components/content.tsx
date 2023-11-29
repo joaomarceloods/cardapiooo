@@ -1,5 +1,6 @@
 'use client'
 
+import DragProvided from '@/lib/components/drag-provided'
 import RowDivider from '@/lib/components/row-divider'
 import { Droppable } from 'react-beautiful-dnd'
 import { useReducerState } from '../reducer/provider'
@@ -20,13 +21,13 @@ const Content = () => {
       <RowDivider />
       <DragDropBoard>
         <Droppable droppableId={DraggableType.Menu} type={DraggableType.Menu}>
-          {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
+          {(provided, snapshot) => (
+            <DragProvided provided={provided} snapshot={snapshot}>
               {menus.map((id, index) => (
                 <Menu key={id} id={id} index={index} />
               ))}
               {provided.placeholder}
-            </div>
+            </DragProvided>
           )}
         </Droppable>
       </DragDropBoard>
