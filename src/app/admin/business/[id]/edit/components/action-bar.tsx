@@ -1,5 +1,4 @@
 import { Flex, theme } from 'antd'
-import Back from './back'
 import Save from './save'
 
 const ActionBar = () => {
@@ -12,7 +11,8 @@ const ActionBar = () => {
       align="center"
       style={{ padding: token.margin, paddingLeft: token.marginXXL }}
     >
-      <Back />
+      {/* <Back /> */}
+      <span />
       <Save />
     </Flex>
   )

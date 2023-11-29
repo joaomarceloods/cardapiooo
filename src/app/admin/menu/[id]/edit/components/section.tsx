@@ -1,14 +1,14 @@
+import DragHandle from '@/lib/components/drag-handle'
 import Identation from '@/lib/components/identation'
+import RowDivider from '@/lib/components/row-divider'
 import { Input } from 'antd'
 import { FC } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { useReducerDispatch, useReducerState } from '../provider/provider'
 import { Reducer } from '../provider/types'
 import AddItem from './add-item'
-import DragHandle from './drag-handle'
 import DragProvided from './drag-provided'
 import Item from './item'
-import RowDivider from './row-divider'
 import SectionDropdown from './section-dropdown'
 
 const Section: FC<{ id: string; index: number }> = ({ id, index }) => {

@@ -1,3 +1,4 @@
+import RowDivider from '@/lib/components/row-divider'
 import {
   DragDropContext,
   Droppable,
@@ -9,7 +10,6 @@ import { Reducer } from '../provider/types'
 import ActionBar from './action-bar'
 import DragProvided from './drag-provided'
 import MenuTitle from './menu-title'
-import RowDivider from './row-divider'
 import Section from './section'
 
 const Menu = () => {

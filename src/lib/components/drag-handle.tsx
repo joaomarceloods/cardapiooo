@@ -22,7 +22,6 @@ const DragHandle: FC<{
           height: 28,
           position: 'absolute',
           paddingLeft: token.margin,
-
         }}
       >
         <IconWrapper>

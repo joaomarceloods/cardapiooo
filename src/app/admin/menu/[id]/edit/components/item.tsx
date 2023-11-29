@@ -1,13 +1,13 @@
+import DragHandle from '@/lib/components/drag-handle'
 import Identation from '@/lib/components/identation'
+import RowDivider from '@/lib/components/row-divider'
 import { theme } from 'antd'
 import { FC } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { useReducerState } from '../provider/provider'
-import DragHandle from './drag-handle'
 import ItemDropdown from './item-dropdown'
 import Product from './items/product'
 import Remark from './items/remark'
-import RowDivider from './row-divider'
 
 const Item: FC<{ id: string; index: number; sectionId: string }> = ({
   id,

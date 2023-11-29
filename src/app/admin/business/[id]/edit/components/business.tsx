@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import RowDivider from '@/lib/components/row-divider'
 import {
   DragDropContext,
   Droppable,
@@ -7,9 +7,9 @@ import {
 } from 'react-beautiful-dnd'
 import { useReducerDispatch, useReducerState } from '../provider/provider'
 import { Reducer } from '../provider/types'
+import ActionBar from './action-bar'
 import Menu from './menu'
-import SaveButton from './save-button'
-import TitleInput from './title-input'
+import Title from './title'
 
 const Business = () => {
   // react-beautiful-dnd: The resetServerContext function should be used when server side rendering (SSR).
@@ -19,7 +19,7 @@ const Business = () => {
   const state = useReducerState()
   const dispatch = useReducerDispatch()
 
-  const { id, menus } = state.entities.businesses[state.result]
+  const { menus } = state.entities.businesses[state.result]
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const { destination, source } = result
@@ -45,10 +45,10 @@ const Business = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <SaveButton />
-      <Link href={`/admin/business/${id}`}>Back</Link>
-      <div>
-        <TitleInput />
+      <div style={{ background: 'white' }}>
+        <ActionBar />
+        <Title />
+        <RowDivider />
         <Droppable droppableId="business" type="MENU">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>

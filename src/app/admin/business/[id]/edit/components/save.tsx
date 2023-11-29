@@ -1,13 +1,14 @@
-import { redirect, useRouter } from 'next/navigation'
-import { ReactEventHandler } from 'react'
+import { Button } from 'antd'
+import { useRouter } from 'next/navigation'
+import { MouseEventHandler } from 'react'
 import { denormalizeState } from '../provider/normalizr'
 import { useReducerState } from '../provider/provider'
 
-const SaveButton = () => {
+const Save = () => {
   const state = useReducerState()
   const router = useRouter()
 
-  const onClickSave: ReactEventHandler<HTMLButtonElement> = async () => {
+  const onClickSave: MouseEventHandler<HTMLButtonElement> = async () => {
     const business = denormalizeState(state)
     business.menus = business.menus.map((m: any) => m.id)
 
@@ -24,10 +25,10 @@ const SaveButton = () => {
   }
 
   return (
-    <button type="submit" onClick={onClickSave}>
+    <Button type="primary" onClick={onClickSave}>
       Save
-    </button>
+    </Button>
   )
 }
 
-export default SaveButton
+export default Save
