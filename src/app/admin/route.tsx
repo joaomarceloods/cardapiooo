@@ -17,5 +17,5 @@ export const GET = async () => {
     redirect('/admin/business/new')
   }
 
-  redirect(`/admin/business/${businessUser.business}/edit`)
+  redirect(`/admin/business/${businessUser.business}`)
 }

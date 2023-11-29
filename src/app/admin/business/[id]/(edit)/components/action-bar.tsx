@@ -11,7 +11,6 @@ const ActionBar = () => {
       align="center"
       style={{ padding: token.margin, paddingLeft: token.marginXXL }}
     >
-      {/* <Back /> */}
       <span />
       <Save />
     </Flex>

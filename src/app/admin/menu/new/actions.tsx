@@ -24,5 +24,5 @@ export const submit = async (formData: FormData) => {
   business.menus.push(menu.id)
   business.save()
 
-  redirect(`/admin/menu/${menu.id}/edit`)
+  redirect(`/admin/menu/${menu.id}`)
 }

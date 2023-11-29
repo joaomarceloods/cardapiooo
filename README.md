@@ -39,7 +39,7 @@ Vercel Blob is a cloud-based file storage solution by Vercel. I wanted to try it
 
 The app stores product photos there:
 
-- `src/app/admin/menu/[id]/edit/components/items/product.tsx`
+- `src/app/admin/menu/[id]/(edit)/components/items/product.tsx`
 - `src/app/api/product-photo/route.ts`
 
 ## Getting Started

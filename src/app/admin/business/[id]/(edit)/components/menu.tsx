@@ -26,7 +26,7 @@ const Menu: FC<{ id: string; index: number }> = ({ id, index }) => {
           >
             <DragHandle dragHandleProps={provided.dragHandleProps} />
             <Identation right={token.margin}>
-              <Link href={`/admin/menu/${id}/edit`}>
+              <Link href={`/admin/menu/${id}`}>
                 <Flex justify="space-between">
                   <span
                     style={{
