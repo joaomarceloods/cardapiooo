@@ -14,9 +14,9 @@ const Menu: FC<{ id: string; index: number }> = ({ id, index }) => {
   const { token } = theme.useToken()
 
   return (
-    <Draggable key={id} draggableId={id} index={index}>
+    <Draggable draggableId={id} index={index}>
       {(provided) => (
-        // IMPORTANT!!! Don't add styles in the same div you add provided.draggableProps, or it will break drag-and-drop
+        // IMPORTANT!!! Don't add styles to the same div you add provided.draggableProps, or it will break drag-and-drop
         <div {...provided.draggableProps} ref={provided.innerRef}>
           <div
             style={{

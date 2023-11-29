@@ -1,57 +1,25 @@
 'use client'
 
 import RowDivider from '@/lib/components/row-divider'
-import {
-  DragDropContext,
-  Droppable,
-  OnDragEndResponder,
-  resetServerContext,
-} from 'react-beautiful-dnd'
-import { useReducerDispatch, useReducerState } from '../reducer/provider'
-import { Reducer } from '../reducer/types'
+import { Droppable } from 'react-beautiful-dnd'
+import { useReducerState } from '../reducer/provider'
 import ActionBar from './action-bar'
+import DragDropBoard, { DraggableType } from './drag-drop-board'
 import Menu from './menu'
 import Title from './title'
 
 const Content = () => {
-  // react-beautiful-dnd: The resetServerContext function should be used when server side rendering (SSR).
-  // https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/reset-server-context.md
-  resetServerContext()
-
   const state = useReducerState()
-  const dispatch = useReducerDispatch()
-
-  const { menus } = state.entities.businesses[state.result]
-
-  const onDragEnd: OnDragEndResponder = (result) => {
-    const { destination, source } = result
-
-    if (!destination) return
-
-    if (
-      destination.index === source.index &&
-      destination.droppableId === source.droppableId
-    ) {
-      return
-    }
-
-    dispatch({
-      type: Reducer.ActionType.MoveMenu,
-      payload: {
-        id: result.draggableId,
-        sourceIndex: source.index,
-        destinationIndex: destination.index,
-      },
-    })
-  }
+  const businessId = state.result
+  const { menus } = state.entities.businesses[businessId]
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div style={{ background: 'white' }}>
-        <ActionBar />
-        <Title />
-        <RowDivider />
-        <Droppable droppableId="business" type="MENU">
+    <>
+      <ActionBar />
+      <Title />
+      <RowDivider />
+      <DragDropBoard>
+        <Droppable droppableId={DraggableType.Menu} type={DraggableType.Menu}>
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {menus.map((id, index) => (
@@ -61,8 +29,8 @@ const Content = () => {
             </div>
           )}
         </Droppable>
-      </div>
-    </DragDropContext>
+      </DragDropBoard>
+    </>
   )
 }
 

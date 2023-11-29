@@ -7,6 +7,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { useReducerDispatch, useReducerState } from '../reducer/provider'
 import { Reducer } from '../reducer/types'
 import AddItem from './add-item'
+import { DraggableType } from './drag-drop-board'
 import DragProvided from './drag-provided'
 import Item from './item'
 import SectionDropdown from './section-dropdown'
@@ -47,7 +48,7 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
 
             <RowDivider />
 
-            <Droppable droppableId={id} type="ITEM">
+            <Droppable droppableId={id} type={DraggableType.Item}>
               {(provided, snapshot) => (
                 <DragProvided provided={provided} snapshot={snapshot}>
                   {items.map((itemId, index) => {

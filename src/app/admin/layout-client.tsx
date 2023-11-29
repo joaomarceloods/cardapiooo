@@ -25,7 +25,9 @@ const LayoutClient: FC<PropsWithChildren> = ({ children }) => {
                 <UserButton afterSignOutUrl="/" />
               </Flex>
             </Layout.Header>
-            <Layout.Content>{children}</Layout.Content>
+            <Layout.Content style={{ background: token.colorBgBase }}>
+              {children}
+            </Layout.Content>
           </Layout>
         </ConfigProvider>
       </ClerkProvider>
