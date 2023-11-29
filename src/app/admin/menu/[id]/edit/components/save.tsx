@@ -1,14 +1,17 @@
+import { LoadingOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { useRouter } from 'next/navigation'
-import { MouseEventHandler } from 'react'
+import { MouseEventHandler, useState } from 'react'
 import { denormalizeState } from '../provider/normalizr'
 import { useReducerState } from '../provider/provider'
 
 const Save = () => {
   const state = useReducerState()
   const router = useRouter()
+  const [saving, setSaving] = useState(false)
 
   const onClickSave: MouseEventHandler<HTMLButtonElement> = async () => {
+    setSaving(true)
     const denormalizedState = denormalizeState(state)
 
     const res = await fetch('/api/menu', {
@@ -16,15 +19,15 @@ const Save = () => {
       body: JSON.stringify(denormalizedState),
     })
 
-    if (!res.ok) window.alert('Error saving')
+    if (!res.ok) window.alert('Error')
 
-    router.push('/admin')
+    setSaving(false)
     router.refresh()
   }
 
   return (
-    <Button type="primary" onClick={onClickSave}>
-      Save
+    <Button type="primary" onClick={onClickSave} disabled={saving}>
+      {saving ? <LoadingOutlined /> : 'Save'}
     </Button>
   )
 }
