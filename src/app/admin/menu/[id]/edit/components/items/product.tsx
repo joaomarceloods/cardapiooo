@@ -40,7 +40,6 @@ const Product: FC<{ id: string }> = ({ id }) => {
             <InputNumber
               defaultValue="0"
               size="small"
-              bordered={false}
               value={price}
               onChange={(value) => handleChange(value || '', 'price')}
               parser={(value) => value!.replace(/\$\s?|(,*)/g, '')}

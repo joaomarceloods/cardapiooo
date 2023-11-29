@@ -35,7 +35,8 @@ const Item: FC<{ id: string; index: number; sectionId: string }> = ({
           <div
             style={{
               background: token.colorBgBase,
-              paddingTop: token.marginXS,
+              paddingTop: token.marginXXS,
+              paddingBottom: token.marginXXS,
             }}
           >
             <DragHandle
@@ -46,7 +47,7 @@ const Item: FC<{ id: string; index: number; sectionId: string }> = ({
                 </ItemDropdown>
               )}
             />
-            <Identation right={0}>{itemComponent}</Identation>
+            <Identation right={token.margin}>{itemComponent}</Identation>
           </div>
           <RowDivider />
         </div>

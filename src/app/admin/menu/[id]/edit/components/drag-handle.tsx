@@ -1,5 +1,5 @@
 import { HolderOutlined } from '@ant-design/icons'
-import { Typography } from 'antd'
+import { Typography, theme } from 'antd'
 import { FC, PropsWithChildren } from 'react'
 import { DraggableProvided } from 'react-beautiful-dnd'
 
@@ -10,6 +10,8 @@ const DragHandle: FC<{
   iconWrapper?: FC<PropsWithChildren>
   dragHandleProps: DraggableProvided['dragHandleProps']
 }> = ({ top, dragHandleProps, iconWrapper: IconWrapper = JustChildren }) => {
+  const { token } = theme.useToken()
+
   return (
     <div style={{ position: 'relative' }}>
       <div
@@ -17,14 +19,15 @@ const DragHandle: FC<{
         style={{
           top,
           width: 44,
-          display: 'flex',
+          height: 28,
           position: 'absolute',
-          justifyContent: 'center',
+          paddingLeft: token.margin,
+
         }}
       >
         <IconWrapper>
           <Typography.Text type="secondary">
-            <HolderOutlined style={{ fontSize: '1rem' }} />
+            <HolderOutlined />
           </Typography.Text>
         </IconWrapper>
       </div>

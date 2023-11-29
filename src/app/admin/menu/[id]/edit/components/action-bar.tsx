@@ -10,7 +10,7 @@ const ActionBar = () => {
       gap="small"
       justify="space-between"
       align="center"
-      style={{ paddingInline: token.marginXXL, paddingBlock: token.marginXXS }}
+      style={{ padding: token.margin }}
     >
       <Back />
       <SaveButton />
