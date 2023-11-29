@@ -62,6 +62,11 @@ export const MenuSchema = new Schema(
       require: true,
       type: String,
     },
+    visible: {
+      require: true,
+      type: Boolean,
+      default: false,
+    },
     sections: {
       require: true,
       type: [SectionSchema],

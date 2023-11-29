@@ -2,11 +2,12 @@ import DragHandle from '@/lib/components/drag-handle'
 import Identation from '@/lib/components/identation'
 import RowDivider from '@/lib/components/row-divider'
 import { RightOutlined } from '@ant-design/icons'
-import { Flex, theme } from 'antd'
+import { Flex, Space, theme } from 'antd'
 import Link from 'next/link'
 import { FC } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { useReducerState } from '../reducer/provider'
+import MenuVisibility from './menu-visibility'
 
 const Menu: FC<{ id: string; index: number }> = ({ id, index }) => {
   const state = useReducerState()
@@ -26,19 +27,18 @@ const Menu: FC<{ id: string; index: number }> = ({ id, index }) => {
           >
             <DragHandle dragHandleProps={provided.dragHandleProps} />
             <Identation right={token.margin}>
-              <Link href={`/admin/menu/${id}`}>
-                <Flex justify="space-between">
-                  <span
-                    style={{
-                      fontSize: '1rem',
-                      paddingLeft: token.marginXS,
-                    }}
-                  >
-                    {title}
-                  </span>
-                  <RightOutlined />
-                </Flex>
-              </Link>
+              <Flex justify="space-between" style={{ fontSize: '1rem' }}>
+                <Space>
+                  <MenuVisibility id={id} />
+                  {title}
+                </Space>
+                <Link href={`/admin/menu/${id}`}>
+                  <Space>
+                    Edit
+                    <RightOutlined />
+                  </Space>
+                </Link>
+              </Flex>
             </Identation>
           </div>
           <RowDivider />

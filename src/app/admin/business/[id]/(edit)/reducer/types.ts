@@ -10,6 +10,7 @@ export namespace Entity {
   export interface Menu {
     id: string
     title: string
+    visible: boolean
   }
 }
 

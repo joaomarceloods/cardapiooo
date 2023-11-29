@@ -11,7 +11,7 @@ const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
   await authorizeBusiness(id)
 
   const initialState = await Business.findById(id)
-    .populate('menus', 'title')
+    .populate('menus', 'title visible')
     .exec()
     .then((d) => d.toJSON({ virtuals: true }))
     .then(normalizeState)
