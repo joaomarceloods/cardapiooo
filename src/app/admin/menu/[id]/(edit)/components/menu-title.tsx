@@ -1,4 +1,3 @@
-import Identation from '@/lib/components/identation'
 import { Input } from 'antd'
 import { useReducerDispatch, useReducerState } from '../reducer/provider'
 import { Reducer } from '../reducer/types'
@@ -6,24 +5,23 @@ import { Reducer } from '../reducer/types'
 const MenuTitle = () => {
   const state = useReducerState()
   const dispatch = useReducerDispatch()
-  const { title } = state.entities.menus[state.result]
+  const menuId = state.result
+  const { title } = state.entities.menus[menuId]
 
   return (
-    <Identation>
-      <Input
-        size="small"
-        placeholder="Enter menu name…"
-        bordered={false}
-        value={title}
-        style={{ fontSize: '2em' }}
-        onChange={(e) =>
-          dispatch({
-            type: Reducer.ActionType.ChangeMenu,
-            payload: { property: 'title', value: e.target.value },
-          })
-        }
-      />
-    </Identation>
+    <Input
+      size="small"
+      placeholder="Enter menu name…"
+      bordered={false}
+      value={title}
+      style={{ fontSize: '2em' }}
+      onChange={(e) =>
+        dispatch({
+          type: Reducer.ActionType.ChangeMenu,
+          payload: { property: 'title', value: e.target.value },
+        })
+      }
+    />
   )
 }
 

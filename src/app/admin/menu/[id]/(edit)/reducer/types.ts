@@ -4,6 +4,7 @@ export namespace Entity {
   export interface Menu {
     id: string
     title: string
+    visible: boolean
     sections: string[]
   }
 
@@ -84,7 +85,7 @@ export namespace Reducer {
       type: ActionType.ChangeMenu
       payload: {
         property: string
-        value: string
+        value: any
       }
     }
 
@@ -93,7 +94,7 @@ export namespace Reducer {
       payload: {
         id: string
         property: string
-        value: string
+        value: any
       }
     }
 
@@ -102,7 +103,7 @@ export namespace Reducer {
       payload: {
         id: string
         property: string
-        value: string
+        value: any
       }
     }
 

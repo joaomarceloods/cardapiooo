@@ -2,13 +2,15 @@
 
 import DragProvided from '@/lib/components/drag-provided'
 import RowDivider from '@/lib/components/row-divider'
-import { theme } from 'antd'
+import { Flex, theme } from 'antd'
 import { Droppable } from 'react-beautiful-dnd'
 import { useReducerState } from '../reducer/provider'
 import ActionBar from './action-bar'
 import DragDropBoard, { DraggableType } from './drag-drop-board'
 import MenuTitle from './menu-title'
 import Section from './section'
+import Identation from '@/lib/components/identation'
+import MenuVisibility from './menu-visibility'
 
 const Content = () => {
   const state = useReducerState()
@@ -18,7 +20,12 @@ const Content = () => {
   return (
     <div style={{ paddingBottom: token.marginXXL * 2 }}>
       <ActionBar />
-      <MenuTitle />
+      <Identation right={token.margin}>
+        <Flex align="center">
+          <MenuTitle />
+          <MenuVisibility />
+        </Flex>
+      </Identation>
       <RowDivider />
       {sections.length === 0 && (
         <>
