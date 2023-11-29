@@ -1,3 +1,5 @@
+'use client'
+
 import RowDivider from '@/lib/components/row-divider'
 import {
   DragDropContext,
@@ -12,7 +14,7 @@ import DragProvided from './drag-provided'
 import MenuTitle from './menu-title'
 import Section from './section'
 
-const Menu = () => {
+const Content = () => {
   // react-beautiful-dnd: The resetServerContext function should be used when server side rendering (SSR).
   // https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/reset-server-context.md
   resetServerContext()
@@ -87,4 +89,4 @@ const Menu = () => {
   )
 }
 
-export default Menu
+export default Content

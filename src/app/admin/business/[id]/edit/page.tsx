@@ -2,8 +2,9 @@ import { authorizeBusiness } from '@/authorize'
 import { connectDatabase } from '@/database/connect'
 import { Business } from '@/database/model'
 import { FC } from 'react'
-import Editor from './components/editor'
+import Content from './components/content'
 import { normalizeState } from './reducer/normalizr'
+import { ReducerProvider } from './reducer/provider'
 
 const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
   await connectDatabase()
@@ -15,7 +16,11 @@ const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
     .then((d) => d.toJSON({ virtuals: true }))
     .then(normalizeState)
 
-  return <Editor initialState={initialState} />
+  return (
+    <ReducerProvider initialState={initialState}>
+      <Content />
+    </ReducerProvider>
+  )
 }
 
 export default Page
