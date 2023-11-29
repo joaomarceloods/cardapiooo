@@ -1,6 +1,6 @@
 import { Flex, theme } from 'antd'
 import Back from './back'
-import SaveButton from './save-button'
+import Save from './save'
 
 const ActionBar = () => {
   const { token } = theme.useToken()
@@ -13,7 +13,7 @@ const ActionBar = () => {
       style={{ padding: token.margin }}
     >
       <Back />
-      <SaveButton />
+      <Save />
     </Flex>
   )
 }

@@ -4,7 +4,7 @@ import { MouseEventHandler } from 'react'
 import { denormalizeState } from '../provider/normalizr'
 import { useReducerState } from '../provider/provider'
 
-const SaveButton = () => {
+const Save = () => {
   const state = useReducerState()
   const router = useRouter()
 
@@ -28,4 +28,4 @@ const SaveButton = () => {
   )
 }
 
-export default SaveButton
+export default Save
