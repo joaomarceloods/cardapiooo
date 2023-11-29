@@ -1,7 +1,9 @@
+import { connectDatabase } from '@/database/connect'
 import { Menu } from '@/database/model'
 import { revalidatePath } from 'next/cache'
 
 export async function POST(request: Request) {
+  await connectDatabase()
   const json = await request.json()
   const menu = await Menu.findById(json.id).exec()
   menu.set(json)
