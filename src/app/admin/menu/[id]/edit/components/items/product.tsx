@@ -1,7 +1,7 @@
 import { Col, Input, InputNumber, Row, theme } from 'antd'
 import { FC } from 'react'
-import { useReducerDispatch, useReducerState } from '../../provider/provider'
-import { Entity, Reducer } from '../../provider/types'
+import { useReducerDispatch, useReducerState } from '../../reducer/provider'
+import { Entity, Reducer } from '../../reducer/types'
 import ProductPhoto from './product-photo'
 
 const Product: FC<{ id: string }> = ({ id }) => {

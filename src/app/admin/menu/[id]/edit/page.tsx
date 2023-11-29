@@ -2,8 +2,8 @@ import { authorizeMenu } from '@/authorize'
 import { connectDatabase } from '@/database/connect'
 import { Menu } from '@/database/model'
 import { FC } from 'react'
-import { normalizeState } from './provider/normalizr'
-import Provider from './provider/provider'
+import { normalizeState } from './reducer/normalizr'
+import { ReducerProvider } from './reducer/provider'
 
 const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
   await connectDatabase()
@@ -14,7 +14,7 @@ const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
     .then((d) => d.toJSON())
     .then(normalizeState)
 
-  return <Provider initialState={initialState} />
+  return <ReducerProvider initialState={initialState} />
 }
 
 export default Page

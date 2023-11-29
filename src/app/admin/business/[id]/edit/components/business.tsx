@@ -5,8 +5,8 @@ import {
   OnDragEndResponder,
   resetServerContext,
 } from 'react-beautiful-dnd'
-import { useReducerDispatch, useReducerState } from '../provider/provider'
-import { Reducer } from '../provider/types'
+import { useReducerDispatch, useReducerState } from '../reducer/provider'
+import { Reducer } from '../reducer/types'
 import ActionBar from './action-bar'
 import Menu from './menu'
 import Title from './title'

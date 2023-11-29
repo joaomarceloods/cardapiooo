@@ -1,8 +1,8 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import { Dropdown, MenuProps } from 'antd'
 import { FC, PropsWithChildren } from 'react'
-import { useReducerDispatch } from '../provider/provider'
-import { Reducer } from '../provider/types'
+import { useReducerDispatch } from '../reducer/provider'
+import { Reducer } from '../reducer/types'
 
 const ItemDropdown: FC<
   PropsWithChildren<{ sectionId: string; itemId: string }>

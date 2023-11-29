@@ -9,8 +9,8 @@ import type { UploadChangeParam } from 'antd/es/upload'
 import type { RcFile, UploadFile } from 'antd/es/upload/interface'
 import Image from 'next/image'
 import { FC, useState } from 'react'
-import { useReducerDispatch, useReducerState } from '../../provider/provider'
-import { Entity, Reducer } from '../../provider/types'
+import { useReducerDispatch, useReducerState } from '../../reducer/provider'
+import { Entity, Reducer } from '../../reducer/types'
 
 const beforeUpload = (file: RcFile) => {
   const isValidFormat = /image\/jpeg|png|webp/.test(file.type)

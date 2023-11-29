@@ -6,7 +6,7 @@ import { Flex, theme } from 'antd'
 import Link from 'next/link'
 import { FC } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import { useReducerState } from '../provider/provider'
+import { useReducerState } from '../reducer/provider'
 
 const Menu: FC<{ id: string; index: number }> = ({ id, index }) => {
   const state = useReducerState()

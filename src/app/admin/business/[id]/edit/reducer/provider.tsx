@@ -25,7 +25,7 @@ export const useReducerDispatch = () => {
   return dispatch
 }
 
-export const Provider: FC<
+export const ReducerProvider: FC<
   PropsWithChildren<{ initialState: Reducer.State }>
 > = ({ initialState, children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)

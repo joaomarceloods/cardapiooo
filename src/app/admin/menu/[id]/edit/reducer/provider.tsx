@@ -21,7 +21,7 @@ export const useReducerDispatch = () => {
   return dispatch
 }
 
-const Provider = ({ initialState }: { initialState: Reducer.State }) => {
+export const ReducerProvider = ({ initialState }: { initialState: Reducer.State }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
@@ -32,5 +32,3 @@ const Provider = ({ initialState }: { initialState: Reducer.State }) => {
     </StateContext.Provider>
   )
 }
-
-export default Provider

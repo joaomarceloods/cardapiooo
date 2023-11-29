@@ -2,8 +2,8 @@ import Identation from '@/lib/components/identation'
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, Space } from 'antd'
 import { FC } from 'react'
-import { useReducerDispatch } from '../provider/provider'
-import { Reducer } from '../provider/types'
+import { useReducerDispatch } from '../reducer/provider'
+import { Reducer } from '../reducer/types'
 
 const AddItem: FC<{ sectionId: string }> = ({ sectionId }) => {
   const dispatch = useReducerDispatch()

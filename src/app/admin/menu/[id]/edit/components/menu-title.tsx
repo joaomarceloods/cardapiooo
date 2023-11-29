@@ -1,7 +1,7 @@
 import Identation from '@/lib/components/identation'
 import { Input } from 'antd'
-import { useReducerDispatch, useReducerState } from '../provider/provider'
-import { Reducer } from '../provider/types'
+import { useReducerDispatch, useReducerState } from '../reducer/provider'
+import { Reducer } from '../reducer/types'
 
 const MenuTitle = () => {
   const state = useReducerState()

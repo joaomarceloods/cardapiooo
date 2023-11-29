@@ -2,8 +2,8 @@ import { LoadingOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { useRouter } from 'next/navigation'
 import { MouseEventHandler, useState } from 'react'
-import { denormalizeState } from '../provider/normalizr'
-import { useReducerState } from '../provider/provider'
+import { denormalizeState } from '../reducer/normalizr'
+import { useReducerState } from '../reducer/provider'
 
 const Save = () => {
   const state = useReducerState()

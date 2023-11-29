@@ -3,7 +3,7 @@ import { connectDatabase } from '@/database/connect'
 import { Business } from '@/database/model'
 import Link from 'next/link'
 import { FC } from 'react'
-import { normalizeState } from '../edit/provider/normalizr'
+import { normalizeState } from '../edit/reducer/normalizr'
 
 const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
   await connectDatabase()

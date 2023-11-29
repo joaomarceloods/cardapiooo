@@ -1,15 +1,15 @@
 'use client'
 
 import { FC } from 'react'
-import { Provider } from '../provider/provider'
-import { Reducer } from '../provider/types'
+import { ReducerProvider } from '../reducer/provider'
+import { Reducer } from '../reducer/types'
 import Business from './business'
 
 const Editor: FC<{ initialState: Reducer.State }> = ({ initialState }) => {
   return (
-    <Provider initialState={initialState}>
+    <ReducerProvider initialState={initialState}>
       <Business />
-    </Provider>
+    </ReducerProvider>
   )
 }
 
