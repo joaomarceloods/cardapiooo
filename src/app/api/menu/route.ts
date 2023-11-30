@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   await authorizeBusiness(json.business)
 
   const business = await Business.findById(json.business).exec()
-  if (!business) throw new Error('Save Failed')
+  if (!business) throw new SaveError()
 
   const menu = new Menu(json)
   if (!menu.sections || menu.sections.length === 0) {
@@ -45,4 +45,23 @@ export async function PUT(request: Request) {
   menu.set(json)
   await menu.save()
   return Response.json(menu)
+}
+
+export async function DELETE(request: Request) {
+  const json = await request.json()
+  await connectDatabase()
+  await authorizeMenu(json.id)
+
+  const business = await Business.findOne({ menus: json.id }).exec()
+  if (!business) throw new SaveError()
+  business.menus = business.menus.filter((m: any) => m.id !== json.id)
+
+  const session = await mongoose.startSession()
+  await session.withTransaction(async () => {
+    await Menu.findByIdAndDelete(json.id, { session })
+    await business.save({ session })
+  })
+  await session.endSession()
+
+  return Response.json({ success: true })
 }
