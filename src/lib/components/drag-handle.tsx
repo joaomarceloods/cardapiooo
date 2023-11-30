@@ -1,4 +1,4 @@
-import { HolderOutlined } from '@ant-design/icons'
+import { MenuOutlined } from '@ant-design/icons'
 import { Typography, theme } from 'antd'
 import { FC, PropsWithChildren } from 'react'
 import { DraggableProvided } from 'react-beautiful-dnd'
@@ -26,7 +26,7 @@ const DragHandle: FC<{
       >
         <IconWrapper>
           <Typography.Text type="secondary">
-            <HolderOutlined />
+            <MenuOutlined />
           </Typography.Text>
         </IconWrapper>
       </div>
