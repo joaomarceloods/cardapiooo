@@ -57,7 +57,7 @@ const MenuVisibility = () => {
   return (
     <>
       <Alert
-        message="Currently inaccessible to customers"
+        message="Currently not published to customers"
         type="error"
         action={
           <Space>
