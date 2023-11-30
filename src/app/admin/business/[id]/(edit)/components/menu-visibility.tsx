@@ -1,5 +1,5 @@
-import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
-import { Tooltip, theme } from 'antd'
+import { EyeInvisibleOutlined } from '@ant-design/icons'
+import { Space, theme } from 'antd'
 import { FC } from 'react'
 import { useReducerState } from '../reducer/provider'
 
@@ -8,16 +8,13 @@ const MenuVisibility: FC<{ id: string }> = ({ id }) => {
   const state = useReducerState()
   const { visible } = state.entities.menus[id]
 
-  return visible ? (
-    <Tooltip placement="topRight" title="Publicly visible">
-      <EyeOutlined />
-    </Tooltip>
-  ) : (
-    <Tooltip placement="topRight" title="Hidden from public">
-      <span style={{ color: token.colorTextSecondary }}>
-        <EyeInvisibleOutlined />
-      </span>
-    </Tooltip>
+  if (visible) return
+
+  return (
+    <Space style={{ color: token.colorErrorText }}>
+      <EyeInvisibleOutlined />
+      Not published
+    </Space>
   )
 }
 

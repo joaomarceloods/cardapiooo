@@ -27,17 +27,17 @@ const Menu: FC<{ id: string; index: number }> = ({ id, index }) => {
           >
             <DragHandle dragHandleProps={provided.dragHandleProps} />
             <Identation right={token.margin}>
-              <Flex justify="space-between" style={{ fontSize: '1rem' }}>
-                <Space>
+              <Flex style={{ fontSize: '1rem', paddingLeft: token.marginXS }}>
+                <span style={{ flex: 1 }}>{title}</span>
+                <Flex gap="large">
                   <MenuVisibility id={id} />
-                  {title}
-                </Space>
-                <Link href={`/admin/menu/${id}`}>
-                  <Space>
-                    Edit
-                    <RightOutlined />
-                  </Space>
-                </Link>
+                  <Link href={`/admin/menu/${id}`}>
+                    <Space>
+                      Edit
+                      <RightOutlined />
+                    </Space>
+                  </Link>
+                </Flex>
               </Flex>
             </Identation>
           </div>
