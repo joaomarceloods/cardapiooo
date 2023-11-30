@@ -15,7 +15,7 @@ const Save = () => {
     const denormalizedState = denormalizeState(state)
 
     const res = await fetch('/api/menu', {
-      method: 'POST',
+      method: 'PUT',
       body: JSON.stringify(denormalizedState),
     })
 

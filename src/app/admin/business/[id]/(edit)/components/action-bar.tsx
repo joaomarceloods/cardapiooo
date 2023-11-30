@@ -1,4 +1,5 @@
 import { Flex, theme } from 'antd'
+import CreateMenu from './create-menu'
 import Save from './save'
 
 const ActionBar = () => {
@@ -11,7 +12,7 @@ const ActionBar = () => {
       align="center"
       style={{ padding: token.margin, paddingLeft: token.marginXXL }}
     >
-      <span />
+      <CreateMenu />
       <Save />
     </Flex>
   )

@@ -6,6 +6,7 @@ import { theme } from 'antd'
 import { Droppable } from 'react-beautiful-dnd'
 import { useReducerState } from '../reducer/provider'
 import ActionBar from './action-bar'
+import BlankState from './blank-state'
 import DragDropBoard, { DraggableType } from './drag-drop-board'
 import Menu from './menu'
 import Title from './title'
@@ -21,6 +22,7 @@ const Content = () => {
       <ActionBar />
       <Title />
       <RowDivider />
+      <BlankState />
       <DragDropBoard>
         <Droppable droppableId={DraggableType.Menu} type={DraggableType.Menu}>
           {(provided, snapshot) => (
