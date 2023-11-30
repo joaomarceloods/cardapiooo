@@ -1,20 +1,22 @@
 'use client'
 
 import DragProvided from '@/lib/components/drag-provided'
+import Identation from '@/lib/components/identation'
 import RowDivider from '@/lib/components/row-divider'
 import { Flex, theme } from 'antd'
 import { Droppable } from 'react-beautiful-dnd'
 import { useReducerState } from '../reducer/provider'
 import ActionBar from './action-bar'
+import BlankState from './blank-state'
 import DragDropBoard, { DraggableType } from './drag-drop-board'
 import MenuTitle from './menu-title'
-import Section from './section'
-import Identation from '@/lib/components/identation'
 import MenuVisibility from './menu-visibility'
+import Section from './section'
 
 const Content = () => {
   const state = useReducerState()
-  const { sections } = state.entities.menus[state.result]
+  const menuId = state.result
+  const { sections } = state.entities.menus[menuId]
   const { token } = theme.useToken()
 
   return (
@@ -27,12 +29,7 @@ const Content = () => {
         </Flex>
       </Identation>
       <RowDivider />
-      {sections.length === 0 && (
-        <>
-          <h3>This menu is empty</h3>
-          {/* TODO: add section */}
-        </>
-      )}
+      <BlankState />
       <DragDropBoard>
         <Droppable droppableId="menu" type={DraggableType.Section}>
           {(provided, snapshot) => (
