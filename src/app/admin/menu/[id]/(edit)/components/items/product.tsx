@@ -30,7 +30,7 @@ const Product: FC<{ id: string }> = ({ id }) => {
             <Input
               size="small"
               bordered={false}
-              placeholder="Enter product name…"
+              placeholder="Product name"
               value={title}
               onChange={(e) => handleChange(e.target.value, 'title')}
               style={{ fontSize: '1rem', fontWeight: 'bold' }}
@@ -54,7 +54,7 @@ const Product: FC<{ id: string }> = ({ id }) => {
               autoSize
               size="small"
               bordered={false}
-              placeholder="Description (max. 2 lines recommended)"
+              placeholder="Short description"
               rows={1}
               value={description}
               onChange={(e) => handleChange(e.target.value, 'description')}

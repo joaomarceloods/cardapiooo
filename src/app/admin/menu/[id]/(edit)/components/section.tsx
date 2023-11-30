@@ -2,7 +2,7 @@ import DragHandle from '@/lib/components/drag-handle'
 import DragProvided from '@/lib/components/drag-provided'
 import Identation from '@/lib/components/identation'
 import RowDivider from '@/lib/components/row-divider'
-import { Input } from 'antd'
+import { Flex, Input } from 'antd'
 import { FC } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { useReducerDispatch, useReducerState } from '../reducer/provider'
@@ -22,28 +22,27 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
       {(provided) => (
         <div {...provided.draggableProps} ref={provided.innerRef}>
           <div style={{ background: 'white' }}>
-            <DragHandle
-              top={8}
-              dragHandleProps={provided.dragHandleProps}
-              iconWrapper={({ children }) => (
-                <SectionDropdown sectionId={id}>{children}</SectionDropdown>
-              )}
-            />
-
             <Identation>
-              <Input
-                value={title}
-                size="small"
-                bordered={false}
-                placeholder="Enter section name…"
-                style={{ fontSize: '1.5rem' }}
-                onChange={(e) => {
-                  dispatch({
-                    type: Reducer.ActionType.ChangeSection,
-                    payload: { id, property: 'title', value: e.target.value },
-                  })
-                }}
-              />
+              <Flex align="flex-start">
+                <Input
+                  value={title}
+                  size="small"
+                  bordered={false}
+                  placeholder="Enter section name…"
+                  style={{ flex: 1, fontSize: '1.5rem' }}
+                  onChange={(e) => {
+                    dispatch({
+                      type: Reducer.ActionType.ChangeSection,
+                      payload: { id, property: 'title', value: e.target.value },
+                    })
+                  }}
+                />
+                <SectionDropdown sectionId={id} />
+                <DragHandle
+                  top={8}
+                  dragHandleProps={provided.dragHandleProps}
+                />
+              </Flex>
             </Identation>
 
             <RowDivider />

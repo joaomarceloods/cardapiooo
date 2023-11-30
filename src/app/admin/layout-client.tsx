@@ -13,7 +13,7 @@ const LayoutClient: FC<PropsWithChildren> = ({ children }) => {
       <ClerkProvider>
         <ConfigProvider>
           <Layout>
-            <Layout.Header style={{ paddingRight: token.margin }}>
+            <Layout.Header style={{ padding: token.margin }}>
               <Flex
                 justify="space-between"
                 align="center"

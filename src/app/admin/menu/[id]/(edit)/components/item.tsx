@@ -1,7 +1,7 @@
 import DragHandle from '@/lib/components/drag-handle'
 import Identation from '@/lib/components/identation'
 import RowDivider from '@/lib/components/row-divider'
-import { theme } from 'antd'
+import { Flex, theme } from 'antd'
 import { FC } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { useReducerState } from '../reducer/provider'
@@ -39,15 +39,17 @@ const Item: FC<{ id: string; index: number; sectionId: string }> = ({
               paddingBottom: token.marginXXS,
             }}
           >
-            <DragHandle
-              dragHandleProps={provided.dragHandleProps}
-              iconWrapper={({ children }) => (
-                <ItemDropdown itemId={id} sectionId={sectionId}>
-                  {children}
-                </ItemDropdown>
-              )}
-            />
-            <Identation right={token.margin}>{itemComponent}</Identation>
+            <Identation right={token.margin}>
+              <Flex gap="small" align="flex-start">
+                <div style={{ flex: 1 }}>
+                  <div>{itemComponent}</div>
+                </div>
+                <Flex>
+                  <ItemDropdown itemId={id} sectionId={sectionId} />
+                  <DragHandle dragHandleProps={provided.dragHandleProps} />
+                </Flex>
+              </Flex>
+            </Identation>
           </div>
           <RowDivider />
         </div>

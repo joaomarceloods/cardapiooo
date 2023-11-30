@@ -1,13 +1,15 @@
-import { DeleteOutlined } from '@ant-design/icons'
-import { Dropdown, MenuProps } from 'antd'
-import { FC, PropsWithChildren } from 'react'
+import { DeleteOutlined, InfoCircleOutlined } from '@ant-design/icons'
+import { Dropdown, MenuProps, theme } from 'antd'
+import { FC } from 'react'
 import { useReducerDispatch } from '../reducer/provider'
 import { Reducer } from '../reducer/types'
 
-const ItemDropdown: FC<
-  PropsWithChildren<{ sectionId: string; itemId: string }>
-> = ({ sectionId, itemId, children }) => {
+const ItemDropdown: FC<{ sectionId: string; itemId: string }> = ({
+  sectionId,
+  itemId,
+}) => {
   const dispatch = useReducerDispatch()
+  const { token } = theme.useToken()
 
   const handleDelete = () => {
     dispatch({
@@ -27,8 +29,14 @@ const ItemDropdown: FC<
   ]
 
   return (
-    <Dropdown menu={{ items }} trigger={['click']}>
-      {children}
+    <Dropdown placement="top" menu={{ items }}>
+      <InfoCircleOutlined
+        style={{
+          color: token.colorTextDisabled,
+          padding: token.marginXS,
+          cursor: 'pointer',
+        }}
+      />
     </Dropdown>
   )
 }

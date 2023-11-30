@@ -9,8 +9,8 @@ const Identation: FC<PropsWithChildren<{ left?: number; right?: number }>> = ({
   right,
 }) => {
   const { token } = theme.useToken()
-  if (left == null) left = token.marginXXL
-  if (right == null) right = token.marginXXL
+  if (left == null) left = token.margin
+  if (right == null) right = token.margin
 
   return (
     <div style={{ paddingLeft: left, paddingRight: right }}>{children}</div>

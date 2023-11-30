@@ -11,7 +11,7 @@ const MenuVisibility: FC<{ id: string }> = ({ id }) => {
   if (visible) return
 
   return (
-    <Space style={{ color: token.colorErrorText }}>
+    <Space style={{ color: token.colorTextDisabled }}>
       <EyeInvisibleOutlined />
       Not published
     </Space>
