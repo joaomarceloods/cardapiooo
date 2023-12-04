@@ -27,6 +27,9 @@ const Save = () => {
   }
 
   const onClickDelete = async () => {
+    const confirmed = window.confirm('Delete this menu? This is irreversible.')
+    if (!confirmed) return
+
     setSaving(true)
 
     const res = await fetch('/api/menu', {
