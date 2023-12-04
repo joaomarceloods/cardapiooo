@@ -5,6 +5,7 @@ import { EllipsisOutlined } from '@ant-design/icons'
 import mongoose from 'mongoose'
 import Image from 'next/image'
 import { FC } from 'react'
+import styles from './page.module.css'
 
 const empty = (s: string) => s.replace(/\s\n/, '').length === 0
 
@@ -16,7 +17,7 @@ const reduceItems = (items: any[], i: any) => {
 }
 
 const reduceSections = (sections: any[], s: any) => {
-  // if (empty(s.title)) return sections
+  if (empty(s.title)) return sections
   const items = s.items.reduce(reduceItems, [])
   if (items.length === 0) return sections
   return [...sections, { ...s, items }]
@@ -39,40 +40,18 @@ const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
 
   const menu = cleanup(rawMenu)
 
-  const divider = (
-    <div style={{ height: 1, background: 'whitesmoke', marginLeft: 16 }} />
-  )
+  const divider = <div className={styles.divider} />
 
   return (
-    <div>
-      <h1
-        style={{
-          paddingInline: 16,
-          paddingBlock: 64,
-          margin: 0,
-          fontSize: '2rem',
-          textAlign: 'center',
-        }}
-      >
-        {menu.title}
-      </h1>
-      {divider}
+    <div className={styles.menu}>
+      <h1 className={styles.menuTitle}>{menu.title}</h1>
+      <div className={styles.divider} />
       {menu.sections.length === 0 && <div>This menu is empty</div>}
       {menu.sections.map((section: any) => (
         <div key={section._id}>
           <div>
-            <h2
-              style={{
-                fontSize: '1.2rem',
-                paddingInline: 16,
-                paddingBlock: 8,
-                fontWeight: 'bold',
-                margin: 0,
-              }}
-            >
-              {section.title}
-            </h2>
-            {divider}
+            <h2 className={styles.sectionTitle}>{section.title}</h2>
+            <div className={styles.divider} />
           </div>
 
           {section.items.length === 0 && <div>This section is empty</div>}
@@ -80,70 +59,21 @@ const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
           {section.items.map((i: any) => {
             return (
               <div key={i._id}>
-                <div
-                  style={{
-                    display: 'flex',
-                    paddingBlock: 8,
-                    paddingInline: 16,
-                    gap: 16,
-                  }}
-                >
-                  <div
-                    style={{
-                      flex: 1,
-                      gap: 8,
-                      display: 'flex',
-                      flexDirection: 'column',
-                    }}
-                  >
-                    <div
-                      style={{
-                        gap: 16,
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                      }}
-                    >
-                      <h3
-                        style={{
-                          margin: 0,
-                          fontSize: '1rem',
-                          fontWeight: 'normal',
-                        }}
-                      >
-                        {i.data.title}
-                      </h3>
-                      <div style={{ fontWeight: 'normal' }}>
+                <div className={styles.itemContainer}>
+                  <div className={styles.itemCopyContainer}>
+                    <div className={styles.itemTitleContainer}>
+                      <h3 className={styles.itemTitle}>{i.data.title}</h3>
+                      <div className={styles.itemPrice}>
                         {i.data.price && formatMoney(i.data.price)}
                       </div>
                     </div>
                     {i.data.description && (
-                      <div
-                        style={{
-                          margin: 0,
-                          color: 'gray',
-                          fontSize: '0.8rem',
-                        }}
-                      >
+                      <div className={styles.itemDescription}>
                         {i.data.description}
                       </div>
                     )}
                   </div>
-
-                  <div
-                    style={{
-                      position: 'relative',
-                      width: 80,
-                      height: 60,
-                      background: 'whitesmoke',
-                      borderRadius: 4,
-                      overflow: 'hidden',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      fontSize: '2rem',
-                      color: 'lightgray',
-                    }}
-                  >
+                  <div className={styles.itemPhotoContainer}>
                     <EllipsisOutlined />
                     {i.data.photo && (
                       <Image
@@ -156,13 +86,14 @@ const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
                     )}
                   </div>
                 </div>
-                {divider}
+
+                <div className={styles.divider} />
               </div>
             )
           })}
         </div>
       ))}
-      <div style={{ height: 120 }} />
+      <div className={styles.menuBottom} />
     </div>
   )
 }

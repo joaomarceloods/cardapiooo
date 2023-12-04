@@ -1,0 +1,103 @@
+.menu {
+  --bg-primary: white;
+  --bg-secondary: whitesmoke;
+  --text-primary: black;
+  --text-secondary: gray;
+
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.menu :global() {
+  background: var(--bg-primary);
+}
+
+.divider {
+  height: 1px;
+  background: var(--bg-secondary);
+  margin-left: 16px;
+}
+
+.menuTitle {
+  padding-inline: 16px;
+  padding-block: 64px;
+  margin: 0;
+  font-size: 2rem;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.sectionTitle {
+  font-size: 1.2rem;
+  padding-inline: 16px;
+  padding-block: 16px;
+  text-align: center;
+  font-weight: bold;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.itemContainer {
+  display: flex;
+  padding-block: 8px;
+  padding-inline: 16px;
+  gap: 16px;
+}
+
+.itemCopyContainer {
+  flex: 1px;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.itemTitleContainer {
+  gap: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.itemTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--text-primary);
+}
+
+.itemPrice {
+  font-weight: normal;
+  color: var(--text-primary);
+}
+
+.itemDescription {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.itemPhotoContainer {
+  position: relative;
+  width: 80px;
+  height: 60px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: var(--bg-primary);
+}
+
+.menuBottom {
+  height: 120px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .menu {
+    --bg-primary: rgb(20, 20, 20);
+    --bg-secondary: rgb(40, 40, 40);
+    --text-primary: white;
+    --text-secondary: gray;
+  }
+}
