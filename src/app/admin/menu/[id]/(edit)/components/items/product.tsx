@@ -1,3 +1,4 @@
+import formatMoney from '@/lib/formatMoney'
 import { Col, Input, InputNumber, Row, theme } from 'antd'
 import { FC } from 'react'
 import { useReducerDispatch, useReducerState } from '../../reducer/provider'
@@ -44,9 +45,7 @@ const Product: FC<{ id: string }> = ({ id }) => {
               onChange={(value) => handleChange(value || '', 'price')}
               parser={(value) => value!.replace(/\$\s?|(,*)/g, '')}
               style={{ maxWidth: '100%', fontSize: '1rem' }}
-              formatter={(value) =>
-                `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-              }
+              formatter={(value) => formatMoney(value || '')}
             />
           </Col>
           <Col xs={24} lg={12}>
