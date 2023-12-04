@@ -46,9 +46,21 @@ const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
     <div className={styles.menu}>
       <h1 className={styles.menuTitle}>{menu.title}</h1>
       <div className={styles.divider} />
+      {menu.sections.length > 1 && (
+        <div className={styles.sectionBarContainer}>
+          <div className={styles.sectionBar}>
+            {menu.sections.map((section: any) => (
+              <a key={section._id} href={`#${section._id}`}>
+                {section.title}
+              </a>
+            ))}
+          </div>
+          <div className={styles.divider} />
+        </div>
+      )}
       {menu.sections.length === 0 && <div>This menu is empty</div>}
       {menu.sections.map((section: any) => (
-        <div key={section._id}>
+        <div key={section._id} id={section._id} className={styles.sectionContainer}>
           <div>
             <h2 className={styles.sectionTitle}>{section.title}</h2>
             <div className={styles.divider} />

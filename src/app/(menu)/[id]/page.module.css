@@ -27,6 +27,33 @@
   color: var(--text-primary);
 }
 
+.sectionBarContainer {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--bg-primary);
+}
+
+.sectionBar {
+  overflow: auto;
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+}
+
+.sectionBar a {
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.sectionContainer:before {
+  content: '';
+  display: block;
+  position: relative;
+  height: 3rem;
+  margin-top: -3rem;
+}
+
 .sectionTitle {
   font-size: 1.2rem;
   padding-inline: 16px;
