@@ -1,42 +1,10 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { Button, ButtonProps, Spin, message } from 'antd'
-import { useRouter } from 'next/navigation'
-import { FC, useState } from 'react'
-import { useReducerState } from '../reducer/provider'
+import { Button, ButtonProps, Spin } from 'antd'
+import { FC } from 'react'
+import useCreateMenu from '../hooks/useNewMenu'
 
 const CreateMenu: FC<{ buttonProps?: ButtonProps }> = ({ buttonProps }) => {
-  const router = useRouter()
-  const state = useReducerState()
-  const business = state.result
-  const [saving, setSaving] = useState(false)
-
-  const createMenu = async () => {
-    const title = window.prompt(
-      'What is the name of the menu? It can be the restaurant\'s name or something specific i.e. "Drinks"'
-    )
-
-    if (!title) {
-      message.info("Canceled. Menu name can't be empty.")
-      return
-    }
-
-    setSaving(true)
-
-    const res = await fetch('/api/menu', {
-      method: 'POST',
-      body: JSON.stringify({ title, business }),
-    })
-
-    if (!res.ok) {
-      setSaving(false)
-      window.alert('Error creating the menu. Please try again later.')
-      return
-    }
-
-    const menu = await res.json()
-    router.push(`/admin/menu/${menu.id}`)
-    router.refresh()
-  }
+  const [createMenu, saving] = useCreateMenu()
 
   return (
     <>
