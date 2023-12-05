@@ -1,45 +1,51 @@
 import { CameraOutlined } from '@ant-design/icons'
-import { Avatar, Dropdown } from 'antd'
+import { Avatar, Button, Dropdown, MenuProps } from 'antd'
 import Image from 'next/image'
 import { FC } from 'react'
 import { useReducerState } from '../../../reducer/provider'
 import { Entity } from '../../../reducer/types'
+import PhotoDeleteContainer from './photo-delete'
 import PhotoUpload from './photo-upload'
 
 const PhotoDropdown: FC<{
   itemId: string
   photoUrl: string | undefined
 }> = ({ itemId, photoUrl }) => {
-  const items = [
+  const items: MenuProps['items'] = [
     {
       key: '1',
       label: <PhotoUpload itemId={itemId} />,
     },
-    // {
-    //   key: '2',
-    //   label: 'Delete image',
-    //   danger: true,
-    // },
   ]
+
+  if (photoUrl) {
+    items.push({
+      key: '2',
+      label: <PhotoDeleteContainer itemId={itemId} />,
+      danger: true,
+    })
+  }
 
   return (
     <Dropdown menu={{ items }}>
-      <Avatar
-        shape="square"
-        size="small"
-        icon={<CameraOutlined />}
-        src={
-          photoUrl && (
-            <Image
-              src={photoUrl}
-              alt="Photo"
-              fill
-              sizes="22px"
-              objectFit="cover"
-            />
-          )
-        }
-      />
+      <Button size="small" type="text" style={{ padding: 0 }}>
+        <Avatar
+          shape="square"
+          size="small"
+          icon={<CameraOutlined />}
+          src={
+            photoUrl && (
+              <Image
+                src={photoUrl}
+                alt="Photo"
+                fill
+                sizes="22px"
+                objectFit="cover"
+              />
+            )
+          }
+        />
+      </Button>
     </Dropdown>
   )
 }
