@@ -17,7 +17,11 @@ const LayoutClient: FC<PropsWithChildren> = ({ children }) => {
               <Flex
                 justify="space-between"
                 align="center"
-                style={{ height: '100%' }}
+                style={{
+                  height: '100%',
+                  maxWidth: token.screenLG,
+                  margin: '0 auto',
+                }}
               >
                 <Typography.Text style={{ color: 'white' }}>
                   Cardapiooo
@@ -26,7 +30,9 @@ const LayoutClient: FC<PropsWithChildren> = ({ children }) => {
               </Flex>
             </Layout.Header>
             <Layout.Content style={{ background: token.colorBgBase }}>
-              {children}
+              <div style={{ maxWidth: token.screenLG, margin: '0 auto' }}>
+                {children}
+              </div>
             </Layout.Content>
           </Layout>
         </ConfigProvider>

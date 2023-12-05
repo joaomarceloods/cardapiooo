@@ -18,7 +18,7 @@ const Content = () => {
   const { token } = theme.useToken()
 
   return (
-    <div style={{ paddingBottom: token.marginXXL * 2 }}>
+    <>
       <ActionBar />
       <Title />
       <RowDivider />
@@ -35,7 +35,7 @@ const Content = () => {
           )}
         </Droppable>
       </DragDropBoard>
-    </div>
+    </>
   )
 }
 
