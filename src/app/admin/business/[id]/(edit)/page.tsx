@@ -1,6 +1,6 @@
 import { authorizeBusiness } from '@/authorize'
-import { connectDatabase } from '@/database/connect'
-import { Business } from '@/database/model'
+import { connectDatabase } from '@/lib/database/connect'
+import { Business } from '@/lib/database/model'
 import { FC } from 'react'
 import Content from './components/content'
 import { normalizeState } from './reducer/normalizr'

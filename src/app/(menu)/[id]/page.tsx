@@ -1,5 +1,5 @@
-import { connectDatabase } from '@/database/connect'
-import { Menu } from '@/database/model'
+import { connectDatabase } from '@/lib/database/connect'
+import { Menu } from '@/lib/database/model'
 import formatMoney from '@/lib/formatMoney'
 import { EllipsisOutlined } from '@ant-design/icons'
 import mongoose from 'mongoose'
@@ -60,7 +60,11 @@ const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
       )}
       {menu.sections.length === 0 && <div>This menu is empty</div>}
       {menu.sections.map((section: any) => (
-        <div key={section._id} id={section._id} className={styles.sectionContainer}>
+        <div
+          key={section._id}
+          id={section._id}
+          className={styles.sectionContainer}
+        >
           <div>
             <h2 className={styles.sectionTitle}>{section.title}</h2>
             <div className={styles.divider} />

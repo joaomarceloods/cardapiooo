@@ -1,5 +1,5 @@
-import { connectDatabase } from '@/database/connect'
-import { Business, BusinessUser } from '@/database/model'
+import { connectDatabase } from '@/lib/database/connect'
+import { Business, BusinessUser } from '@/lib/database/model'
 import { SaveError } from '@/lib/errors'
 import { auth } from '@clerk/nextjs'
 import mongoose from 'mongoose'

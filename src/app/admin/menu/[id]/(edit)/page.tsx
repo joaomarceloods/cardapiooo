@@ -1,6 +1,6 @@
 import { authorizeMenu } from '@/authorize'
-import { connectDatabase } from '@/database/connect'
-import { Menu } from '@/database/model'
+import { connectDatabase } from '@/lib/database/connect'
+import { Menu } from '@/lib/database/model'
 import { FC } from 'react'
 import Content from './components/content'
 import { normalizeState } from './reducer/normalizr'
@@ -17,7 +17,7 @@ const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
 
   const initialState = {
     touched: false,
-    ...normalizedState
+    ...normalizedState,
   }
 
   return (

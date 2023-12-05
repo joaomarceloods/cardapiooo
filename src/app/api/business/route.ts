@@ -1,5 +1,5 @@
-import { connectDatabase } from '@/database/connect'
-import { Business } from '@/database/model'
+import { connectDatabase } from '@/lib/database/connect'
+import { Business } from '@/lib/database/model'
 
 export async function POST(request: Request) {
   await connectDatabase()

@@ -1,6 +1,6 @@
-import { Business, BusinessUser } from '@/database/model'
-import { auth } from '@clerk/nextjs'
+import { Business, BusinessUser } from '@/lib/database/model'
 import { NotAuthorizedError } from '@/lib/errors'
+import { auth } from '@clerk/nextjs'
 
 export const authorizeBusiness = async (businessId: string) => {
   const { userId } = auth()
