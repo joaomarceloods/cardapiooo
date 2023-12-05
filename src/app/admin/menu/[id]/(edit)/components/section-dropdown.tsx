@@ -18,7 +18,7 @@ const SectionDropdown: FC<{ sectionId: string }> = ({ sectionId }) => {
   const items: MenuProps['items'] = [
     {
       key: 1,
-      label: 'Delete',
+      label: 'Apagar',
       danger: true,
       icon: <DeleteOutlined />,
       onClick: handleDelete,

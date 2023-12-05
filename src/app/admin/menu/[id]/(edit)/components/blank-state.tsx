@@ -20,12 +20,12 @@ const BlankState = () => {
 
   return (
     <Empty
-      description="This menu is empty"
+      description="Este menu está vazio"
       image={Empty.PRESENTED_IMAGE_SIMPLE}
       style={{ padding: token.margin }}
     >
       <Button size="large" onClick={addSection}>
-        Add section
+        Adicionar seção
       </Button>
     </Empty>
   )

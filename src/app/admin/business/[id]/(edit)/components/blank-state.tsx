@@ -13,12 +13,12 @@ const BlankState = () => {
 
   return (
     <Empty
-      description="There are no menus yet"
+      description="Ainda não há nenhum menu"
       image={Empty.PRESENTED_IMAGE_SIMPLE}
       style={{ padding: token.margin }}
     >
       <Button onClick={createMenu} disabled={saving} size="large">
-        Create menu
+        Criar menu
       </Button>
       <Spin fullscreen spinning={saving} />
     </Empty>

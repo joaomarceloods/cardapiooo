@@ -13,7 +13,7 @@ const ActionBar = () => {
       <Flex justify="space-between" style={{ paddingBlock: token.margin }}>
         <Button type="link" onClick={createMenu} style={{ paddingInline: 0 }}>
           <PlusOutlined />
-          New menu
+          Novo menu
         </Button>
         <Save />
         <Spin fullscreen spinning={saving} />

@@ -12,7 +12,7 @@ const Title = () => {
     <Identation>
       <Input
         size="small"
-        placeholder="Enter business name…"
+        placeholder="Digite o nome do restaurante…"
         bordered={false}
         value={title}
         style={{ fontSize: '2em' }}

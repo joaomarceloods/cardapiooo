@@ -37,7 +37,7 @@ const PhotoDropdown: FC<{
             photoUrl && (
               <Image
                 src={photoUrl}
-                alt="Photo"
+                alt="Foto"
                 fill
                 sizes="22px"
                 objectFit="cover"

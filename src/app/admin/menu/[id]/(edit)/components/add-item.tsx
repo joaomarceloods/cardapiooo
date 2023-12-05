@@ -31,7 +31,7 @@ const AddItem: FC<{ sectionId: string }> = ({ sectionId }) => {
           icon={<PlusOutlined />}
           style={{ paddingLeft: 8, paddingRight: 8 }}
         >
-          Add item
+          Adicionar item
         </Button>
         <Button
           type="link"
@@ -39,7 +39,7 @@ const AddItem: FC<{ sectionId: string }> = ({ sectionId }) => {
           icon={<PlusOutlined />}
           style={{ paddingLeft: 8, paddingRight: 8 }}
         >
-          Add section below
+          Adicionar seção abaixo
         </Button>
       </Space>
     </Identation>

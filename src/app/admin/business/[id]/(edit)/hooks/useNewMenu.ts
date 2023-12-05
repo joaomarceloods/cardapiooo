@@ -11,11 +11,11 @@ const useCreateMenu = () => {
 
   const createMenu = async () => {
     const title = window.prompt(
-      'What is the name of the menu? It can be the restaurant\'s name or something specific i.e. "Drinks"'
+      'Qual o nome do menu? Pode ser o nome do restaurante ou algo específico, ex.: "Drinks"'
     )
 
     if (!title) {
-      message.info("Canceled. Menu name can't be empty.")
+      message.info("Cancelado. O nome do menu não pode ficar em branco.")
       return
     }
 
@@ -28,7 +28,7 @@ const useCreateMenu = () => {
 
     if (!res.ok) {
       setSaving(false)
-      window.alert('Error creating the menu. Please try again later.')
+      window.alert('Erro ao criar o menu. Tente novamente mais tarde.')
       return
     }
 

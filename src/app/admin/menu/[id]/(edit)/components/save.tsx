@@ -25,13 +25,13 @@ const Save = () => {
     })
     setSaving(false)
 
-    if (!res.ok) window.alert('Error saving. Try again later.')
+    if (!res.ok) window.alert('Erro ao salvar. Tente novamente mais tarde.')
     dispatch({ type: Reducer.ActionType.Pristine })
     router.refresh()
   }
 
   const onClickDelete = async () => {
-    const confirmed = window.confirm('Delete this menu? This is irreversible.')
+    const confirmed = window.confirm('Apagar este menu? Não será possível recuperá-lo.')
     if (!confirmed) return
 
     setSaving(true)
@@ -42,14 +42,14 @@ const Save = () => {
     })
 
     if (!res.ok) {
-      window.alert('Error deleting. Try again later,')
+      window.alert('Erro ao apagar. Tente novamente mais tarde.')
       setSaving(false)
       return
     }
 
     router.refresh()
     router.replace(`/admin`)
-    message.info('Menu deleted')
+    message.info('Menu apagado')
   }
 
   const menuItems: MenuProps['items'] = [
@@ -65,15 +65,15 @@ const Save = () => {
   return (
     <Space>
       <Spin fullscreen spinning={saving} delay={500} />
-      <Button title="Delete" danger onClick={onClickDelete}>
+      <Button title="Apagar" danger onClick={onClickDelete}>
         <DeleteOutlined />
       </Button>
       <Button type={'primary'} onClick={onClickSave} disabled={!touched}>
         {touched ? (
-          'Save'
+          'Salvar'
         ) : (
           <span>
-            <CheckOutlined /> Saved
+            <CheckOutlined /> Salvo
           </span>
         )}
       </Button>

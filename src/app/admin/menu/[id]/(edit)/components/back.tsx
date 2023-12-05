@@ -7,7 +7,7 @@ const Back = () => {
     <Link href={`/admin`}>
       <Space>
         <LeftOutlined />
-        Back
+        Voltar
       </Space>
     </Link>
   )

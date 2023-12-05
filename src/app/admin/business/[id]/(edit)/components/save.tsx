@@ -20,7 +20,7 @@ const Save = () => {
       body: JSON.stringify(business),
     })
 
-    if (!res.ok) window.alert('Error')
+    if (!res.ok) window.alert('Erro')
 
     setSaving(false)
     router.refresh()
@@ -28,7 +28,7 @@ const Save = () => {
 
   return (
     <Button type="primary" onClick={onClickSave} disabled={saving}>
-      {saving ? <LoadingOutlined /> : 'Save'}
+      {saving ? <LoadingOutlined /> : 'Salvar'}
     </Button>
   )
 }

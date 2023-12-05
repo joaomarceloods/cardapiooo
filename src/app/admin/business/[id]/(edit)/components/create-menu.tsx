@@ -10,7 +10,7 @@ const CreateMenu: FC<{ buttonProps?: ButtonProps }> = ({ buttonProps }) => {
     <>
       <Button onClick={createMenu} disabled={saving} {...buttonProps}>
         <PlusOutlined />
-        New menu
+        Novo menu
       </Button>
       <Spin spinning={saving} fullscreen />
     </>

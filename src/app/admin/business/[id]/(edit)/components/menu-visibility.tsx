@@ -13,7 +13,7 @@ const MenuVisibility: FC<{ id: string }> = ({ id }) => {
   return (
     <Space style={{ color: token.colorTextDisabled }}>
       <EyeInvisibleOutlined />
-      Not published
+      Não publicado
     </Space>
   )
 }

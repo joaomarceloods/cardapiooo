@@ -1,20 +1,17 @@
-import { Button } from 'antd'
 import { FC } from 'react'
 import { useReducerDispatch } from '../../../reducer/provider'
 import { Reducer } from '../../../reducer/types'
 
 const PhotoDelete: FC<{ onDelete: () => void }> = ({ onDelete }) => {
   const onClick = () => {
-    const confirmed = window.confirm("Delete photo? It can't be undone.")
+    const confirmed = window.confirm(
+      'Apagar foto? Não será possível recuperá-la.'
+    )
     if (!confirmed) return
     onDelete()
   }
 
-  return (
-    <span onClick={onClick}>
-      Delete photo
-    </span>
-  )
+  return <span onClick={onClick}>Delete photo</span>
 }
 
 const PhotoDeleteContainer: FC<{ itemId: string }> = ({ itemId }) => {

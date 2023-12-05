@@ -11,7 +11,7 @@ const MenuTitle = () => {
   return (
     <Input
       size="small"
-      placeholder="Enter menu name…"
+      placeholder="Digite o nome do menu…"
       bordered={false}
       value={title}
       style={{ fontSize: '2em' }}

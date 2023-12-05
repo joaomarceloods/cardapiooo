@@ -28,7 +28,7 @@ const Section: FC<{ id: string; index: number }> = ({ id, index }) => {
                   value={title}
                   size="small"
                   bordered={false}
-                  placeholder="Enter section name…"
+                  placeholder="Digite o nome da seção"
                   style={{ flex: 1, fontSize: '1.5rem' }}
                   onChange={(e) => {
                     dispatch({

@@ -4,7 +4,7 @@ const Page = () => {
   return (
     <div>
       <h1>Cardapiooo</h1>
-      <Link href="/admin">Sign in</Link>
+      <Link href="/admin">Entrar</Link>
     </div>
   )
 }

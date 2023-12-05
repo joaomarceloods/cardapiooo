@@ -1,6 +1,6 @@
 import { LoadingOutlined } from '@ant-design/icons'
 import { PutBlobResult } from '@vercel/blob'
-import { Space, Upload, UploadProps, message } from 'antd'
+import { Space, Upload, UploadProps } from 'antd'
 import type { UploadChangeParam } from 'antd/es/upload'
 import type { RcFile, UploadFile } from 'antd/es/upload/interface'
 import { FC, useState } from 'react'
@@ -17,11 +17,11 @@ const PhotoUpload: FC<{
   const beforeUpload = (file: RcFile) => {
     const isValidFormat = /image\/jpeg|png|webp/.test(file.type)
     if (!isValidFormat) {
-      message.error('You can only upload JPG, PNG or WEBP images')
+      window.alert('Você só pode enviar imagens JPG, PNG ou WEBP')
     }
     const isValidSize = file.size / 1024 / 1024 < 4.5
     if (!isValidSize) {
-      message.error('Image must be smaller than 4.5MB')
+      window.alert('A imagem deve ser menor que 4.5MB')
     }
     return isValidFormat && isValidSize
   }
@@ -40,7 +40,7 @@ const PhotoUpload: FC<{
         break
       case 'error':
         setLoading(false)
-        window.alert('Error uploading image')
+        window.alert('Erro ao enviar a foto')
         break
       case 'removed':
         setLoading(false)
@@ -62,11 +62,11 @@ const PhotoUpload: FC<{
       >
         {loading ? (
           <Space>
-            Uploading
+            Enviando imagem
             <LoadingOutlined />
           </Space>
         ) : (
-          'Choose image'
+          'Escolher imagem'
         )}
       </Upload>
     </div>

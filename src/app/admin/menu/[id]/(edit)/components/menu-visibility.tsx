@@ -23,7 +23,7 @@ const MenuVisibility = () => {
       body: JSON.stringify({ id: menuId, visible: newVisible }),
     })
 
-    if (!res.ok) window.alert('Error saving. Try again later.')
+    if (!res.ok) window.alert('Erro ao salvar. Tente novamente mais tarde.')
     setSaving(false)
     router.refresh()
 
@@ -35,16 +35,14 @@ const MenuVisibility = () => {
     dispatch({ type: Reducer.ActionType.Pristine })
   }
 
-  // if (touched) return null
-
   if (visible) {
     return (
       <>
         <Spin spinning={saving} fullscreen delay={500} />
         <Alert
           banner
-          message="Published"
-          description="This menu is publicly visible."
+          message="Publicado"
+          description="Este menu está visível publicamente."
           type="info"
           action={
             <Flex vertical gap={8}>
@@ -55,19 +53,19 @@ const MenuVisibility = () => {
                 danger
                 onClick={onClickPublish}
                 disabled={touched}
-                title={touched ? 'Save first' : 'undefined'}
+                title={touched ? 'Salve antes' : undefined}
               >
-                Unpublish
+                Despublicar
               </Button>
               <Button
                 type="primary"
                 ghost
                 size="small"
                 disabled={touched}
-                title={touched ? 'Save first' : 'undefined'}
+                title={touched ? 'Salve antes' : undefined}
               >
                 <Link href={`/${menuId}`} target="_blank">
-                  View
+                  Ver
                 </Link>
               </Button>
             </Flex>
@@ -82,8 +80,8 @@ const MenuVisibility = () => {
       <Spin spinning={saving} fullscreen delay={500} />
       <Alert
         banner
-        message="Not published"
-        description="When ready, click on Publish to make this menu publicly visible."
+        message="Não publicado"
+        description="Quando estiver pronto, clique em Publicar para tornar este menu visível publicamente."
         type="warning"
         action={
           <Flex vertical>
@@ -93,9 +91,9 @@ const MenuVisibility = () => {
               type="primary"
               onClick={onClickPublish}
               disabled={touched}
-              title={touched ? 'Save first' : 'undefined'}
+              title={touched ? 'Salve antes' : undefined}
             >
-              Publish
+              Publicar
             </Button>
           </Flex>
         }
