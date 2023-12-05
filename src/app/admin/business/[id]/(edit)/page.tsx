@@ -1,4 +1,4 @@
-import { authorizeBusiness } from '@/authorize'
+import { authorizeBusiness } from '@/lib/components/authorize'
 import { connectDatabase } from '@/lib/database/connect'
 import { Business } from '@/lib/database/model'
 import { FC } from 'react'

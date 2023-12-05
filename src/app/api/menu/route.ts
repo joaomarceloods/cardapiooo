@@ -1,4 +1,4 @@
-import { authorizeBusiness, authorizeMenu } from '@/authorize'
+import { authorizeBusiness, authorizeMenu } from '@/lib/components/authorize'
 import { connectDatabase } from '@/lib/database/connect'
 import { Business, Menu } from '@/lib/database/model'
 import { SaveError } from '@/lib/errors'

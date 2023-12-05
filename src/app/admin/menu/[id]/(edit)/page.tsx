@@ -1,4 +1,4 @@
-import { authorizeMenu } from '@/authorize'
+import { authorizeMenu } from '@/lib/components/authorize'
 import { connectDatabase } from '@/lib/database/connect'
 import { Menu } from '@/lib/database/model'
 import { FC } from 'react'
