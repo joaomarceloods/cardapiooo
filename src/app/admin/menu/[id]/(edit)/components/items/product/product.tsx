@@ -34,7 +34,6 @@ const Product: FC<{ id: string }> = ({ id }) => {
   return (
     <Row wrap={false} style={{ paddingLeft: token.marginXS }}>
       <Col flex="none">
-        {/* <ProductPhoto menuId={menuId} itemId={id} /> */}
         <PhotoDropdown itemId={id} />
       </Col>
       <Col flex="auto">

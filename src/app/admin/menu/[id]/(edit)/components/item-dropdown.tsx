@@ -29,7 +29,7 @@ const ItemDropdown: FC<{ sectionId: string; itemId: string }> = ({
   ]
 
   return (
-    <Dropdown placement="top" menu={{ items }}>
+    <Dropdown placement="bottomRight" menu={{ items }}>
       <InfoCircleOutlined
         style={{
           color: token.colorTextDisabled,
