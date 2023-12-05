@@ -3,6 +3,7 @@
 import StyledComponentsRegistry from '@/lib/AntdRegistry'
 import { ClerkProvider, UserButton } from '@clerk/nextjs'
 import { ConfigProvider, Flex, Layout, Typography, theme } from 'antd'
+import Link from 'next/link'
 import { FC, PropsWithChildren } from 'react'
 
 const LayoutClient: FC<PropsWithChildren> = ({ children }) => {
@@ -23,9 +24,11 @@ const LayoutClient: FC<PropsWithChildren> = ({ children }) => {
                   margin: '0 auto',
                 }}
               >
-                <Typography.Text style={{ color: 'white' }}>
-                  Cardapiooo
-                </Typography.Text>
+                <Link href="/admin">
+                  <Typography.Text style={{ color: 'white' }}>
+                    Cardapiooo
+                  </Typography.Text>
+                </Link>
                 <UserButton afterSignOutUrl="/" />
               </Flex>
             </Layout.Header>
