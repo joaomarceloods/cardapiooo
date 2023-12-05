@@ -1,11 +1,6 @@
 import { Business, BusinessUser } from '@/database/model'
 import { auth } from '@clerk/nextjs'
-
-class NotAuthorizedError extends Error {
-  constructor() {
-    super('Not Authorized')
-  }
-}
+import { NotAuthorizedError } from '@/lib/errors'
 
 export const authorizeBusiness = async (businessId: string) => {
   const { userId } = auth()

@@ -1,13 +1,8 @@
 import { authorizeBusiness, authorizeMenu } from '@/authorize'
 import { connectDatabase } from '@/database/connect'
 import { Business, Menu } from '@/database/model'
+import { SaveError } from '@/lib/errors'
 import mongoose from 'mongoose'
-
-class SaveError extends Error {
-  constructor() {
-    super('Not Saved')
-  }
-}
 
 export async function POST(request: Request) {
   const json = await request.json()
@@ -58,6 +53,7 @@ export async function DELETE(request: Request) {
 
   const session = await mongoose.startSession()
   await session.withTransaction(async () => {
+    // TODO: throw errors?
     await Menu.findByIdAndDelete(json.id, { session })
     await business.save({ session })
   })
