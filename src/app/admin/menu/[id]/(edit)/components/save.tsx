@@ -64,6 +64,7 @@ const Save = () => {
 
   return (
     <Space>
+      <Spin fullscreen spinning={saving} delay={500} />
       <Button title="Delete" danger onClick={onClickDelete}>
         <DeleteOutlined />
       </Button>
@@ -76,7 +77,6 @@ const Save = () => {
           </span>
         )}
       </Button>
-      <Spin fullscreen spinning={saving} />
     </Space>
   )
 }

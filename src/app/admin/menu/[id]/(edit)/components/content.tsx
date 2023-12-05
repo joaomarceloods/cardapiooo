@@ -21,11 +21,9 @@ const Content = () => {
 
   return (
     <div style={{ paddingBottom: token.marginXXL * 2 }}>
+      <MenuVisibilityAlert />
       <ActionBar />
-      <Identation right={token.margin}>
-        <div style={{ paddingBottom: token.margin }}>
-          <MenuVisibilityAlert />
-        </div>
+      <Identation>
         <MenuTitle />
       </Identation>
       <RowDivider />
