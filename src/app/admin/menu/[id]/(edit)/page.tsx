@@ -10,10 +10,15 @@ const Page: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
   await connectDatabase()
   await authorizeMenu(id)
 
-  const initialState = await Menu.findById(id)
+  const normalizedState = await Menu.findById(id)
     .exec()
     .then((d) => d.toJSON())
     .then(normalizeState)
+
+  const initialState = {
+    touched: false,
+    ...normalizedState
+  }
 
   return (
     <ReducerProvider initialState={initialState}>

@@ -22,15 +22,6 @@ Database related files:
 
 - `src/database/*`
 
-### Next.js Server Actions
-
-Introduced in Next.js 13, this feature enables handling form submissions with a server-side function, not having to create an API endpoint. This is very handy because it reduces a lot of boilerplate code, specially JSON serialization steps.
-
-I used that feature in the "new business" form:
-
-- `src/app/admin/business/new/page.tsx`
-- `src/app/admin/business/new/actions.tsx`
-
 ### Vercel Blob
 
 Vercel Blob is a cloud-based file storage solution by Vercel. I wanted to try it because it's tightly integrated with Vercel, where I'm hosting the app.
