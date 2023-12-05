@@ -51,13 +51,16 @@ export namespace Normalization {
   export type Schema = NormalizedSchema<EntityMap, Result>
 }
 
+type TouchTracking<T> = T & { touched: boolean }
+
 export namespace Reducer {
   // State has two top-level keys:
   // - result: main entity id,
   // - entities: same shape as Normalization.EntityMap
-  export type State = Normalization.Schema
+  export type State = TouchTracking<Normalization.Schema>
 
   export enum ActionType {
+    Pristine = 'pristine',
     ChangeMenu = 'change-menu',
     ChangeSection = 'change-section',
     ChangeItem = 'change-item',
@@ -70,6 +73,7 @@ export namespace Reducer {
   }
 
   export type Action =
+    | Action.Pristine
     | Action.ChangeMenu
     | Action.ChangeSection
     | Action.ChangeItem
@@ -81,6 +85,10 @@ export namespace Reducer {
     | Action.DeleteItem
 
   export namespace Action {
+    export interface Pristine {
+      type: ActionType.Pristine
+    }
+
     export interface ChangeMenu {
       type: ActionType.ChangeMenu
       payload: {

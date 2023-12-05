@@ -5,6 +5,8 @@ import { Reducer } from './types'
 // Lazy element type must resolve to a class or function.
 const { ObjectId } = require('bson')
 
+const pristine = (state: Reducer.State) => ({ ...state, touched: false })
+
 const changeMenu = (
   state: Reducer.State,
   action: Reducer.Action.ChangeMenu
@@ -235,7 +237,7 @@ const deleteSection = (
   delete sections[id]
 
   const menu = { ...state.entities.menus[state.result] }
-  menu.sections = menu.sections.filter(s => s !== id )
+  menu.sections = menu.sections.filter((s) => s !== id)
 
   return {
     ...state,
@@ -245,8 +247,8 @@ const deleteSection = (
       sections,
       menus: {
         ...state.entities.menus,
-        [state.result]: menu
-      }
+        [state.result]: menu,
+      },
     },
   }
 }
@@ -276,12 +278,13 @@ const deleteItem = (
   }
 }
 
-export const reducer = (
+const handleAction = (
   state: Reducer.State,
   action: Reducer.Action
 ): Reducer.State => {
-  // return state
   switch (action.type) {
+    case Reducer.ActionType.Pristine:
+      return pristine(state)
     case Reducer.ActionType.ChangeMenu:
       return changeMenu(state, action)
     case Reducer.ActionType.ChangeSection:
@@ -303,6 +306,15 @@ export const reducer = (
     default:
       throw new Error(`Unhandled action type: ${JSON.stringify(action)}`)
   }
+}
+
+const touch = (state: Reducer.State) => ({ ...state, touched: true })
+
+export const reducer = (
+  state: Reducer.State,
+  action: Reducer.Action
+): Reducer.State => {
+  return handleAction(touch(state), action)
 }
 
 export default reducer

@@ -1,28 +1,32 @@
-import { DeleteOutlined } from '@ant-design/icons'
-import { Dropdown, MenuProps, Space, Spin, message } from 'antd'
+import { CheckOutlined, DeleteOutlined } from '@ant-design/icons'
+import { Button, MenuProps, Space, Spin, message } from 'antd'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { denormalizeState } from '../reducer/normalizr'
-import { useReducerState } from '../reducer/provider'
+import { useReducerDispatch, useReducerState } from '../reducer/provider'
+import { Reducer } from '../reducer/types'
 
 const Save = () => {
   const state = useReducerState()
+  const dispatch = useReducerDispatch()
   const router = useRouter()
   const [saving, setSaving] = useState(false)
 
   const menuId = state.result
+  const touched = state.touched
 
   const onClickSave = async () => {
-    setSaving(true)
     const denormalizedState = denormalizeState(state)
 
+    setSaving(true)
     const res = await fetch('/api/menu', {
       method: 'PUT',
       body: JSON.stringify(denormalizedState),
     })
+    setSaving(false)
 
     if (!res.ok) window.alert('Error saving. Try again later.')
-    setSaving(false)
+    dispatch({ type: Reducer.ActionType.Pristine })
     router.refresh()
   }
 
@@ -60,14 +64,19 @@ const Save = () => {
 
   return (
     <Space>
-      <Dropdown.Button
-        type="primary"
-        onClick={onClickSave}
-        menu={{ items: menuItems }}
-      >
-        Save
-      </Dropdown.Button>
-      <Spin fullscreen spinning={saving} delay={1000} />
+      <Button title="Delete" danger onClick={onClickDelete}>
+        <DeleteOutlined />
+      </Button>
+      <Button type={'primary'} onClick={onClickSave} disabled={!touched}>
+        {touched ? (
+          'Save'
+        ) : (
+          <span>
+            <CheckOutlined /> Saved
+          </span>
+        )}
+      </Button>
+      <Spin fullscreen spinning={saving} />
     </Space>
   )
 }
