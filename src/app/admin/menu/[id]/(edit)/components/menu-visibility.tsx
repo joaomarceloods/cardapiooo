@@ -1,5 +1,5 @@
-import { QrcodeOutlined } from '@ant-design/icons'
-import { Alert, Button, Space, Spin } from 'antd'
+import { Alert, Button, Flex, Spin } from 'antd'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useReducerDispatch, useReducerState } from '../reducer/provider'
@@ -36,19 +36,25 @@ const MenuVisibility = () => {
     return (
       <Alert
         message="Published"
+        description="Your customers can view this menu."
         type="info"
         action={
-          <Space>
+          <Flex vertical gap={8}>
             <Button
               ghost
               size="small"
-              type="link"
+              type="primary"
               danger
               onClick={onClickPublish}
             >
               Unpublish
             </Button>
-          </Space>
+            <Button type="primary" ghost size="small">
+              <Link href={`/${menuId}`} target="_blank">
+                View
+              </Link>
+            </Button>
+          </Flex>
         }
       />
     )
@@ -57,14 +63,15 @@ const MenuVisibility = () => {
   return (
     <>
       <Alert
-        message="Currently not published to customers"
-        type="error"
+        message="Not published"
+        description="When the menu is ready, click on Publish to make it accessible to your customers."
+        type="warning"
         action={
-          <Space>
-            <Button size="small" type="link" onClick={onClickPublish}>
+          <Flex vertical>
+            <Button ghost size="small" type="primary" onClick={onClickPublish}>
               Publish
             </Button>
-          </Space>
+          </Flex>
         }
       />
       <Spin spinning={saving} fullscreen />
