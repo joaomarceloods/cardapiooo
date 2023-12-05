@@ -1,5 +1,4 @@
-import formatMoney from '@/lib/formatMoney'
-import { Col, Input, InputNumber, Row, theme } from 'antd'
+import { Col, Input, Row, theme } from 'antd'
 import { FC } from 'react'
 import { useReducerDispatch, useReducerState } from '../../reducer/provider'
 import { Entity, Reducer } from '../../reducer/types'
@@ -13,11 +12,23 @@ const Product: FC<{ id: string }> = ({ id }) => {
   const { title, price, description } = item.data as Entity.ProductData
   const { token } = theme.useToken()
 
-  const handleChange = (value: string, property: string) => {
+  const handleChange = (value: any, property: string) => {
     dispatch({
       type: Reducer.ActionType.ChangeItem,
       payload: { value, id, property },
     })
+  }
+
+  const formatPrice = (price: string) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'decimal',
+      minimumFractionDigits: 2,
+    }).format(parseInt(price) / 100)
+  }
+
+  const parsePrice = (price: string) => {
+    const digitsOnly = price.match(/[0-9]/g)?.join('') || '0'
+    return digitsOnly
   }
 
   return (
@@ -27,7 +38,7 @@ const Product: FC<{ id: string }> = ({ id }) => {
       </Col>
       <Col flex="auto">
         <Row>
-          <Col xs={18} lg={6}>
+          <Col xs={16} lg={9}>
             <Input
               size="small"
               bordered={false}
@@ -37,16 +48,23 @@ const Product: FC<{ id: string }> = ({ id }) => {
               style={{ fontSize: '1rem', fontWeight: 'bold' }}
             />
           </Col>
-          <Col xs={6} lg={6}>
-            <InputNumber
+          <Col xs={8} lg={3}>
+            <Input
+              prefix="R$"
               defaultValue="0"
               size="small"
-              value={price}
-              onChange={(value) => handleChange(value || '', 'price')}
-              parser={(value) => value!.replace(/\$\s?|(,*)/g, '')}
-              style={{ maxWidth: '100%', fontSize: '1rem' }}
-              formatter={(value) => formatMoney(value || '')}
+              inputMode="numeric"
+              value={formatPrice(price || '0')}
+              onChange={(e) =>
+                handleChange(parsePrice(e.target.value), 'price')
+              }
+              style={{
+                fontSize: '1rem',
+                maxWidth: '100%',
+                lineHeight: '1rem',
+              }}
             />
+            <style>{'.ant-input-number-input { font-size: 1rem }'}</style>
           </Col>
           <Col xs={24} lg={12}>
             <Input.TextArea
