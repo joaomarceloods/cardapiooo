@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   const menu = new Menu(json)
   if (!menu.sections || menu.sections.length === 0) {
     const emptyItem = { type: 'product', data: { title: '', price: 0 } }
-    const emptySection = { title: '', items: [emptyItem] }
+    const emptySection = { title: '', items: [emptyItem, emptyItem, emptyItem] }
     menu.sections = [emptySection]
   }
 
