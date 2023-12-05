@@ -1,8 +1,8 @@
 import { Col, Input, Row, theme } from 'antd'
 import { FC } from 'react'
-import { useReducerDispatch, useReducerState } from '../../reducer/provider'
-import { Entity, Reducer } from '../../reducer/types'
-import ProductPhoto from './product-photo'
+import { useReducerDispatch, useReducerState } from '../../../reducer/provider'
+import { Entity, Reducer } from '../../../reducer/types'
+import PhotoDropdown from './photo-dropdown'
 
 const Product: FC<{ id: string }> = ({ id }) => {
   const state = useReducerState()
@@ -34,7 +34,8 @@ const Product: FC<{ id: string }> = ({ id }) => {
   return (
     <Row wrap={false} style={{ paddingLeft: token.marginXS }}>
       <Col flex="none">
-        <ProductPhoto menuId={menuId} itemId={id} />
+        {/* <ProductPhoto menuId={menuId} itemId={id} /> */}
+        <PhotoDropdown itemId={id} />
       </Col>
       <Col flex="auto">
         <Row>

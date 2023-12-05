@@ -6,8 +6,8 @@ import { FC } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { useReducerState } from '../reducer/provider'
 import ItemDropdown from './item-dropdown'
-import Product from './items/product'
-import Remark from './items/remark'
+import Product from './items/product/product'
+import Remark from './items/remark/remark'
 
 const Item: FC<{ id: string; index: number; sectionId: string }> = ({
   id,

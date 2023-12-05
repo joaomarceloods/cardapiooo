@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { useReducerDispatch, useReducerState } from '../../reducer/provider'
-import { Entity, Reducer } from '../../reducer/types'
+import { useReducerDispatch, useReducerState } from '../../../reducer/provider'
+import { Entity, Reducer } from '../../../reducer/types'
 
 const Remark: FC<{ id: string }> = ({ id }) => {
   const state = useReducerState()
